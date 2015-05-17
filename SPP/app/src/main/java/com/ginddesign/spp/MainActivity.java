@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ui.ParseLoginBuilder;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -12,6 +16,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k", "REgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT");
+        ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
+        startActivityForResult(builder.build(), 0);
     }
 
     @Override
