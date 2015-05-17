@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">SPP</string>
+    <string name="app_name">Single Parent Planner</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Logout</string>
     <string name="parse_app_id">bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k</string>
     <string name="parse_client_key">YREgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT</string>
+    <string name="title_activity_quick_contact">Quick Contact</string>
+    <string name="title_activity_lockers">Lockers</string>
+    <string name="child_lock">Children's Lockers</string>
+    <string name="img_lock">Image Locker</string>
+    <string name="list_master">It's All Here</string>
 </resources>
