@@ -24,5 +24,6 @@
         android:id="@+id/login_help_submit"
         style="@style/ParseLoginUI.Button"
         android:layout_marginTop="@dimen/com_parse_ui_xlarge_vertical_spacing"
-        android:text="@string/com_parse_ui_login_help_submit_button_label" />
+        android:text="@string/com_parse_ui_login_help_submit_button_label"
+        android:textStyle="bold|italic" />
 </LinearLayout>

@@ -10,6 +10,7 @@
         </item>
         <item name="android:textColor">@color/com_parse_ui_parse_login_display_text</item>
         <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold|italic</item>
     </style>
 
     <style name="ParseLoginUI.Button.ThirdPartyLogin" parent="ParseLoginUI.Button">
@@ -25,6 +26,7 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@color/com_parse_ui_parse_login_help_button_label_selector</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold|italic</item>
     </style>
 
     <style name="ParseLoginUI.TextView" parent="@android:style/Widget.TextView">
