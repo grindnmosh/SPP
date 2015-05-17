@@ -38,6 +38,14 @@
             android:name=".LockersActivity"
             android:label="@string/title_activity_lockers" >
         </activity>
+        <activity
+            android:name=".IndListActivity"
+            android:label="@string/title_activity_ind_list" >
+        </activity>
+        <activity
+            android:name=".NewListActivity"
+            android:label="@string/title_activity_new_list" >
+        </activity>
     </application>
 
 </manifest>
