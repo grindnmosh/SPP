@@ -16,10 +16,17 @@
     <string name="lname">List Name</string>
     <string name="litem">New Item</string>
     <string name="ldescrip">Brief Description</string>
-\
+    <string name="qname">Name</string>
+    <string name="qnum">Phone Number</string>
+    <string name="qemail">Email</string>
+    <string name="qnote">Notes</string>
+    <string name="qcat">Select Category</string>
+
 
 
     <string name="action_settings">Logout</string>
     <string name="title_activity_new_list">NewListActivity</string>
+    <string name="title_activity_qcnew">New Contact</string>
+    <string name="title_activity_qcdetail">Contact Details</string>
 
 </resources>
