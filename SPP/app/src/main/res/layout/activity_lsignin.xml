@@ -19,23 +19,26 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/username"
         android:hint="email address"
         android:layout_above="@+id/password"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:inputType="textEmailAddress" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Sign In Again"
+        android:text="@string/sign"
         android:id="@+id/sibutt"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="39dp" />
+        android:layout_marginBottom="39dp"
+        android:background="#000EFF"
+        android:textStyle="bold|italic"
+        android:textSize="20dp" />
 
     <ImageView
         android:layout_width="250dp"
@@ -53,6 +56,9 @@
         android:text="@string/lsign"
         android:id="@+id/textView24"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="18dp"
+        android:textAlignment="center"
+        android:textColor="#000000" />
 
 </RelativeLayout>
