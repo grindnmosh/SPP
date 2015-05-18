@@ -39,7 +39,9 @@
     <string name="title_activity_lsign_in">Sign Back In</string>
     <string name="sign">Access Lockers</string>
     <string name="title_activity_home">Single Parent Planner</string>
-
+    <string name="addNew">add</string>
+    <string name="cancel">Nevermind</string>
+    <string name="save">Save It</string>
 
 
 </resources>
