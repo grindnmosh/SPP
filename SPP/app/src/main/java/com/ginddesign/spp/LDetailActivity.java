@@ -2,33 +2,22 @@ package com.ginddesign.spp;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.parse.Parse;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
-
-public class MainActivity extends ActionBarActivity {
+public class LDetailActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Log.i("Hit", "Hit");
-        setContentView(R.layout.activity_main);
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k", "REgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT");
-        ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-        startActivityForResult(builder.build(), 0);
+        setContentView(R.layout.activity_ldetail);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_ldetail, menu);
         return true;
     }
 
@@ -41,10 +30,6 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            ParseUser.logOut();
-            ParseUser currentUser = ParseUser.getCurrentUser();
-            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-            startActivityForResult(builder.build(), 0);
             return true;
         }
 

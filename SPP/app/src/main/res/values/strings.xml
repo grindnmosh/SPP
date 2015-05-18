@@ -21,7 +21,10 @@
     <string name="qemail">Email</string>
     <string name="qnote">Notes</string>
     <string name="qcat">Select Category</string>
-
+    <string name="allergy">Allergies:</string>
+    <string name="medical">Medical Conditions:</string>
+    <string name="shot">Shot Records:</string>
+    <string name="add">Additional Documents And Links</string>
 
 
     <string name="action_settings">Logout</string>
@@ -30,5 +33,6 @@
     <string name="title_activity_qcdetail">Contact Details</string>
     <string name="title_activity_lchild">Chidren\'s Lockers</string>
     <string name="title_activity_lnew">New Edit</string>
+    <string name="title_activity_ldetail">Child Detail</string>
 
 </resources>
