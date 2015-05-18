@@ -44,6 +44,10 @@ public class QuickContactActivity extends ActionBarActivity {
             Intent lock = new Intent(this, LSignInActivity.class);
             this.startActivity(lock);
         }
+        else if (id == R.id.action_add) {
+            Intent add = new Intent(this, QCNewActivity.class);
+            this.startActivity(add);
+        }
 
         return super.onOptionsItemSelected(item);
     }

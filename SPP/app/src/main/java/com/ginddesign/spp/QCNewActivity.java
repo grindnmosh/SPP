@@ -1,17 +1,47 @@
 package com.ginddesign.spp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 
 public class QCNewActivity extends ActionBarActivity {
+
+    Button cancel;
+    Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qcnew);
+
+
+        save = (Button) findViewById(R.id.save1);
+        cancel = (Button) findViewById(R.id.cancel1);
+
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
+                startActivity(home);
+            }
+        });
     }
 
     @Override
@@ -30,7 +60,22 @@ public class QCNewActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            ParseUser.logOut();
+            ParseLoginBuilder builder = new ParseLoginBuilder(QCNewActivity.this);
+            startActivityForResult(builder.build(), 0);
+            finish();
+        }
+        else if (id == R.id.action_qc) {
+            Intent qc = new Intent(this, QuickContactActivity.class);
+            this.startActivity(qc);
+        }
+        else if (id == R.id.action_lock) {
+            Intent lock = new Intent(this, LSignInActivity.class);
+            this.startActivity(lock);
+        }
+        else if (id == R.id.action_home) {
+            Intent home = new Intent(this, MainActivity.class);
+            this.startActivity(home);
         }
 
         return super.onOptionsItemSelected(item);
