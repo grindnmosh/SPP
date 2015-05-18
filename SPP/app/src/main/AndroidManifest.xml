@@ -54,6 +54,14 @@
             android:name=".QCDetailActivity"
             android:label="@string/title_activity_qcdetail" >
         </activity>
+        <activity
+            android:name=".LChildActivity"
+            android:label="@string/title_activity_lchild" >
+        </activity>
+        <activity
+            android:name=".LNewActivity"
+            android:label="@string/title_activity_lnew" >
+        </activity>
     </application>
 
 </manifest>

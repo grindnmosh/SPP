@@ -28,5 +28,7 @@
     <string name="title_activity_new_list">NewListActivity</string>
     <string name="title_activity_qcnew">New Contact</string>
     <string name="title_activity_qcdetail">Contact Details</string>
+    <string name="title_activity_lchild">Chidren\'s Lockers</string>
+    <string name="title_activity_lnew">New Edit</string>
 
 </resources>
