@@ -25,6 +25,7 @@
     <string name="medical">Medical Conditions:</string>
     <string name="shot">Shot Records:</string>
     <string name="add">Additional Documents And Links</string>
+    <string name="lsign">Please login again to access this area.</string>
 
 
     <string name="action_settings">Logout</string>
@@ -34,5 +35,8 @@
     <string name="title_activity_lchild">Chidren\'s Lockers</string>
     <string name="title_activity_lnew">New Edit</string>
     <string name="title_activity_ldetail">Child Detail</string>
+    <string name="title_activity_limage">Image Locker</string>
+    <string name="title_activity_lidetail">Image Detail</string>
+    <string name="title_activity_lsign_in">Sign Back In</string>
 
 </resources>

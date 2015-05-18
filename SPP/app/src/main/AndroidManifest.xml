@@ -32,39 +32,51 @@
         </activity>
         <activity
             android:name=".QuickContactActivity"
-            android:label="@string/title_activity_quick_contact" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".LockersActivity"
-            android:label="@string/title_activity_lockers" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".IndListActivity"
-            android:label="@string/title_activity_ind_list" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".NewListActivity"
-            android:label="@string/title_activity_new_list" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".QCNewActivity"
-            android:label="@string/title_activity_qcnew" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".QCDetailActivity"
-            android:label="@string/title_activity_qcdetail" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".LChildActivity"
-            android:label="@string/title_activity_lchild" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".LNewActivity"
-            android:label="@string/title_activity_lnew" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".LDetailActivity"
-            android:label="@string/title_activity_ldetail" >
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".limageActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".LIDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".LSignInActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 
