@@ -7,6 +7,9 @@
     <dimen name="com_parse_ui_large_vertical_spacing">24dp</dimen>
     <dimen name="com_parse_ui_xlarge_vertical_spacing">36dp</dimen>
     <dimen name="com_parse_ui_small_horizontal_spacing">8dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
 </resources>
 
