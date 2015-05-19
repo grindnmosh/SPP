@@ -1,9 +1,14 @@
 package com.ginddesign.spp;
 
+import android.content.Intent;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 
 public class LImageActivity extends ActionBarActivity {
@@ -30,8 +35,27 @@ public class LImageActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            ParseUser.logOut();
+            ParseLoginBuilder builder = new ParseLoginBuilder(LImageActivity.this);
+            startActivityForResult(builder.build(), 0);
+            finish();
         }
+        else if (id == R.id.action_qc) {
+            Intent qc = new Intent(this, QuickContactActivity.class);
+            this.startActivity(qc);
+        }
+        else if (id == R.id.action_home) {
+            Intent lock = new Intent(this, MainActivity.class);
+            this.startActivity(lock);
+        }
+        else if (id == R.id.action_add) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+
+
+            startActivityForResult(intent, 0);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

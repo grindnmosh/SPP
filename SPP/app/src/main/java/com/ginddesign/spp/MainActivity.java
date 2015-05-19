@@ -74,15 +74,8 @@ public class MainActivity extends ActionBarActivity {
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {
-            //Intent add = new Intent(this, NewListActivity.class);
-            //this.startActivity(add);
-
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-
-
-            // start the image capture Intent
-            startActivityForResult(intent, 0);
+            Intent add = new Intent(this, NewListActivity.class);
+            this.startActivity(add);
         }
 
         return super.onOptionsItemSelected(item);
