@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="32dp"
+        android:textSize="30dp"
         android:textStyle="bold"
         android:fontFamily="Times New Roman" />
 
@@ -76,11 +76,35 @@
         android:hint="Notes" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner2"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textView8"
         android:paddingLeft="30dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:id="@+id/cancel1"
+        android:background="#000EFF"
+        android:clickable="false"
+        android:textStyle="bold|italic"
+        android:textSize="18dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/save1"
+        android:textStyle="bold|italic"
+        android:background="#000EFF"
+        android:textSize="18dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/editText7"
+        android:layout_alignEnd="@+id/editText7" />
 
 </RelativeLayout>

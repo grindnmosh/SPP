@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
@@ -12,10 +14,33 @@ import com.parse.ui.ParseLoginBuilder;
 
 public class LockersActivity extends ActionBarActivity {
 
+    Button cLocker;
+    Button iLocker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lockers);
+
+        cLocker = (Button) findViewById(R.id.cLButt);
+        iLocker = (Button) findViewById(R.id.iLButt);
+
+
+
+        cLocker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(LockersActivity.this, LChildActivity.class);
+                startActivity(home);
+            }
+        });
+
+        iLocker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(LockersActivity.this, LImageActivity.class);
+                startActivity(home);
+            }
+        });
     }
 
     @Override

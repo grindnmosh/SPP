@@ -67,7 +67,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".limageActivity"
+            android:name=".LImageActivity"
             android:label="@string/app_name" >
         </activity>
         <activity

@@ -1,9 +1,13 @@
 package com.ginddesign.spp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 
 public class LNewActivity extends ActionBarActivity {
@@ -30,9 +34,23 @@ public class LNewActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            ParseUser.logOut();
+            ParseLoginBuilder builder = new ParseLoginBuilder(LNewActivity.this);
+            startActivityForResult(builder.build(), 0);
+            finish();
         }
-
+        else if (id == R.id.action_qc) {
+            Intent qc = new Intent(this, QuickContactActivity.class);
+            this.startActivity(qc);
+        }
+        else if (id == R.id.action_home) {
+            Intent lock = new Intent(this, MainActivity.class);
+            this.startActivity(lock);
+        }
+        else if (id == R.id.action_image) {
+            Intent add = new Intent(this, LImageActivity.class);
+            this.startActivity(add);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

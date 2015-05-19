@@ -23,16 +23,16 @@
         android:layout_below="@+id/lockerimg"
         android:layout_centerHorizontal="true"
         android:textSize="24dp"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         android:typeface="normal" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/img_lock"
-        android:id="@+id/iLButton"
+        android:id="@+id/iLButt"
         android:textSize="24dp"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         android:typeface="normal"
         android:layout_below="@+id/cLButt"
         android:layout_centerHorizontal="true"

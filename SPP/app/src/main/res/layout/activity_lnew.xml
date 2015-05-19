@@ -186,4 +186,29 @@
         android:layout_toRightOf="@+id/editText18"
         android:layout_toEndOf="@+id/editText18" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/save2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/editText21"
+        android:layout_alignEnd="@+id/editText21"
+        android:background="#000EFF"
+        android:textStyle="bold|italic"
+        android:textSize="18dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:id="@+id/cancel2"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#000EFF"
+        android:textSize="18dp"
+        android:textStyle="bold|italic" />
+
 </RelativeLayout>
