@@ -8,6 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -15,14 +19,24 @@ import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+
+    public static ArrayAdapter<String> mainListAdapter;
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Hit", "Hit");
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         //Parse.enableLocalDatastore(this);
         Parse.initialize(this, "bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k", "REgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT");
 
@@ -39,13 +53,23 @@ public class MainActivity extends ActionBarActivity {
         } else {
             ParseUser currentUser = ParseUser.getCurrentUser();
             if (currentUser != null) {
-
+                //Do Nothing
             } else {
                 ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
                 startActivityForResult(builder.build(), 0);
 
             }
         }
+        final ListView lv = (ListView) findViewById(R.id.list_master);
+
+        String[] listMaster = getResources().getStringArray(R.array.listMaster);
+
+        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listMaster);
+
+        lv.setOnItemClickListener(this);
+        lv.setOnItemLongClickListener(this);
+
+        lv.setAdapter(mainListAdapter);
     }
 
     @Override
@@ -79,5 +103,17 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent detail = new Intent(MainActivity.this, IndListActivity.class);
+        startActivity(detail);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return false;
     }
 }

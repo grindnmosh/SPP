@@ -12,7 +12,7 @@
     <string name="img_lock">Image Locker</string>
     <string name="list_master">It\'s All Here</string>
     <string name="title_activity_ind_list">Individual List</string>
-    <string name="temp_title">Name Here</string>
+    <string name="temp_title">Groceries(sample List)</string>
     <string name="new_list">The New Stuff</string>
     <string name="lname">List Name</string>
     <string name="litem">New Item</string>
@@ -40,9 +40,37 @@
     <string name="sign">Access Lockers</string>
     <string name="title_activity_home">Single Parent Planner</string>
     <string name="addNew">add</string>
+    <string name="cl">Current Lists</string>
     <string name="image">Image</string>
+    <string name="list_save">Add items to lists and Save. Click on Done when finished</string>
+    <string name="finish">Done</string>
     <string name="cancel">Nevermind</string>
     <string name="save">Save It</string>
+
+    <string-array name="listMaster">
+        <item >Groceries</item>
+        <item >School Supplies</item>
+        <item >Winter Clothes</item>
+        <item >Chores for Allowance</item>
+    </string-array>
+
+    <string-array name="spinner">
+        <item >Current Lists</item>
+        <item >Groceries</item>
+        <item >School Supplies</item>
+        <item >Winter Clothes</item>
+        <item >Chores for Allowance</item>
+    </string-array>
+
+    <string-array name="sampleList">
+        <item >Milk</item>
+        <item >Eggs</item>
+        <item >Bread</item>
+        <item >Lettuce</item>
+        <item >2 Tomatoes</item>
+        <item >Onion</item>
+    </string-array>
+
 
 
 </resources>

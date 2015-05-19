@@ -1,17 +1,31 @@
 package com.ginddesign.spp;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 
 public class IndListActivity extends ActionBarActivity {
+
+    public static ArrayAdapter<String> mainListAdapter;
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indlist);
+
+        final ListView lv = (ListView) findViewById(R.id.list);
+
+        String[] sample = getResources().getStringArray(R.array.sampleList);
+
+        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, sample);
+
+        lv.setAdapter(mainListAdapter);
     }
 
     @Override

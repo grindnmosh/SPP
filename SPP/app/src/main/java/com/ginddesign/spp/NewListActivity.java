@@ -1,12 +1,15 @@
 package com.ginddesign.spp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
@@ -14,18 +17,27 @@ import com.parse.ui.ParseLoginBuilder;
 
 public class NewListActivity extends ActionBarActivity {
 
+    String[] loads;
     Button cancel;
     Button save;
+    Spinner s;
+    Context context = this;
+    public static ArrayAdapter<String> loadsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newlist);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         save = (Button) findViewById(R.id.save);
         cancel = (Button) findViewById(R.id.cancel);
+        s = (Spinner) findViewById(R.id.listSpin);
 
-
+        loads = getResources().getStringArray(R.array.spinner);
+        loadsAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, android.R.id.text1, loads);
+        s.setAdapter(loadsAdapter);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
