@@ -14,7 +14,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="45dp"
-        android:hint="************" />
+        android:hint="************"
+        android:inputType="textPassword" />
 
     <EditText
         android:layout_width="fill_parent"
