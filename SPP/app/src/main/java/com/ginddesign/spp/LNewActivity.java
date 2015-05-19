@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
@@ -12,10 +14,32 @@ import com.parse.ui.ParseLoginBuilder;
 
 public class LNewActivity extends ActionBarActivity {
 
+    Button save;
+    Button cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lnew);
+
+        save = (Button) findViewById(R.id.save2);
+        cancel = (Button) findViewById(R.id.cancel2);
+
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(LNewActivity.this, LChildActivity.class);
+                startActivity(home);
+            }
+        });
     }
 
     @Override
