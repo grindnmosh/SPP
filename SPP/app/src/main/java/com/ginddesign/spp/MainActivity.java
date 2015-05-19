@@ -1,5 +1,6 @@
 package com.ginddesign.spp;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.MediaStore;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
+
         //Parse.enableLocalDatastore(this);
         Parse.initialize(this, "bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k", "REgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT");
-
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
