@@ -62,9 +62,6 @@
             android:name=".LChildActivity"
             android:label="@string/app_name" >
         </activity>
-        <activity android:name="com.ginddesign.spp.LImageActivity"
-            android:label="@string/title_activity_limage">
-        </activity>
         <activity
             android:name=".LNewActivity"
             android:label="@string/app_name" >
