@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             ParseUser currentUser = ParseUser.getCurrentUser();
             if (currentUser != null) {
                 Log.i("DO", "NOTHING");
+
             } else {
                 ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
                 startActivityForResult(builder.build(), 0);
