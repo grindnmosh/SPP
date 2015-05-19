@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -47,6 +48,9 @@ public class LIDetailActivity extends AppCompatActivity {
         else if (id == R.id.action_home) {
             Intent home = new Intent(this, MainActivity.class);
             this.startActivity(home);
+        }
+        else if (id == R.id.action_share) {
+            Log.i("DO", "NOTHING");
         }
 
         return super.onOptionsItemSelected(item);
