@@ -64,7 +64,7 @@ public class IndListActivity extends AppCompatActivity {
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {
-            Intent add = new Intent(this, LNewActivity.class);
+            Intent add = new Intent(this, NewListActivity.class);
             this.startActivity(add);
         }
         else if (id == R.id.action_share) {
