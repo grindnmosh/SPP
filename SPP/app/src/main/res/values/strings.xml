@@ -17,11 +17,6 @@
     <string name="lname">List Name</string>
     <string name="litem">New Item</string>
     <string name="ldescrip">Brief Description</string>
-    <string name="qname">Name</string>
-    <string name="qnum">Phone Number</string>
-    <string name="qemail">Email</string>
-    <string name="qnote">Notes</string>
-    <string name="qcat">Select Category</string>
     <string name="allergy">Allergies:</string>
     <string name="medical">Medical Conditions:</string>
     <string name="shot">Shot Records:</string>
@@ -46,6 +41,16 @@
     <string name="finish">Done</string>
     <string name="cancel">Nevermind</string>
     <string name="save">Save It</string>
+    <string name="qname">Name</string>
+    <string name="qnum">Phone Number</string>
+    <string name="qemail">Email</string>
+    <string name="qnote">Notes</string>
+    <string name="qcat">Select Category</string>
+    <string name="sam_name">Michael</string>
+    <string name="sam1">None</string>
+    <string name="sam2">Asthma</string>
+    <string name="link1">https://www.dropbox.com/s/czq53yacyf2eevs/R_Warren_Resume.pdf?dl=0</string>
+
 
     <string-array name="listMaster">
         <item >Groceries</item>
@@ -69,6 +74,29 @@
         <item >Lettuce</item>
         <item >2 Tomatoes</item>
         <item >Onion</item>
+    </string-array>
+
+    <string-array name="childList">
+        <item >Michael</item>
+    </string-array>
+
+    <string-array name="links">
+        <item >custom cell with doc name and link</item>
+        <item >custom cell with doc name and link</item>
+    </string-array>
+
+    <string-array name="qc">
+        <item >Mary Poppins 6025551212 Child Care</item>
+        <item >Dr Payne 4805551212 Medical</item>
+        <item >Me Modomom 3055551212 Education</item>
+    </string-array>
+
+    <string-array name="qc_cat">
+        <item >Select Category</item>
+        <item >Child Care</item>
+        <item >Medical</item>
+        <item >Education</item>
+        <item >Other</item>
     </string-array>
 
 

@@ -1,21 +1,41 @@
 package com.ginddesign.spp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 
-public class QuickContactActivity extends ActionBarActivity {
+public class QuickContactActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+
+    public static ArrayAdapter<String> mainListAdapter;
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quickcontact);
+
+
+        final ListView lv = (ListView) findViewById(R.id.qcList);
+
+        String[] contacts = getResources().getStringArray(R.array.qc);
+
+        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, contacts);
+
+        lv.setOnItemClickListener(this);
+        lv.setOnItemLongClickListener(this);
+
+        lv.setAdapter(mainListAdapter);
     }
 
     @Override
@@ -50,5 +70,16 @@ public class QuickContactActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent detail = new Intent(QuickContactActivity.this, QCDetailActivity.class);
+        startActivity(detail);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return false;
     }
 }
