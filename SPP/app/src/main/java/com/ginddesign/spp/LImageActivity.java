@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +17,7 @@ import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 
-public class LImageActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class LImageActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
@@ -32,7 +33,7 @@ public class LImageActivity extends ActionBarActivity implements AdapterView.OnI
 
         String[] imageList = getResources().getStringArray(R.array.ilist);
 
-        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, imageList);
+        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, imageList);
 
         lv.setOnItemClickListener(this);
         lv.setOnItemLongClickListener(this);

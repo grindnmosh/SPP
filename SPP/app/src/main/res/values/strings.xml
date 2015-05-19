@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Single Parent Planner</string>
+    <string name="app_name">SPP</string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -34,7 +34,8 @@
     <string name="title_activity_lsign_in">Sign Back In</string>
     <string name="sign">Access Lockers</string>
     <string name="title_activity_home">Single Parent Planner</string>
-    <string name="addNew">add</string>
+    <string name="addNew">Add</string>
+    <string name="share">Share</string>
     <string name="cl">Current Lists</string>
     <string name="image">Image</string>
     <string name="list_save">Add items to lists and Save. Click on Done when finished</string>

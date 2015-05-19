@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseUser;
 
 
-public class LSignInActivity extends ActionBarActivity {
+public class LSignInActivity extends AppCompatActivity {
 
     Button signin;
     String userid;

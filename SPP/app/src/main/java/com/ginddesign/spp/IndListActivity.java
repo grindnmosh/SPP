@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -13,7 +15,7 @@ import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 
-public class IndListActivity extends ActionBarActivity {
+public class IndListActivity extends AppCompatActivity {
 
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
@@ -27,7 +29,7 @@ public class IndListActivity extends ActionBarActivity {
 
         String[] sample = getResources().getStringArray(R.array.sampleList);
 
-        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, sample);
+        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, sample);
 
         lv.setAdapter(mainListAdapter);
     }
@@ -64,6 +66,9 @@ public class IndListActivity extends ActionBarActivity {
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, LNewActivity.class);
             this.startActivity(add);
+        }
+        else if (id == R.id.action_share) {
+            Log.i("DO", "NOTHING");
         }
 
         return super.onOptionsItemSelected(item);

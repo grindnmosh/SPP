@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +16,7 @@ import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 
-public class QCNewActivity extends ActionBarActivity {
+public class QCNewActivity extends AppCompatActivity {
 
     String[] loads;
     Button cancel;
@@ -35,7 +36,7 @@ public class QCNewActivity extends ActionBarActivity {
         s = (Spinner) findViewById(R.id.qcSpin);
 
         loads = getResources().getStringArray(R.array.qc_cat);
-        loadsAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, android.R.id.text1, loads);
+        loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, loads);
         s.setAdapter(loadsAdapter);
 
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
@@ -53,7 +54,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         } else {
             ParseUser currentUser = ParseUser.getCurrentUser();
             if (currentUser != null) {
-                //Do Nothing
+                Log.i("DO", "NOTHING");
             } else {
                 ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
                 startActivityForResult(builder.build(), 0);
@@ -64,7 +65,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         String[] listMaster = getResources().getStringArray(R.array.listMaster);
 
-        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listMaster);
+        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listMaster);
 
         lv.setOnItemClickListener(this);
         lv.setOnItemLongClickListener(this);

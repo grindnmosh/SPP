@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +16,7 @@ import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 
-public class LChildActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class LChildActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
@@ -29,7 +30,7 @@ public class LChildActivity extends ActionBarActivity implements AdapterView.OnI
 
         String[] childList = getResources().getStringArray(R.array.childList);
 
-        mainListAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, childList);
+        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, childList);
 
         lv.setOnItemClickListener(this);
         lv.setOnItemLongClickListener(this);

@@ -3,6 +3,8 @@ package com.ginddesign.spp;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,7 +12,7 @@ import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 
-public class QCDetailActivity extends ActionBarActivity {
+public class QCDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,9 @@ public class QCDetailActivity extends ActionBarActivity {
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, LNewActivity.class);
             this.startActivity(add);
+        }
+        else if (id == R.id.action_share) {
+            Log.i("DO", "NOTHING");
         }
 
         return super.onOptionsItemSelected(item);
