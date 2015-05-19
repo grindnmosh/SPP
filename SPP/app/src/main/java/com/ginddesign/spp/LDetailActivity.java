@@ -47,7 +47,6 @@ public class LDetailActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
             ParseLoginBuilder builder = new ParseLoginBuilder(LDetailActivity.this);
@@ -57,10 +56,6 @@ public class LDetailActivity extends ActionBarActivity {
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);
-        }
-        else if (id == R.id.action_lock) {
-            Intent lock = new Intent(this, LSignInActivity.class);
-            this.startActivity(lock);
         }
         else if (id == R.id.action_home) {
             Intent home = new Intent(this, MainActivity.class);

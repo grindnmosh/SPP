@@ -21,6 +21,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView6"
-        android:layout_below="@+id/textView25" />
+        android:id="@+id/ilist"
+        android:layout_below="@+id/textView25"
+        android:choiceMode="singleChoice" />
 </RelativeLayout>

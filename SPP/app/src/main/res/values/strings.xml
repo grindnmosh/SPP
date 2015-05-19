@@ -106,6 +106,12 @@
         <item >Other</item>
     </string-array>
 
+    <string-array name="ilist">
+        <item >/image/ picture 1(cust cell)</item>
+        <item >/image/ picture 2(cust cell)</item>
+        <item >/image/ picture 3(cust cell)</item>
+    </string-array>
+
 
 
 </resources>
