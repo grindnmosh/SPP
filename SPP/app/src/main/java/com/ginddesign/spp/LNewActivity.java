@@ -17,6 +17,7 @@ public class LNewActivity extends AppCompatActivity {
 
     Button save;
     Button cancel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
