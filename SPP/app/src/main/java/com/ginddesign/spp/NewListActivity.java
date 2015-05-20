@@ -2,6 +2,8 @@ package com.ginddesign.spp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.parse.ParseACL;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
@@ -23,7 +29,12 @@ public class NewListActivity extends AppCompatActivity {
     Button save;
     Spinner s;
     Context context = this;
-
+    String lName;
+    String iName;
+    String descrip;
+    EditText listName;
+    EditText itemName;
+    EditText itemDescrip;
 
     public static ArrayAdapter<String> loadsAdapter;
 
@@ -35,6 +46,9 @@ public class NewListActivity extends AppCompatActivity {
         save = (Button) findViewById(R.id.save);
         cancel = (Button) findViewById(R.id.cancel);
         s = (Spinner) findViewById(R.id.listSpin);
+        listName = (EditText) findViewById(R.id.listName);
+        itemName = (EditText) findViewById(R.id.newItem);
+        itemDescrip = (EditText) findViewById(R.id.itemDescrip);
 
         loads = getResources().getStringArray(R.array.spinner);
         loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, loads);
@@ -43,7 +57,43 @@ public class NewListActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                lName = listName.getText().toString().trim();
+                iName = itemName.getText().toString().trim();
+                descrip = itemDescrip.getText().toString().trim();
 
+                if (!lName.equals("") && !iName.equals("")) {
+                    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+                    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+
+
+                        ParseObject listMaster = new ParseObject("listMaster");
+                        listMaster.put("Name", lName);
+                        listMaster.put("item", iName);
+                        listMaster.put("Descrip", descrip);
+                        listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                        //listMaster.pinInBackground();
+                        listMaster.saveInBackground();
+                        MainActivity.mainListAdapter.notifyDataSetChanged();
+                        Intent home = new Intent(NewListActivity.this, MainActivity.class);
+                        startActivity(home);
+
+                    } else {
+                        ParseObject listMaster = new ParseObject("listMaster");
+                        listMaster.put("Name", lName);
+                        listMaster.put("item", iName);
+                        listMaster.put("Descrip", descrip);
+                        listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                        //listMaster.pinInBackground();
+                        listMaster.saveEventually();
+                        MainActivity.mainListAdapter.notifyDataSetChanged();
+                        Intent home = new Intent(NewListActivity.this, MainActivity.class);
+                        startActivity(home);
+                    }
+
+                }else{
+                    Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

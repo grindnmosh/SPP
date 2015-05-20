@@ -25,7 +25,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/itemName"
+        android:id="@+id/listName"
         android:hint="@string/list_name"
         android:layout_below="@+id/textView27"
         android:layout_alignParentLeft="true"
