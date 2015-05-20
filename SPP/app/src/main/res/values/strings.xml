@@ -58,6 +58,9 @@
     <string name="sam_email">mpoppins@magic.com</string>
     <string name="link1">https://www.dropbox.com/s/czq53yacyf2eevs/R_Warren_Resume.pdf?dl=0</string>
     <string name="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet magna sed ex ornare feugiat. Morbi a lacus scelerisque, tristique ipsum in, dictum lorem.</string>
+    <string name="newItem">New Item</string>
+    <string name="iten_descrip">Brief Description</string>
+    <string name="list_name">New List Name</string>
 
 
     <string-array name="listMaster">

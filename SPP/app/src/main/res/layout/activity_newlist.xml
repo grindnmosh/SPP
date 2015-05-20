@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:textStyle="bold|normal"
         android:fontFamily="Times New Roman"
         android:layout_toStartOf="@+id/save"
@@ -25,8 +25,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:hint="New List Name"
+        android:id="@+id/itemName"
+        android:hint="@string/list_name"
         android:layout_below="@+id/textView27"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -38,10 +38,10 @@
         android:id="@+id/save"
         android:background="#000EFF"
         android:textStyle="bold|italic"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/cancel"
+        android:layout_alignRight="@+id/itemDescrip"
+        android:layout_alignEnd="@+id/itemDescrip" />
 
     <Button
         android:layout_width="wrap_content"
@@ -58,8 +58,8 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:hint="New Item"
+        android:id="@+id/newItem"
+        android:hint="@string/newItem"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -67,22 +67,22 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText3"
-        android:hint="Brief Description"
-        android:layout_below="@+id/editText2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="53dp" />
+        android:id="@+id/itemDescrip"
+        android:hint="@string/iten_descrip"
+        android:layout_marginTop="54dp"
+        android:layout_below="@+id/newItem"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listSpin"
-        android:layout_below="@+id/editText"
-        android:layout_alignRight="@+id/save"
-        android:layout_alignEnd="@+id/save"
         android:spinnerMode="dropdown"
-        android:prompt="@string/cl" />
+        android:prompt="@string/cl"
+        android:layout_below="@+id/itemName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"

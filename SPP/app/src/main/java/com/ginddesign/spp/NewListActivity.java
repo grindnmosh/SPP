@@ -23,6 +23,8 @@ public class NewListActivity extends AppCompatActivity {
     Button save;
     Spinner s;
     Context context = this;
+
+
     public static ArrayAdapter<String> loadsAdapter;
 
     @Override
