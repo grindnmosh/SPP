@@ -72,6 +72,8 @@
     <string name="due_name">name</string>
     <string name="doc_link">information</string>
     <string name="save_item">Save Item</string>
+    <string name="temp_date">10/17/2001</string>
+    <string name="temp_ss">123-45-6789</string>
 
 
     <string-array name="listMaster">
