@@ -80,7 +80,7 @@
         android:id="@+id/listSpin"
         android:spinnerMode="dropdown"
         android:prompt="@string/cl"
-        android:layout_below="@+id/itemName"
+        android:layout_below="@+id/listName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
