@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="New Update Child Info"
+        android:text="@string/tempCSave"
         android:id="@+id/textView5"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -23,182 +23,113 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText8"
+        android:id="@+id/cName"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Name" />
+        android:hint="@string/cName" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText9"
-        android:layout_below="@+id/editText8"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Date of Birth" />
+        android:id="@+id/cdob"
+        android:hint="@string/cdob"
+        android:layout_below="@+id/cName"
+        android:layout_toLeftOf="@+id/css"
+        android:layout_toStartOf="@+id/css" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText10"
-        android:layout_alignBottom="@+id/editText9"
-        android:layout_toRightOf="@+id/editText9"
-        android:layout_toEndOf="@+id/editText9"
-        android:hint="SS#" />
+        android:id="@+id/css"
+        android:hint="@string/css"
+        android:layout_below="@+id/cName"
+        android:layout_alignRight="@+id/cName"
+        android:layout_alignEnd="@+id/cName"
+        android:layout_alignLeft="@+id/editText15"
+        android:layout_alignStart="@+id/editText15" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText11"
-        android:layout_below="@+id/editText9"
+        android:id="@+id/cAllergy"
+        android:hint="@string/callergy"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText10"
-        android:layout_alignEnd="@+id/editText10"
-        android:hint="Allergies" />
+        android:layout_below="@+id/cdob" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText12"
-        android:layout_below="@+id/editText11"
+        android:id="@+id/cMed"
+        android:hint="@string/cmed"
+        android:layout_below="@+id/cAllergy"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText11"
-        android:layout_alignEnd="@+id/editText11"
-        android:hint="Medical Conditions" />
+        android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText13"
-        android:layout_centerVertical="true"
+        android:id="@+id/cShot"
+        android:hint="@string/cshot"
+        android:layout_below="@+id/cMed"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText12"
-        android:layout_alignEnd="@+id/editText12"
-        android:hint="Link To Shot Records" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Additional Information"
+        android:text="@string/add_info"
         android:id="@+id/textView6"
-        android:layout_below="@+id/editText13"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColor="#000000"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_below="@+id/cShot"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText14"
+        android:id="@+id/docName"
         android:layout_below="@+id/textView6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView6"
-        android:layout_alignEnd="@+id/textView6"
-        android:hint="name" />
+        android:hint="@string/due_name"
+        android:layout_alignRight="@+id/editText15"
+        android:layout_alignEnd="@+id/editText15" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText15"
-        android:layout_alignBottom="@+id/editText14"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/textView6"
-        android:layout_toEndOf="@+id/textView6"
-        android:hint="information" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText16"
-        android:hint="name"
-        android:layout_below="@+id/editText14"
+        android:id="@+id/docLink"
+        android:hint="@string/doc_link"
+        android:layout_below="@+id/docName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/editText15"
-        android:layout_toStartOf="@+id/editText15" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText17"
-        android:hint="information"
-        android:layout_below="@+id/editText14"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/editText14"
-        android:layout_toEndOf="@+id/editText14" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText18"
-        android:hint="name"
-        android:layout_below="@+id/editText16"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/editText17"
-        android:layout_toStartOf="@+id/editText17" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText19"
-        android:hint="name"
-        android:layout_below="@+id/editText18"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText18"
-        android:layout_alignEnd="@+id/editText18" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText20"
-        android:hint="information"
-        android:layout_above="@+id/editText19"
-        android:layout_alignRight="@+id/editText17"
-        android:layout_alignEnd="@+id/editText17"
-        android:layout_toRightOf="@+id/editText16"
-        android:layout_toEndOf="@+id/editText16" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText21"
-        android:hint="information"
-        android:layout_below="@+id/editText18"
-        android:layout_alignRight="@+id/editText20"
-        android:layout_alignEnd="@+id/editText20"
-        android:layout_toRightOf="@+id/editText18"
-        android:layout_toEndOf="@+id/editText18" />
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save"
-        android:id="@+id/save2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/editText21"
-        android:layout_alignEnd="@+id/editText21"
+        android:id="@+id/saveIt"
         android:background="#000EFF"
         android:textStyle="bold|italic"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/cShot"
+        android:layout_alignEnd="@+id/cShot"
+        android:clickable="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -208,7 +139,18 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#000EFF"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold|italic" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_item"
+        android:id="@+id/indSave"
+        android:layout_below="@+id/docLink"
+        android:layout_alignRight="@+id/docName"
+        android:layout_alignEnd="@+id/docName"
+        android:background="#07000000" />
 
 </RelativeLayout>

@@ -60,8 +60,7 @@ public class NewListActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (loads[position].equals("Current Lists")) {
                     listName.setText("");
-                }
-                else {
+                } else {
                     listName.setText(loads[position]);
                 }
             }
@@ -94,7 +93,9 @@ public class NewListActivity extends AppCompatActivity {
                         //listMaster.pinInBackground();
                         listMaster.saveInBackground();
                         MainActivity.mainListAdapter.notifyDataSetChanged();
-
+                        listName.setText("");
+                        itemName.setText("");
+                        itemDescrip.setText("");
 
                     } else {
                         ParseObject listMaster = new ParseObject("listMaster");
@@ -108,7 +109,7 @@ public class NewListActivity extends AppCompatActivity {
 
                     }
 
-                }else{
+                } else {
                     Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
                 }
             }

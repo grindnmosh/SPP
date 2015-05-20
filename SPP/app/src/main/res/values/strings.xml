@@ -61,6 +61,17 @@
     <string name="newItem">New Item</string>
     <string name="iten_descrip">Brief Description</string>
     <string name="list_name">New List Name</string>
+    <string name="add_info">Additional Information</string>
+    <string name="tempCSave">New Update Child Info</string>
+    <string name="cName">Name</string>
+    <string name="cdob">Date of Birth</string>
+    <string name="css">SS#</string>
+    <string name="callergy">Allergies</string>
+    <string name="cmed">Medical Conditions</string>
+    <string name="cshot">Link To Shot Records</string>
+    <string name="due_name">name</string>
+    <string name="doc_link">information</string>
+    <string name="save_item">Save Item</string>
 
 
     <string-array name="listMaster">
