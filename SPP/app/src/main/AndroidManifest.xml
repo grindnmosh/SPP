@@ -6,8 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -16,8 +17,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,69 +37,68 @@
         </activity>
         <activity
             android:name=".QuickContactActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/app_name" >
-
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".LockersActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".IndListActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".NewListActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity" >
         </activity>
         <activity
             android:name=".QCNewActivity"
-            android:parentActivityName=".QuickContactActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".QuickContactActivity" >
         </activity>
         <activity
             android:name=".QCDetailActivity"
-            android:parentActivityName=".QuickContactActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".QuickContactActivity" >
         </activity>
         <activity
             android:name=".LChildActivity"
-            android:parentActivityName=".LockersActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".LockersActivity" >
         </activity>
         <activity
             android:name=".LNewActivity"
-            android:parentActivityName=".LChildActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".LChildActivity" >
         </activity>
         <activity
             android:name=".LDetailActivity"
-            android:parentActivityName=".LChildActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".LChildActivity" >
         </activity>
         <activity
             android:name=".LImageActivity"
-            android:parentActivityName=".LockersActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".LockersActivity" >
         </activity>
         <activity
             android:name=".LIDetailActivity"
-            android:parentActivityName=".LImageActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".LImageActivity" >
         </activity>
         <activity
             android:name=".LSignInActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity" >
+        </activity>
+        <activity
+            android:name=".addInfoCell"
+            android:label="@string/title_activity_add_info_cell" >
         </activity>
     </application>
 
 </manifest>
-
-
-
-

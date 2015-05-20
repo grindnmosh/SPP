@@ -47,8 +47,8 @@ public class LNewActivity extends AppCompatActivity {
     String docName;
     String docLink;
     Context context = this;
-    ArrayList<String> file = new ArrayList<String>();
-    ArrayList<String> drawer = new ArrayList<String>();
+    ArrayList<String> fileName = new ArrayList<String>();
+    ArrayList<String> fileInfo = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +74,9 @@ public class LNewActivity extends AppCompatActivity {
                 String cdn = cDocName.getText().toString().trim();
                 String cdl = cDocLink.getText().toString().trim();
 
-                file.add(cdn);
-                file.add(cdl);
-                drawer.addAll(file);
-                Log.i("Saved", drawer.toString());
-                file = new ArrayList<String>();
+                fileName.add(cdn);
+                fileInfo.add(cdl);
+                Log.i("Saved", fileName.toString());
                 cDocName.setText("");
                 cDocLink.setText("");
                 Toast.makeText(context, "Document Temporarily saved, Save It to finalize", Toast.LENGTH_SHORT).show();
@@ -111,23 +109,11 @@ public class LNewActivity extends AppCompatActivity {
                         children.put("Medical", med);
                         children.put("Shot", shot);
                         Log.i("children", children.toString());
-                        children.put("Additional", drawer);
+                        children.put("AdditionalNames", fileName);
+                        children.put("AdditionalInfo", fileInfo);
                         children.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         //listMaster.pinInBackground();
                         children.saveInBackground();
-                        ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                        Log.i("QUERY", query.toString());
-                        query.whereEqualTo("Name", "Michael");
-                        query.findInBackground(new FindCallback<ParseObject>() {
-                            @Override
-                            public void done(List<ParseObject> list, com.parse.ParseException e) {
-                                if (e == null) {
-                                    Log.d("Names", "Retrieved " + list.size() + " names");
-                                } else {
-                                    Log.d("Names", "Error: " + e.getMessage());
-                                }
-                            }
-                        });
                         LChildActivity.mainListAdapter.notifyDataSetChanged();
                         Intent home = new Intent(LNewActivity.this, LChildActivity.class);
                         startActivity(home);
@@ -140,7 +126,8 @@ public class LNewActivity extends AppCompatActivity {
                         children.put("Allergies", allergy);
                         children.put("Medical", med);
                         children.put("Shots", shot);
-                        children.put("Additional", drawer);
+                        children.put("AdditionalName", fileName);
+                        children.put("AdditionalInfo", fileInfo);
                         children.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         //listMaster.pinInBackground();
                         children.saveEventually();

@@ -51,7 +51,7 @@
     <string name="sam_num">6025551212</string>
     <string name="qnote">Notes</string>
     <string name="qcat">Select Category</string>
-    <string name="sam_name">Michael</string>
+    <string name="sam_name">M</string>
     <string name="sam_name2">Mary Poppins</string>
     <string name="sam1">None</string>
     <string name="sam2">Asthma</string>
@@ -128,6 +128,7 @@
         <item >/image/ picture 2(cust cell)</item>
         <item >/image/ picture 3(cust cell)</item>
     </string-array>
+    <string name="title_activity_add_info_cell">addInfoCell</string>
 
 
 

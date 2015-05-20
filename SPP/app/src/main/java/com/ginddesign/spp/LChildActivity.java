@@ -36,7 +36,7 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
     private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<String>();
-    public static ArrayList<String> oidArray = new ArrayList<String>();
+    public static ArrayList<String> oidArray;
     Context context = this;
 
     @Override
@@ -48,11 +48,13 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
         String[] childList = getResources().getStringArray(R.array.childList);
 
+        oidArray = new ArrayList<String>();
+
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("rf");
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
                 List<ParseObject> objects = query1.find();
                 //ParseObject.pinAllInBackground(objects);
             } catch (com.parse.ParseException e) {
@@ -73,10 +75,12 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
 
                             String name = ((ParseObject) object).getString("Name");
+                            String oid = ((ParseObject) object).getObjectId();
 
                             nameArray.add(name);
+                            oidArray.add(oid);
                             if (nameArray != null) {
-                                Log.i("Array", nameArray.toString());
+                                Log.i("Array", oidArray.toString());
                                 mainListAdapter.notifyDataSetChanged();
                             }
 
@@ -152,6 +156,19 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
                 public void done(List list, com.parse.ParseException e) {
 
                     if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", "Entry Point Done");
+                            Object object = list.get(i);
+
+                            String oid = ((ParseObject) object).getObjectId();
+                            oidArray.add(oid);
+                            if (nameArray != null) {
+                                Log.i("Array", oidArray.toString());
+                                mainListAdapter.notifyDataSetChanged();
+                            }
+
+                        }
+                        Log.i("OIDs", oidArray.toString());
                         oidPos = oidArray.get(position);
                         for (int i = 0; i < list.size(); i++) {
                             Object object = list.get(i);
@@ -237,8 +254,6 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
 
 
-            }else{
-                //. Do Nothing
             }
         }
     };
