@@ -2,9 +2,12 @@ package com.ginddesign.spp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,13 +15,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class QuickContactActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static ArrayAdapter<String> mainListAdapter;
+    public static ArrayList<String> nameArray = new ArrayList<String>();
+    public static ArrayList<String> catArray = new ArrayList<String>();
+    public static ArrayList<String> oidArray = new ArrayList<String>();
+    public static ArrayList<String> phoneArray = new ArrayList<String>();
     Context context = this;
 
     @Override
@@ -29,14 +42,99 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
 
         final ListView lv = (ListView) findViewById(R.id.qcList);
 
-        String[] contacts = getResources().getStringArray(R.array.qc);
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 
-        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, contacts);
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("contacts");
+                List<ParseObject> objects = query1.find();
+                //ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+            //query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
 
-        lv.setOnItemClickListener(this);
-        lv.setOnItemLongClickListener(this);
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+                    Log.i("Array", "Entry Point Done");
 
-        lv.setAdapter(mainListAdapter);
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+
+                            Object object = list.get(i);
+
+                            String name = ((ParseObject) object).getString("Name");
+                            String cat = ((ParseObject) object).getString("Cat");
+                            String phone = ((ParseObject) object).getString("Phone");
+                            String oid = ((ParseObject) object).getObjectId();
+
+
+                            nameArray.add(name);
+                            catArray.add(cat);
+                            oidArray.add(oid);
+                            phoneArray.add(phone);
+                            if (nameArray != null) {
+                                Log.i("Array", oidArray.toString());
+                                mainListAdapter.notifyDataSetChanged();
+                            }
+
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
+            mainListAdapter = new ContactCell(this, R.layout.activity_contactcell, nameArray);
+
+            lv.setOnItemClickListener(this);
+            lv.setOnItemLongClickListener(this);
+            lv.setAdapter(mainListAdapter);
+        /*} else {
+            Log.i("testing", "HITTTTTTT!!!!!!");
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("rf");
+            query.fromLocalDatastore();
+            query.findInBackground(new FindCallback() {
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+                    Log.i("testing", "HITTTTTTT!!!!!!");
+                    Log.i("testing", list.toString());
+                    for (int i = 0; i < list.size(); i++) {
+                        Log.i("testing", "HITTTTTTT!!!!!!");
+                        Object object = list.get(i);
+                        Log.i("testing", object.toString());
+                        String name = ((ParseObject) object).getString("Name");
+                        String cat = ((ParseObject) object).getString("Cat");
+                        String phone = ((ParseObject) object).getString("Phone");
+                        String oid = ((ParseObject) object).getObjectId();
+
+
+                        nameArray.add(name);
+                        catArray.add(cat);
+                        oidArray.add(oid);
+                        phoneArray.add(phone);
+                        if (nameArray != null) {
+                            Log.i("Array", oidArray.toString());
+                            mainListAdapter.notifyDataSetChanged();
+                        }
+
+                    }
+
+                }
+
+
+            });
+            mainListAdapter = new ContactCell(this, R.layout.activity_contactcell, nameArray);
+
+            lv.setOnItemClickListener(this);
+            lv.setOnItemLongClickListener(this);
+            lv.setAdapter(mainListAdapter);*/
+
+        }
     }
 
     @Override

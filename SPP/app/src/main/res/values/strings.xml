@@ -129,6 +129,7 @@
         <item >/image/ picture 3(cust cell)</item>
     </string-array>
     <string name="title_activity_add_info_cell">addInfoCell</string>
+    <string name="title_activity_contact_cell">ContactCell</string>
 
 
 

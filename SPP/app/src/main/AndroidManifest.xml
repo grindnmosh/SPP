@@ -99,6 +99,10 @@
             android:name=".addInfoCell"
             android:label="@string/title_activity_add_info_cell" >
         </activity>
+        <activity
+            android:name=".ContactCell"
+            android:label="@string/title_activity_contact_cell" >
+        </activity>
     </application>
 
 </manifest>
