@@ -17,86 +17,32 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 
 public class LSignInActivity extends AppCompatActivity {
 
-    Button signin;
-    String userid;
-    String pass;
-    EditText username;
-    EditText password;
-    Context thisHere = this;
+    public LSignInActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lsignin);
 
-        Parse.initialize(this, "bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k", "REgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT");
-
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        signin = (Button) findViewById(R.id.sibutt);
-
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userid = username.getText().toString();
-                pass = password.getText().toString();
-
-                ConnectivityManager cm = (ConnectivityManager) thisHere.getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo netInfo = cm.getActiveNetworkInfo();
-                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-
-
-                    ParseUser.logInInBackground(userid, pass,
-                            new LogInCallback() {
-                                public void done(ParseUser parseUser, com.parse.ParseException e) {
-                                    if (parseUser != null) {
-                                        Intent intent = new Intent(
-                                                LSignInActivity.this,
-                                                LockersActivity.class);
-                                        startActivity(intent);
-                                        Toast.makeText(getApplicationContext(),
-                                                "Successfully Logged in",
-                                                Toast.LENGTH_LONG).show();
-                                        finish();
-                                    } else {
-                                        Toast.makeText(
-                                                getApplicationContext(),
-                                                "No such user exist, please signup",
-                                                Toast.LENGTH_LONG).show();
-                                    }
-                                }
-
-                            });
-
-
-                } else {
-                    Toast.makeText(thisHere, "No network detected. Please connect to a network to login", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
+        ParseLoginBuilder builder = new ParseLoginBuilder(LSignInActivity.this);
+        startActivityForResult(builder.build(), 0);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_lsignin, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_home) {
-            Intent home = new Intent(this, ListMasterActivity.class);
-            this.startActivity(home);
+    final protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        setResult(resultCode);
+        if (resultCode == RESULT_OK) {
+            Intent home = new Intent(LSignInActivity.this, LockersActivity.class);
+            startActivity(home);
+        } else {
+            finish();
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
