@@ -2,12 +2,8 @@ package com.ginddesign.spp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -31,8 +27,10 @@ public class IndListCell extends ArrayAdapter<String> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
+        String names = arrayLister.get(position);
         String item = IndListActivity.itemArray.get(position);
         String descrip = IndListActivity.desArray.get(position);
+        Log.i("ArrayLister", names);
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_indlistcell, null);

@@ -90,7 +90,7 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.put("item", iName);
                         listMaster.put("Descrip", descrip);
                         listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                        //listMaster.pinInBackground();
+                        listMaster.pinInBackground();
                         listMaster.saveInBackground();
                         ListMasterActivity.mainListAdapter.notifyDataSetChanged();
                         listName.setText("");
@@ -103,7 +103,7 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.put("item", iName);
                         listMaster.put("Descrip", descrip);
                         listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                        //listMaster.pinInBackground();
+                        listMaster.pinInBackground();
                         listMaster.saveEventually();
                         ListMasterActivity.mainListAdapter.notifyDataSetChanged();
 

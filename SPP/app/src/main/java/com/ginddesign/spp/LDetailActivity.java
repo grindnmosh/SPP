@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,12 +17,10 @@ import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,10 +111,6 @@ public class LDetailActivity extends AppCompatActivity {
                         dMed.setText(med);
                         dShot.setText(shot);
 
-
-
-
-                        String[] links = getResources().getStringArray(R.array.links);
 
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());

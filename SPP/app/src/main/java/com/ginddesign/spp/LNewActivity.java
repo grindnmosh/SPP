@@ -14,15 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class LNewActivity extends AppCompatActivity {
@@ -44,8 +40,6 @@ public class LNewActivity extends AppCompatActivity {
     String allergy;
     String med;
     String shot;
-    String docName;
-    String docLink;
     Context context = this;
     ArrayList<String> fileName = new ArrayList<>();
     ArrayList<String> fileInfo = new ArrayList<>();
@@ -112,7 +106,7 @@ public class LNewActivity extends AppCompatActivity {
                         children.put("AdditionalNames", fileName);
                         children.put("AdditionalInfo", fileInfo);
                         children.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                        //listMaster.pinInBackground();
+                        children.pinInBackground();
                         children.saveInBackground();
                         LChildActivity.mainListAdapter.notifyDataSetChanged();
                         Intent home = new Intent(LNewActivity.this, LChildActivity.class);
@@ -129,7 +123,7 @@ public class LNewActivity extends AppCompatActivity {
                         children.put("AdditionalName", fileName);
                         children.put("AdditionalInfo", fileInfo);
                         children.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                        //listMaster.pinInBackground();
+                        children.pinInBackground();
                         children.saveEventually();
                         LChildActivity.mainListAdapter.notifyDataSetChanged();
 

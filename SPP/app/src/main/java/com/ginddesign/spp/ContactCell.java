@@ -2,12 +2,7 @@ package com.ginddesign.spp;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -30,13 +25,12 @@ public class ContactCell extends ArrayAdapter<String> {
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View view = convertView;
         String name = arrayLister.get(position);
         String cat = QuickContactActivity.catArray.get(position);
         String phone = QuickContactActivity.phoneArray.get(position);
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        view = blowUp.inflate(R.layout.activity_contactcell, null);
+        View view = blowUp.inflate(R.layout.activity_contactcell, null);
 
         TextView main = (TextView) view.findViewById(R.id.qcNameDisplay);
         main.setText(name);
