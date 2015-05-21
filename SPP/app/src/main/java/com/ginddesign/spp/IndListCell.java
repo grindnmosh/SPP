@@ -22,6 +22,7 @@ public class IndListCell extends ArrayAdapter<String> {
     private ArrayList<String> arrayLister = IndListActivity.nameArray;
 
 
+
     public IndListCell(Context context, int resource, ArrayList<String> arrayLister) {
         super(context, resource, arrayLister);
         this.context = context;

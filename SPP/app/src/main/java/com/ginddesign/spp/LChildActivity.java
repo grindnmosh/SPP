@@ -32,7 +32,6 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
     String oidPos;
     ListView lv;
-    private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> oidArray;
@@ -51,13 +50,6 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
-                List<ParseObject> objects = query1.find();
-                //ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
             //query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
@@ -97,7 +89,6 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
             lv.setAdapter(mainListAdapter);
         }
-        resume();
     }
 
     @Override
@@ -117,16 +108,15 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(LChildActivity.this);
-            startActivityForResult(builder.build(), 0);
-            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);
         }
         else if (id == R.id.action_home) {
-            Intent lock = new Intent(this, MainActivity.class);
+            Intent lock = new Intent(this, ListMasterActivity.class);
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {
@@ -185,78 +175,4 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
             });
         }
     }
-
-    private void TimerMethod()
-    {
-        this.runOnUiThread(Timer_Tick);
-    }
-
-
-    private Runnable Timer_Tick = new Runnable() {
-        public void run() {
-
-
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-
-
-
-
-                ParseQuery<ParseObject> query2 = ParseQuery.getQuery("rf");
-                query2.findInBackground(new FindCallback<ParseObject>() {
-
-                    @Override
-                    public void done(List list, com.parse.ParseException e) {
-                        Log.i("Array", "Entry POint Done");
-                        nameArray = new ArrayList<>();
-                        oidArray = new ArrayList<>();
-                        if (e == null) {
-                            for (int i = 0; i < list.size(); i++) {
-
-                                Object object = list.get(i);
-
-
-
-                                String name = ((ParseObject) object).getString("Name");
-                                String state = ((ParseObject) object).getString("State");
-                                Number year = ((ParseObject) object).getNumber("Age");
-                                String oid = ((ParseObject) object).getObjectId();
-
-
-
-                                nameArray.add(name);
-                                oidArray.add(oid);
-                                if (nameArray != null) {
-                                    Log.i("Array", oidArray.toString());
-                                    mainListAdapter.notifyDataSetChanged();
-                                }
-
-                            }
-
-
-                        } else {
-                            Log.d("Failed", "Error: " + e.getMessage());
-                        }
-                    }
-                });
-
-
-
-            }
-        }
-    };
-
-    public void resume() {
-        sched = new Timer();
-        sched.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                TimerMethod();
-            }
-
-        }, 0, 5000);
-    }
-
-
 }

@@ -37,16 +37,15 @@ public class LIDetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(LIDetailActivity.this);
-            startActivityForResult(builder.build(), 0);
-            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);
         }
         else if (id == R.id.action_home) {
-            Intent home = new Intent(this, MainActivity.class);
+            Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
         }
         else if (id == R.id.action_share) {

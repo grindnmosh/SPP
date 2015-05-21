@@ -92,7 +92,7 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         //listMaster.pinInBackground();
                         listMaster.saveInBackground();
-                        MainActivity.mainListAdapter.notifyDataSetChanged();
+                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
                         listName.setText("");
                         itemName.setText("");
                         itemDescrip.setText("");
@@ -105,7 +105,7 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         //listMaster.pinInBackground();
                         listMaster.saveEventually();
-                        MainActivity.mainListAdapter.notifyDataSetChanged();
+                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
 
                     }
 
@@ -118,7 +118,7 @@ public class NewListActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(NewListActivity.this, MainActivity.class);
+                Intent home = new Intent(NewListActivity.this, ListMasterActivity.class);
                 startActivity(home);
             }
         });
@@ -140,9 +140,8 @@ public class NewListActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(NewListActivity.this);
-            startActivityForResult(builder.build(), 0);
-            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
@@ -153,7 +152,7 @@ public class NewListActivity extends AppCompatActivity {
             this.startActivity(lock);
         }
         else if (id == R.id.action_home) {
-            Intent home = new Intent(this, MainActivity.class);
+            Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
         }
 

@@ -58,16 +58,15 @@ public class LockersActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(LockersActivity.this);
-            startActivityForResult(builder.build(), 0);
-            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);
         }
         else if (id == R.id.action_home) {
-            Intent lock = new Intent(this, MainActivity.class);
+            Intent lock = new Intent(this, ListMasterActivity.class);
             this.startActivity(lock);
         }
 

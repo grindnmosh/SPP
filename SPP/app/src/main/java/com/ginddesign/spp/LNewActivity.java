@@ -47,8 +47,8 @@ public class LNewActivity extends AppCompatActivity {
     String docName;
     String docLink;
     Context context = this;
-    ArrayList<String> fileName = new ArrayList<String>();
-    ArrayList<String> fileInfo = new ArrayList<String>();
+    ArrayList<String> fileName = new ArrayList<>();
+    ArrayList<String> fileInfo = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,16 +167,15 @@ public class LNewActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(LNewActivity.this);
-            startActivityForResult(builder.build(), 0);
-            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);
         }
         else if (id == R.id.action_home) {
-            Intent lock = new Intent(this, MainActivity.class);
+            Intent lock = new Intent(this, ListMasterActivity.class);
             this.startActivity(lock);
         }
         else if (id == R.id.action_image) {

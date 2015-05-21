@@ -46,8 +46,8 @@ public class LDetailActivity extends AppCompatActivity {
     ListView lv;
     JSONArray fileName = new JSONArray();
     JSONArray fileinfo = new JSONArray();
-    public static ArrayList<String> nameArray = new ArrayList<String>();
-    public static ArrayList<String> nameInfo = new ArrayList<String>();
+    public static ArrayList<String> nameArray = new ArrayList<>();
+    public static ArrayList<String> nameInfo = new ArrayList<>();
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
 
@@ -67,8 +67,8 @@ public class LDetailActivity extends AppCompatActivity {
         final Intent i = getIntent();
         ois = i.getStringExtra("object ID");
 
-        nameArray = new ArrayList<String>();
-        nameInfo = new ArrayList<String>();
+        nameArray = new ArrayList<>();
+        nameInfo = new ArrayList<>();
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -183,16 +183,15 @@ public class LDetailActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(LDetailActivity.this);
-            startActivityForResult(builder.build(), 0);
-            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);
         }
         else if (id == R.id.action_home) {
-            Intent home = new Intent(this, MainActivity.class);
+            Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
         }
         return super.onOptionsItemSelected(item);

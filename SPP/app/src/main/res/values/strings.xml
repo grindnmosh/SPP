@@ -138,6 +138,7 @@
     <string name="title_activity_photo_cell">photoCell</string>
     <string name="previeImage">preview image</string>
     <string name="photo_text">Photo Name</string>
+    <string name="title_activity_list_master">ListMasterActivity</string>
 
 
 </resources>

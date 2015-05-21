@@ -31,26 +31,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    String namePos;
-    public static ArrayAdapter<String> mainListAdapter;
-    public static ArrayList<String> nameArray = new ArrayList<>();
-    public static ArrayList<String> listNameArray = new ArrayList<>();
-    Context context = this;
+
+
     public MainActivity() {
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("Hit", "Hit");
-        setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-
-        //Parse.enableLocalDatastore(this);
+        Parse.enableLocalDatastore(this);
         Parse.initialize(this, "bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k", "REgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT");
 
         ParseUser.enableAutomaticUser();
@@ -61,126 +53,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
             startActivityForResult(builder.build(), 0);
-
         } else {
             ParseUser currentUser = ParseUser.getCurrentUser();
             if (currentUser != null) {
-                Log.i("DO", "NOTHING");
-
+                Intent home = new Intent(MainActivity.this, ListMasterActivity.class);
+                startActivity(home);
             } else {
                 ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
                 startActivityForResult(builder.build(), 0);
-
             }
-        }
-        final ListView lv = (ListView) findViewById(R.id.list_master);
 
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List list, com.parse.ParseException e) {
-                    Log.i("Array", "Entry Point Done");
-
-                    if (e == null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.i("Array", "Entry Point Done");
-                            Object object = list.get(i);
-
-
-                            String name = ((ParseObject) object).getString("Name");
-
-                            nameArray.add(name);
-
-                            for (int c = 0; c < nameArray.size(); c++) {
-                                String currentName = list.get(i).toString();
-                                String compare = nameArray.get(i);
-                                for (int l = 0; l < list.size(); l++) {
-                                    if (!listNameArray.contains(compare)) {
-                                            listNameArray.add(compare);
-                                        }
-                                    }
-                                }
-                            mainListAdapter.notifyDataSetChanged();
-
-                        }
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-                }
-            });
-            mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
-
-            lv.setOnItemClickListener(this);
-            lv.setOnItemLongClickListener(this);
-
-            lv.setAdapter(mainListAdapter);
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-            startActivityForResult(builder.build(), 0);
+    final protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        setResult(resultCode);
+        if (resultCode == RESULT_OK) {
+            Intent home = new Intent(MainActivity.this, ListMasterActivity.class);
+            startActivity(home);
+        } else {
             finish();
         }
-        else if (id == R.id.action_qc) {
-            Intent qc = new Intent(this, QuickContactActivity.class);
-            this.startActivity(qc);
-        }
-        else if (id == R.id.action_lock) {
-            Intent lock = new Intent(this, LSignInActivity.class);
-            this.startActivity(lock);
-        }
-        else if (id == R.id.action_add) {
-            Intent add = new Intent(this, NewListActivity.class);
-            this.startActivity(add);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            query.findInBackground(new FindCallback<ParseObject>() {
-
-                @Override
-                public void done(List list, com.parse.ParseException e) {
-
-                    if (e == null) {
-                        namePos = listNameArray.get(position);
-                        Intent update = new Intent(MainActivity.this, IndListActivity.class);
-                        update.putExtra("listName", namePos);
-                        startActivity(update);
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-                }
-            });
-        }
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return false;
     }
 }

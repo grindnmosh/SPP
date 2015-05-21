@@ -93,7 +93,7 @@ public class LSignInActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_home) {
-            Intent home = new Intent(this, MainActivity.class);
+            Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
         }
 

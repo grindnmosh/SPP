@@ -99,7 +99,7 @@ public class QCNewActivity extends AppCompatActivity {
                         contacts.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         //listMaster.pinInBackground();
                         contacts.saveInBackground();
-                        MainActivity.mainListAdapter.notifyDataSetChanged();
+                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
                         Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
                         startActivity(home);
 
@@ -113,7 +113,7 @@ public class QCNewActivity extends AppCompatActivity {
                         contacts.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         //listMaster.pinInBackground();
                         contacts.saveEventually();
-                        MainActivity.mainListAdapter.notifyDataSetChanged();
+                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
                         Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
                         startActivity(home);
                     }
@@ -150,9 +150,8 @@ public class QCNewActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            ParseLoginBuilder builder = new ParseLoginBuilder(QCNewActivity.this);
-            startActivityForResult(builder.build(), 0);
-            finish();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
@@ -163,7 +162,7 @@ public class QCNewActivity extends AppCompatActivity {
             this.startActivity(lock);
         }
         else if (id == R.id.action_home) {
-            Intent home = new Intent(this, MainActivity.class);
+            Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
         }
 

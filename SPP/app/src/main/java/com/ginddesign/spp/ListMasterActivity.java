@@ -16,6 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseAnonymousUtils;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -23,79 +26,72 @@ import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
-public class QuickContactActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+public class ListMasterActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    String oidPos;
-    private Timer sched;
+    String namePos;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
-    public static ArrayList<String> catArray = new ArrayList<>();
-    public static ArrayList<String> oidArray = new ArrayList<>();
-    public static ArrayList<String> phoneArray = new ArrayList<>();
+    public static ArrayList<String> listNameArray = new ArrayList<>();
     Context context = this;
+    public ListMasterActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quickcontact);
+        Log.i("Hit", "Hit");
+        setContentView(R.layout.activity_main);
 
-        nameArray = new ArrayList<>();
-        catArray = new ArrayList<>();
-        oidArray = new ArrayList<>();
-        phoneArray = new ArrayList<>();
-        final ListView lv = (ListView) findViewById(R.id.qcList);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        final ListView lv = (ListView) findViewById(R.id.list_master);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("contacts");
-                List<ParseObject> objects = query1.find();
-                //ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-            //query.fromLocalDatastore();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
             query.findInBackground(new FindCallback<ParseObject>() {
-
                 @Override
                 public void done(List list, com.parse.ParseException e) {
                     Log.i("Array", "Entry Point Done");
 
                     if (e == null) {
                         for (int i = 0; i < list.size(); i++) {
-
+                            Log.i("Array", "Entry Point Done");
                             Object object = list.get(i);
 
-                            String name = ((ParseObject) object).getString("Name");
-                            String cat = ((ParseObject) object).getString("Cat");
-                            String phone = ((ParseObject) object).getString("Phone");
-                            String oid = ((ParseObject) object).getObjectId();
 
+                            String name = ((ParseObject) object).getString("Name");
 
                             nameArray.add(name);
-                            catArray.add(cat);
-                            oidArray.add(oid);
-                            phoneArray.add(phone);
+
+                            for (int c = 0; c < nameArray.size(); c++) {
+                                String currentName = list.get(i).toString();
+                                String compare = nameArray.get(i);
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (!listNameArray.contains(compare)) {
+                                        listNameArray.add(compare);
+                                        mainListAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
                             mainListAdapter.notifyDataSetChanged();
+                            Log.i("WTF", listNameArray.toString());
                         }
 
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
+                    mainListAdapter.notifyDataSetChanged();
                 }
             });
-            mainListAdapter = null;
-            mainListAdapter = new ContactCell(context, R.layout.activity_contactcell, nameArray);
+            mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
 
             lv.setOnItemClickListener(this);
             lv.setOnItemLongClickListener(this);
+
             lv.setAdapter(mainListAdapter);
         }
     }
@@ -103,13 +99,12 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_quickcontact, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
@@ -117,8 +112,8 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(1);
         }
-        else if (id == R.id.action_home) {
-            Intent qc = new Intent(this, ListMasterActivity.class);
+        else if (id == R.id.action_qc) {
+            Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);
         }
         else if (id == R.id.action_lock) {
@@ -126,70 +121,40 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {
-            Intent add = new Intent(this, QCNewActivity.class);
+            Intent add = new Intent(this, NewListActivity.class);
             this.startActivity(add);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return false;
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 @Override
                 public void done(List list, com.parse.ParseException e) {
 
                     if (e == null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.i("Array", "Entry Point Done");
-                            Object object = list.get(i);
-
-                            String oid = ((ParseObject) object).getObjectId();
-                            oidArray.add(oid);
-
-                            Log.i("Array", "Here???");
-
-
-                        }
-                        Log.i("OIDs", oidArray.toString());
-                        oidPos = oidArray.get(position);
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.i("Array", oidPos);
-                            Object object = list.get(i);
-                            String oid = ((ParseObject) object).getObjectId();
-                            Log.i("Array", oid);
-                            if (oidPos.equals(oid)) {
-                                Log.i("ObjectID", oid);
-                                Intent update = new Intent(QuickContactActivity.this, QCDetailActivity.class);
-                                update.putExtra("object ID", oid);
-                                startActivity(update);
-                            }
-
-
-                        }
-
+                        namePos = listNameArray.get(position);
+                        Intent update = new Intent(ListMasterActivity.this, IndListActivity.class);
+                        update.putExtra("listName", namePos);
+                        startActivity(update);
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
                 }
             });
-
-
         }
-
-
-
     }
 
-
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return false;
+    }
 }
