@@ -134,6 +134,10 @@
     <string name="message_icon">message</string>
     <string name="email_icon">emailIcon</string>
     <string name="edit_icon">editIcon</string>
+    <string name="title_activity_ind_list_cell">IndListCell</string>
+    <string name="title_activity_photo_cell">photoCell</string>
+    <string name="previeImage">preview image</string>
+    <string name="photo_text">Photo Name</string>
 
 
 </resources>

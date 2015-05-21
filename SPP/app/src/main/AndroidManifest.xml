@@ -103,6 +103,14 @@
             android:name=".ContactCell"
             android:label="@string/title_activity_contact_cell" >
         </activity>
+        <activity
+            android:name=".IndListCell"
+            android:label="@string/title_activity_ind_list_cell" >
+        </activity>
+        <activity
+            android:name=".PhotoCell"
+            android:label="@string/title_activity_photo_cell" >
+        </activity>
     </application>
 
 </manifest>

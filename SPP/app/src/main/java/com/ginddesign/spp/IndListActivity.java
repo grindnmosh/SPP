@@ -2,6 +2,8 @@ package com.ginddesign.spp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,13 +13,24 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class IndListActivity extends AppCompatActivity {
 
     public static ArrayAdapter<String> mainListAdapter;
+    public static ArrayList<String> nameArray = new ArrayList<>();
+    public static ArrayList<String> itemArray = new ArrayList<>();
+    public static ArrayList<String> desArray = new ArrayList<>();
     Context context = this;
 
     @Override
@@ -26,10 +39,40 @@ public class IndListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_indlist);
 
         final ListView lv = (ListView) findViewById(R.id.list);
+        nameArray = new ArrayList<>();
+        itemArray = new ArrayList<>();
+        desArray = new ArrayList<>();
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+            query.whereEqualTo("Name", "Groceries");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> list, com.parse.ParseException e) {
+                    Log.i("Array", "Entry Point Done");
 
-        String[] sample = getResources().getStringArray(R.array.sampleList);
+                    if (e == null) {
+                        for (ParseObject listmasterobject : list) {
+                            String name = listmasterobject.get("Name").toString();
+                            String item = listmasterobject.get("item").toString();
+                            String descrip = listmasterobject.get("Descrip").toString();
+                            Log.i("TEST Run", name);
+                            nameArray.add(name);
+                            itemArray.add(item);
+                            desArray.add(descrip);
+                            Log.i("TEST Run", desArray.toString());
+                            mainListAdapter.notifyDataSetChanged();
+                        }
 
-        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, sample);
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
+        }
+
+        mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray);
 
         lv.setAdapter(mainListAdapter);
     }

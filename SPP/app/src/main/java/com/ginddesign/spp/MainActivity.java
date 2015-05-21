@@ -33,6 +33,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
+    String namePos;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> listNameArray = new ArrayList<>();
@@ -77,17 +78,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
-                List<ParseObject> objects = query1.find();
-                //ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            //query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
-
                 @Override
                 public void done(List list, com.parse.ParseException e) {
                     Log.i("Array", "Entry Point Done");
@@ -99,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
                             String name = ((ParseObject) object).getString("Name");
-                            String oid = ((ParseObject) object).getObjectId();
 
                             nameArray.add(name);
 
@@ -165,9 +156,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent detail = new Intent(MainActivity.this, IndListActivity.class);
-        startActivity(detail);
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+            query.findInBackground(new FindCallback<ParseObject>() {
+
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+
+                    if (e == null) {
+                        namePos = listNameArray.get(position);
+                        Intent update = new Intent(MainActivity.this, IndListActivity.class);
+                        update.putExtra("listName", namePos);
+                        startActivity(update);
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
+        }
     }
 
     @Override
