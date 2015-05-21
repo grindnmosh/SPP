@@ -32,11 +32,15 @@ public class IndListActivity extends AppCompatActivity {
     public static ArrayList<String> itemArray = new ArrayList<>();
     public static ArrayList<String> desArray = new ArrayList<>();
     Context context = this;
+    String passedName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indlist);
+
+        final Intent i = getIntent();
+        passedName = i.getStringExtra("listName");
 
         final ListView lv = (ListView) findViewById(R.id.list);
         nameArray = new ArrayList<>();
@@ -46,7 +50,7 @@ public class IndListActivity extends AppCompatActivity {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            query.whereEqualTo("Name", "Groceries");
+            query.whereEqualTo("Name", passedName);
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> list, com.parse.ParseException e) {
