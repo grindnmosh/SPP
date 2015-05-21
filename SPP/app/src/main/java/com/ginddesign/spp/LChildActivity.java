@@ -30,12 +30,11 @@ import java.util.TimerTask;
 
 public class LChildActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
-    String namePos;
     String oidPos;
     ListView lv;
     private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
-    public static ArrayList<String> nameArray = new ArrayList<String>();
+    public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> oidArray;
     Context context = this;
 
@@ -46,9 +45,8 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
         lv = (ListView) findViewById(R.id.childList);
 
-        String[] childList = getResources().getStringArray(R.array.childList);
 
-        oidArray = new ArrayList<String>();
+        oidArray = new ArrayList<>();
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -179,22 +177,13 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
                                 update.putExtra("object ID", oid);
                                 startActivity(update);
                             }
-
-
-
                         }
-
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
                 }
             });
-
-
         }
-
-
-
     }
 
     private void TimerMethod()
@@ -220,8 +209,8 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
                     @Override
                     public void done(List list, com.parse.ParseException e) {
                         Log.i("Array", "Entry POint Done");
-                        nameArray = new ArrayList<String>();
-                        oidArray = new ArrayList<String>();
+                        nameArray = new ArrayList<>();
+                        oidArray = new ArrayList<>();
                         if (e == null) {
                             for (int i = 0; i < list.size(); i++) {
 

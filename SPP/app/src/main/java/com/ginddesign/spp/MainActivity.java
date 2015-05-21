@@ -3,6 +3,8 @@ package com.ginddesign.spp;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,9 +17,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseAnonymousUtils;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
@@ -29,6 +34,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     public static ArrayAdapter<String> mainListAdapter;
+    public static ArrayList<String> nameArray = new ArrayList<>();
+    public static ArrayList<String> listNameArray = new ArrayList<>();
     Context context = this;
     public MainActivity() {
     }
@@ -67,14 +74,60 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         final ListView lv = (ListView) findViewById(R.id.list_master);
 
-        String[] listMaster = getResources().getStringArray(R.array.listMaster);
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
+                List<ParseObject> objects = query1.find();
+                //ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+            //query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
 
-        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listMaster);
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+                    Log.i("Array", "Entry Point Done");
 
-        lv.setOnItemClickListener(this);
-        lv.setOnItemLongClickListener(this);
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", "Entry Point Done");
+                            Object object = list.get(i);
 
-        lv.setAdapter(mainListAdapter);
+
+                            String name = ((ParseObject) object).getString("Name");
+                            String oid = ((ParseObject) object).getObjectId();
+
+                            nameArray.add(name);
+
+                            for (int c = 0; c < nameArray.size(); c++) {
+                                String currentName = list.get(i).toString();
+                                String compare = nameArray.get(i);
+                                for (int l = 0; l < list.size(); l++) {
+                                    if (!listNameArray.contains(compare)) {
+                                            listNameArray.add(compare);
+                                        }
+                                    }
+                                }
+                            mainListAdapter.notifyDataSetChanged();
+
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
+            mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
+
+            lv.setOnItemClickListener(this);
+            lv.setOnItemLongClickListener(this);
+
+            lv.setAdapter(mainListAdapter);
+        }
     }
 
     @Override
