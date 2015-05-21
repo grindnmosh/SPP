@@ -12,23 +12,23 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/sam_name2"
-        android:id="@+id/textView9"
+        android:id="@+id/conName"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textStyle="bold"
-        android:textSize="32dp" />
+        android:textSize="32sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/sam_num"
-        android:id="@+id/textView10"
-        android:textSize="32dp"
+        android:id="@+id/conPhone"
+        android:textSize="32sp"
         android:textStyle="bold"
         android:layout_marginTop="42dp"
-        android:layout_below="@+id/textView9"
+        android:layout_below="@+id/conName"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -36,60 +36,64 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/sam_email"
-        android:id="@+id/textView11"
-        android:layout_below="@+id/textView10"
+        android:id="@+id/conEmail"
+        android:layout_below="@+id/conPhone"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView12"
+        android:id="@+id/conNotes"
         android:textColor="#000000"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:text="@string/notes"
-        android:layout_below="@+id/textView11"
+        android:layout_below="@+id/conEmail"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/makeCall"
         android:src="@drawable/phone"
         android:background="#07000000"
-        android:layout_alignTop="@+id/imageButton2"
+        android:layout_alignTop="@+id/sendMess"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:contentDescription="@string/dialer" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton2"
+        android:id="@+id/sendMess"
         android:src="@drawable/sms"
         android:adjustViewBounds="false"
         android:background="#07000000"
         android:layout_marginBottom="63dp"
-        android:layout_above="@+id/imageButton4"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/conEdit"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/message_icon" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton3"
+        android:id="@+id/sendEmail"
         android:src="@drawable/message"
         android:background="#07000000"
-        android:layout_alignTop="@+id/imageButton2"
-        android:layout_alignRight="@+id/textView12"
-        android:layout_alignEnd="@+id/textView12" />
+        android:layout_alignTop="@+id/sendMess"
+        android:layout_alignRight="@+id/conNotes"
+        android:layout_alignEnd="@+id/conNotes"
+        android:contentDescription="@string/email_icon" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton4"
+        android:id="@+id/conEdit"
         android:src="@drawable/pencil"
         android:cropToPadding="false"
         android:background="#07000000"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/edit_icon" />
 
 </RelativeLayout>

@@ -23,10 +23,14 @@ import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class QuickContactActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
+    String oidPos;
+    private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<String>();
     public static ArrayList<String> catArray = new ArrayList<String>();
@@ -39,7 +43,10 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quickcontact);
 
-
+        nameArray = new ArrayList<String>();
+        catArray = new ArrayList<String>();
+        oidArray = new ArrayList<String>();
+        phoneArray = new ArrayList<String>();
         final ListView lv = (ListView) findViewById(R.id.qcList);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -76,11 +83,7 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                             catArray.add(cat);
                             oidArray.add(oid);
                             phoneArray.add(phone);
-                            if (nameArray != null) {
-                                Log.i("Array", oidArray.toString());
-                                mainListAdapter.notifyDataSetChanged();
-                            }
-
+                            mainListAdapter.notifyDataSetChanged();
                         }
 
                     } else {
@@ -88,52 +91,12 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                     }
                 }
             });
-            mainListAdapter = new ContactCell(this, R.layout.activity_contactcell, nameArray);
+            mainListAdapter = null;
+            mainListAdapter = new ContactCell(context, R.layout.activity_contactcell, nameArray);
 
             lv.setOnItemClickListener(this);
             lv.setOnItemLongClickListener(this);
             lv.setAdapter(mainListAdapter);
-        /*} else {
-            Log.i("testing", "HITTTTTTT!!!!!!");
-
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("rf");
-            query.fromLocalDatastore();
-            query.findInBackground(new FindCallback() {
-                @Override
-                public void done(List list, com.parse.ParseException e) {
-                    Log.i("testing", "HITTTTTTT!!!!!!");
-                    Log.i("testing", list.toString());
-                    for (int i = 0; i < list.size(); i++) {
-                        Log.i("testing", "HITTTTTTT!!!!!!");
-                        Object object = list.get(i);
-                        Log.i("testing", object.toString());
-                        String name = ((ParseObject) object).getString("Name");
-                        String cat = ((ParseObject) object).getString("Cat");
-                        String phone = ((ParseObject) object).getString("Phone");
-                        String oid = ((ParseObject) object).getObjectId();
-
-
-                        nameArray.add(name);
-                        catArray.add(cat);
-                        oidArray.add(oid);
-                        phoneArray.add(phone);
-                        if (nameArray != null) {
-                            Log.i("Array", oidArray.toString());
-                            mainListAdapter.notifyDataSetChanged();
-                        }
-
-                    }
-
-                }
-
-
-            });
-            mainListAdapter = new ContactCell(this, R.layout.activity_contactcell, nameArray);
-
-            lv.setOnItemClickListener(this);
-            lv.setOnItemLongClickListener(this);
-            lv.setAdapter(mainListAdapter);*/
-
         }
     }
 
@@ -172,13 +135,62 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent detail = new Intent(QuickContactActivity.this, QCDetailActivity.class);
-        startActivity(detail);
-    }
-
-    @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         return false;
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+            query.findInBackground(new FindCallback<ParseObject>() {
+
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", "Entry Point Done");
+                            Object object = list.get(i);
+
+                            String oid = ((ParseObject) object).getObjectId();
+                            oidArray.add(oid);
+
+                            Log.i("Array", "Here???");
+
+
+                        }
+                        Log.i("OIDs", oidArray.toString());
+                        oidPos = oidArray.get(position);
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", oidPos);
+                            Object object = list.get(i);
+                            String oid = ((ParseObject) object).getObjectId();
+                            Log.i("Array", oid);
+                            if (oidPos.equals(oid)) {
+                                Log.i("ObjectID", oid);
+                                Intent update = new Intent(QuickContactActivity.this, QCDetailActivity.class);
+                                update.putExtra("object ID", oid);
+                                startActivity(update);
+                            }
+
+
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
+
+
+        }
+
+
+
+    }
+
+
 }

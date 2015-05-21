@@ -67,7 +67,8 @@ public class LDetailActivity extends AppCompatActivity {
         final Intent i = getIntent();
         ois = i.getStringExtra("object ID");
 
-
+        nameArray = new ArrayList<String>();
+        nameInfo = new ArrayList<String>();
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
