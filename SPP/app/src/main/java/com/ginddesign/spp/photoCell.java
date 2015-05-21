@@ -26,9 +26,7 @@ public class PhotoCell extends ArrayAdapter<String> {
         this.context = context;
         this.arrayLister = arrayLister;
     }
-
     public View getView(final int position, View convertView, ViewGroup parent) {
-
         String name = arrayLister.get(position);
         String item = IndListActivity.itemArray.get(position);
         String descrip = IndListActivity.desArray.get(position);
