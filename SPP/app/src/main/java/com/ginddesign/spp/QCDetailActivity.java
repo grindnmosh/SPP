@@ -25,6 +25,7 @@ import com.parse.ui.ParseLoginBuilder;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class QCDetailActivity extends AppCompatActivity {
@@ -66,7 +67,15 @@ public class QCDetailActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
+                List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+            query.fromLocalDatastore();
             query.getInBackground(ois, new GetCallback<ParseObject>() {
                 public void done(ParseObject object, com.parse.ParseException e) {
                     if (e == null) {

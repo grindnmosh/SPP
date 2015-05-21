@@ -51,7 +51,15 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
+                List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+            query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List list, com.parse.ParseException e) {
@@ -109,8 +117,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            finish();
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

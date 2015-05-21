@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,18 +18,15 @@ import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class QuickContactActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     String oidPos;
-    private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> catArray = new ArrayList<>();
@@ -56,12 +52,12 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
             try {
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("contacts");
                 List<ParseObject> objects = query1.find();
-                //ParseObject.pinAllInBackground(objects);
+                ParseObject.pinAllInBackground(objects);
             } catch (com.parse.ParseException e) {
                 e.printStackTrace();
             }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-            //query.fromLocalDatastore();
+            query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 @Override

@@ -32,6 +32,7 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
     String oidPos;
     ListView lv;
+    private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> oidArray;
@@ -50,8 +51,15 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
+                List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-            //query.fromLocalDatastore();
+            query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 @Override
@@ -108,8 +116,8 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            Intent logout = new Intent(this, MainActivity.class);
+            this.startActivity(logout);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
