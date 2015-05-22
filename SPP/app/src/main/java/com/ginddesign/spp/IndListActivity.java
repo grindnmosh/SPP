@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -29,6 +31,7 @@ public class IndListActivity extends AppCompatActivity {
     public static ArrayList<String> desArray = new ArrayList<>();
     Context context = this;
     String passedName;
+    TextView listName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,11 @@ public class IndListActivity extends AppCompatActivity {
         final Intent i = getIntent();
         passedName = i.getStringExtra("listName");
 
+        listName = (TextView) findViewById(R.id.indListName);
         final ListView lv = (ListView) findViewById(R.id.list);
+
+        listName.setText(passedName);
+
         nameArray = new ArrayList<>();
         itemArray = new ArrayList<>();
         desArray = new ArrayList<>();

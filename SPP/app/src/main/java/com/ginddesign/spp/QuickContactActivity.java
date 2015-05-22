@@ -21,11 +21,14 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class QuickContactActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     String oidPos;
+    private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> catArray = new ArrayList<>();
@@ -38,10 +41,7 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quickcontact);
 
-        nameArray = new ArrayList<>();
-        catArray = new ArrayList<>();
-        oidArray = new ArrayList<>();
-        phoneArray = new ArrayList<>();
+
         final ListView lv = (ListView) findViewById(R.id.qcList);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -86,14 +86,18 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                     }
                 }
             });
-            mainListAdapter = null;
             mainListAdapter = new ContactCell(context, R.layout.activity_contactcell, nameArray);
 
             lv.setOnItemClickListener(this);
             lv.setOnItemLongClickListener(this);
             lv.setAdapter(mainListAdapter);
+
         }
     }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

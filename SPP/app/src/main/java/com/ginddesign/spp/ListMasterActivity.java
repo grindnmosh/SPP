@@ -28,7 +28,7 @@ import java.util.TimerTask;
 public class ListMasterActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     String namePos;
-    private Timer sched;
+
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> listNameArray = new ArrayList<>();
@@ -40,7 +40,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Hit", "Hit");
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_listmaster);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
@@ -52,6 +52,27 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
             try {
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
                 List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                ParseQuery<ParseObject> query2 = ParseQuery.getQuery("contacts");
+                List<ParseObject> objects = query2.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                ParseQuery<ParseObject> query3 = ParseQuery.getQuery("children");
+                List<ParseObject> objects = query3.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                ParseQuery<ParseObject> query4 = ParseQuery.getQuery("images");
+                List<ParseObject> objects = query4.find();
                 ParseObject.pinAllInBackground(objects);
             } catch (com.parse.ParseException e) {
                 e.printStackTrace();
@@ -82,14 +103,12 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
                                     }
                                 }
                             }
-                            mainListAdapter.notifyDataSetChanged();
                             Log.i("WTF", listNameArray.toString());
                         }
 
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
-                    mainListAdapter.notifyDataSetChanged();
                 }
             });
             mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
@@ -153,6 +172,27 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
                 } catch (com.parse.ParseException e) {
                     e.printStackTrace();
                 }
+                try {
+                    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("contacts");
+                    List<ParseObject> objects = query2.find();
+                    ParseObject.pinAllInBackground(objects);
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    ParseQuery<ParseObject> query3 = ParseQuery.getQuery("children");
+                    List<ParseObject> objects = query3.find();
+                    ParseObject.pinAllInBackground(objects);
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    ParseQuery<ParseObject> query4 = ParseQuery.getQuery("images");
+                    List<ParseObject> objects = query4.find();
+                    ParseObject.pinAllInBackground(objects);
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
                 query.fromLocalDatastore();
                 query.findInBackground(new FindCallback<ParseObject>() {
@@ -193,14 +233,15 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
         }
     };
 
-    public void resume() {
+    private void resume() {
+        Timer sched;
         sched = new Timer();
         sched.schedule(new TimerTask() {
             @Override
             public void run() {
                 TimerMethod();
             }
-        }, 0, 5000);
+        }, 0, 120000);
     }
 
     @Override

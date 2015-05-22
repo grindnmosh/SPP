@@ -11,8 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.parse.ParseACL;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -24,6 +27,9 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
+    ImageButton snapShot;
+    EditText picName;
+    String name;
 
 
     @Override
@@ -31,9 +37,24 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_limage);
 
-
-
+        picName = (EditText) findViewById(R.id.nameImage);
+        snapShot = (ImageButton) findViewById(R.id.snapPic);
         final ListView lv = (ListView) findViewById(R.id.ilist);
+
+
+
+        snapShot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    name = picName.getText().toString().trim();
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    }
+
+            }
+        });
 
         String[] imageList = getResources().getStringArray(R.array.ilist);
 
@@ -96,16 +117,20 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            final ParseObject images = new ParseObject("images");
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteMe = stream.toByteArray();
-            ParseFile imageFile = new ParseFile("spp.png", byteMe);
-            imageFile.saveInBackground();
-            images.put("spp_image", imageFile);
-            images.pinInBackground();
-            images.saveInBackground();
+            if (!name.equals("")) {
+                final ParseObject images = new ParseObject("images");
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteMe = stream.toByteArray();
+                ParseFile imageFile = new ParseFile(name + ".png", byteMe);
+                imageFile.saveInBackground();
+                images.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                images.put("Name", name);
+                images.put("spp_image", imageFile);
+                images.pinInBackground();
+                images.saveInBackground();
+            }
         }
     }
 
