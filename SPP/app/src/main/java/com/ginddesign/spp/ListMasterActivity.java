@@ -21,11 +21,14 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class ListMasterActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     String namePos;
+    private Timer sched;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> listNameArray = new ArrayList<>();
@@ -95,39 +98,12 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
             lv.setOnItemLongClickListener(this);
 
             lv.setAdapter(mainListAdapter);
+
+            resume();
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            ParseUser.logOut();
-            finish();
-        }
-        else if (id == R.id.action_qc) {
-            Intent qc = new Intent(this, QuickContactActivity.class);
-            this.startActivity(qc);
-        }
-        else if (id == R.id.action_lock) {
-            Intent lock = new Intent(this, LSignInActivity.class);
-            this.startActivity(lock);
-        }
-        else if (id == R.id.action_add) {
-            Intent add = new Intent(this, NewListActivity.class);
-            this.startActivity(add);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     @Override
@@ -157,5 +133,105 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         return false;
+    }
+
+    private void TimerMethod()
+    {
+        this.runOnUiThread(Timer_Tick);
+    }
+
+
+    private Runnable Timer_Tick = new Runnable() {
+        public void run() {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                try {
+                    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
+                    List<ParseObject> objects = query1.find();
+                    ParseObject.pinAllInBackground(objects);
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+                query.fromLocalDatastore();
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List list, com.parse.ParseException e) {
+                        Log.i("Array", "Entry Point Done");
+
+                        if (e == null) {
+                            for (int i = 0; i < list.size(); i++) {
+                                Log.i("Array", "Entry Point Done");
+                                Object object = list.get(i);
+
+
+                                String name = ((ParseObject) object).getString("Name");
+
+                                nameArray.add(name);
+
+                                for (int c = 0; c < nameArray.size(); c++) {
+                                    String compare = nameArray.get(i);
+                                    for (int l = 0; l < list.size(); l++) {
+                                        if (!listNameArray.contains(compare)) {
+                                            listNameArray.add(compare);
+                                            mainListAdapter.notifyDataSetChanged();
+                                        }
+                                    }
+                                }
+                                mainListAdapter.notifyDataSetChanged();
+                                Log.i("WTF", listNameArray.toString());
+                            }
+
+                        } else {
+                            Log.d("Failed", "Error: " + e.getMessage());
+                        }
+                        mainListAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        }
+    };
+
+    public void resume() {
+        sched = new Timer();
+        sched.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                TimerMethod();
+            }
+        }, 0, 5000);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            ParseUser.logOut();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
+        else if (id == R.id.action_qc) {
+            Intent qc = new Intent(this, QuickContactActivity.class);
+            this.startActivity(qc);
+        }
+        else if (id == R.id.action_lock) {
+            Intent lock = new Intent(this, LSignInActivity.class);
+            this.startActivity(lock);
+        }
+        else if (id == R.id.action_add) {
+            Intent add = new Intent(this, NewListActivity.class);
+            this.startActivity(add);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

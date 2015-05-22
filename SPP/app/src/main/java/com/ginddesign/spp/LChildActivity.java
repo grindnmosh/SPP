@@ -39,7 +39,7 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
 
         lv = (ListView) findViewById(R.id.childList);
 
-
+        nameArray = new ArrayList<>();
         oidArray = new ArrayList<>();
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -110,8 +110,8 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            Intent logout = new Intent(this, MainActivity.class);
-            this.startActivity(logout);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

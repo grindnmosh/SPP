@@ -2,6 +2,7 @@ package com.ginddesign.spp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +13,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 
 public class LImageActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     public static ArrayAdapter<String> mainListAdapter;
     Context context = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,17 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
         lv.setOnItemLongClickListener(this);
 
         lv.setAdapter(mainListAdapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent detail = new Intent(LImageActivity.this, LIDetailActivity.class);
+        startActivity(detail);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return false;
     }
 
     @Override
@@ -68,22 +85,29 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, 0);
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent detail = new Intent(LImageActivity.this, LIDetailActivity.class);
-        startActivity(detail);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            final ParseObject images = new ParseObject("images");
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteMe = stream.toByteArray();
+            ParseFile imageFile = new ParseFile("spp.png", byteMe);
+            imageFile.saveInBackground();
+            images.put("spp_image", imageFile);
+            images.pinInBackground();
+            images.saveInBackground();
+        }
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return false;
-    }
+
 }
