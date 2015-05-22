@@ -42,6 +42,11 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
         setContentView(R.layout.activity_quickcontact);
 
 
+        nameArray = new ArrayList<>();
+        catArray = new ArrayList<>();
+        oidArray = new ArrayList<>();
+        phoneArray = new ArrayList<>();
+
         final ListView lv = (ListView) findViewById(R.id.qcList);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
