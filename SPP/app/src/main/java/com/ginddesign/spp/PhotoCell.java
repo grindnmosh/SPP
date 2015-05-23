@@ -9,13 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.parse.ParseImageView;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 
 public class PhotoCell extends ArrayAdapter<String> {
 
     private Context context;
-    private ArrayList<String> arrayLister = IndListActivity.nameArray;
+    private ArrayList<String> arrayLister = LImageActivity.nameArray;
 
 
     public PhotoCell(Context context, int resource, ArrayList<String> arrayLister) {
@@ -25,18 +28,27 @@ public class PhotoCell extends ArrayAdapter<String> {
     }
     public View getView(final int position, View convertView, ViewGroup parent) {
         String name = arrayLister.get(position);
-        String item = IndListActivity.itemArray.get(position);
-        String descrip = IndListActivity.desArray.get(position);
+        String photoFile = LImageActivity.imgrray.get(position);
         Log.i("ArrayLister", name);
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_photocell, null);
 
-        TextView main = (TextView) view.findViewById(R.id.listItem);
-        main.setText(item);
+        TextView sub = (TextView) view.findViewById(R.id.photoName);
+        sub.setText(name);
 
-        TextView sub = (TextView) view.findViewById(R.id.listDescrip);
-        sub.setText(descrip);
+        ParseImageView main = (ParseImageView) view.findViewById(R.id.preview);
+        Picasso.with(context).load(photoFile).into(main);
+
+
+        /*try {
+            byte[] bitmapdata = photoFile.getData();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
+            ParseImageView main = (ParseImageView) view.findViewById(R.id.preview);
+            main.setImageBitmap(bitmap);
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }*/
 
         return view;
     }
