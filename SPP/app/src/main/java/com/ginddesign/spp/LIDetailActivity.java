@@ -34,15 +34,14 @@ public class LIDetailActivity extends AppCompatActivity {
         final Intent i = getIntent();
         String oid = i.getStringExtra("Object ID");
 
-        ParseQuery<ParseObject> query = new ParseQuery<>(
-                "images");
+        ParseQuery<ParseObject> query = new ParseQuery<>("images");
         query.getInBackground(oid, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, com.parse.ParseException e) {
                 ParseFile fileObject = (ParseFile) object.get("spp_image");
-                name = object.getString("Name");
-                TextView nameOf = (TextView) findViewById(R.id.textView26);
-                nameOf.setText(name);
+                String imgName = object.getString("Name");
+                TextView nameIt = (TextView) findViewById(R.id.textView26);
+                nameIt.setText(imgName);
                 fileObject.getDataInBackground(new GetDataCallback() {
                     @Override
                     public void done(byte[] data, com.parse.ParseException e) {

@@ -35,6 +35,4 @@ dependencies {
     // Uncomment if using Facebook Login (optional Maven dependency)
     compile 'com.facebook.android:facebook-android-sdk:4.0.1'
     compile files('libs/Connection.jar')
-
-    compile files('libs/picasso-2.5.2.jar')
 }

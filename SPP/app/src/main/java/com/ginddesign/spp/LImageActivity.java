@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -108,8 +109,9 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         String oidPos = oidArray.get(position);
+        Log.i("OID", oidPos);
         Intent detail = new Intent(LImageActivity.this, LIDetailActivity.class);
-        detail.putExtra("object ID", oidPos);
+        detail.putExtra("Object ID", oidPos);
         startActivity(detail);
     }
 
