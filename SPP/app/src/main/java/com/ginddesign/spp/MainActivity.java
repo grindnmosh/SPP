@@ -7,12 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseAnonymousUtils;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
