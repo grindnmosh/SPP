@@ -166,6 +166,7 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
         }
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, QCNewActivity.class);
+            add.putExtra("Title", "New Contact");
             this.startActivity(add);
         }
 

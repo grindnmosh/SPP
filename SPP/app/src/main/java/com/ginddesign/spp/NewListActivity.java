@@ -103,6 +103,7 @@ public class NewListActivity extends AppCompatActivity {
                         listName.setText("");
                         itemName.setText("");
                         itemDescrip.setText("");
+                        s.setSelection(0);
 
                     } else {
                         ParseObject listMaster = new ParseObject("listMaster");
@@ -116,6 +117,7 @@ public class NewListActivity extends AppCompatActivity {
                         listName.setText("");
                         itemName.setText("");
                         itemDescrip.setText("");
+                        s.setSelection(0);
                     }
 
                 } else {

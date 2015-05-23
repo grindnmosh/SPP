@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -59,15 +60,7 @@ public class QCDetailActivity extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
-                List<ParseObject> objects = query1.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-            query.fromLocalDatastore();
             query.getInBackground(ois, new GetCallback<ParseObject>() {
                 public void done(ParseObject object, com.parse.ParseException e) {
                     if (e == null) {
@@ -108,6 +101,16 @@ public class QCDetailActivity extends AppCompatActivity {
                 }
             });
         }
+
+        conEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent add = new Intent(QCDetailActivity.this, QCNewActivity.class);
+                add.putExtra("Title", "Edit Contact");
+                add.putExtra("Object ID", ois);
+                startActivity(add);
+            }
+        });
 
     }
 

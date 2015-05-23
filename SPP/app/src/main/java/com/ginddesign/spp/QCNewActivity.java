@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 
@@ -29,12 +33,14 @@ public class QCNewActivity extends AppCompatActivity {
     String phone;
     String email;
     String notes;
+    String compareValue;
     EditText qcName;
     EditText qcPhone;
     EditText qcEmail;
     EditText qcNotes;
     Button cancel;
     Button save;
+    TextView title;
     Spinner s;
     Context context = this;
     public static ArrayAdapter<String> loadsAdapter;
@@ -44,7 +50,11 @@ public class QCNewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qcnew);
 
+        final Intent i = getIntent();
+        String pageTitle = i.getStringExtra("Title");
+        final String ois = i.getStringExtra("Object ID");
 
+        title = (TextView) findViewById(R.id.title);
         save = (Button) findViewById(R.id.save1);
         cancel = (Button) findViewById(R.id.cancel1);
         qcName = (EditText) findViewById(R.id.qcName);
@@ -53,9 +63,65 @@ public class QCNewActivity extends AppCompatActivity {
         qcNotes = (EditText) findViewById(R.id.qcNotes);
         s = (Spinner) findViewById(R.id.qcSpin);
 
+        title.setText(pageTitle);
+
+        if (pageTitle.equals("Edit Contact")) {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                query.getInBackground(ois, new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, com.parse.ParseException e) {
+                        if (e == null) {
+                            name = object.getString("Name");
+                            phone = object.getString("Phone");
+                            email = object.getString("Email");
+                            notes = object.getString("Notes");
+                            compareValue = object.getString("Cat");
+                            qcName.setText(name);
+                            qcPhone.setText(phone);
+                            qcEmail.setText(email);
+                            qcNotes.setText(notes);
+
+                            int spinnerPostion = loadsAdapter.getPosition(compareValue);
+                            s.setSelection(spinnerPostion);
+
+                        } else {
+                            Log.d("Failed", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+
+            }else{
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                query.fromLocalDatastore();
+                query.getInBackground(ois, new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, com.parse.ParseException e) {
+                        if (e == null) {
+                            name = object.getString("Name");
+                            phone = object.getString("Phone");
+                            email = object.getString("Email");
+                            notes = object.getString("Notes");
+                            qcName.setText(name);
+                            qcPhone.setText(phone);
+                            qcEmail.setText(email);
+                            qcNotes.setText(notes);
+
+
+                        } else {
+                            Log.d("Failed", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+            }
+        }
+
         loads = getResources().getStringArray(R.array.qc_cat);
         loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, loads);
         s.setAdapter(loadsAdapter);
+
+
+
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -72,6 +138,7 @@ public class QCNewActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
+
         });
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -86,34 +153,40 @@ public class QCNewActivity extends AppCompatActivity {
                     ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo netInfo = cm.getActiveNetworkInfo();
                     if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-
-
-                        ParseObject contacts = new ParseObject("contacts");
-                        contacts.put("Cat", cat);
-                        contacts.put("Name", name);
-                        contacts.put("Phone", phone);
-                        contacts.put("Email", email);
-                        contacts.put("Notes", notes);
-                        contacts.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                        contacts.pinInBackground();
-                        contacts.saveInBackground();
-                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
-                        Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
-                        startActivity(home);
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                        query.getInBackground(ois, new GetCallback<ParseObject>() {
+                            public void done(ParseObject object, com.parse.ParseException e) {
+                                object.put("Cat", cat);
+                                object.put("Name", name);
+                                object.put("Phone", phone);
+                                object.put("Email", email);
+                                object.put("Notes", notes);
+                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                object.pinInBackground();
+                                object.saveInBackground();
+                                ListMasterActivity.mainListAdapter.notifyDataSetChanged();
+                                Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
+                                startActivity(home);
+                            }
+                        });
 
                     } else {
-                        ParseObject contacts = new ParseObject("contacts");
-                        contacts.put("Cat", cat);
-                        contacts.put("Name", name);
-                        contacts.put("Phone", phone);
-                        contacts.put("Email", email);
-                        contacts.put("Notes", notes);
-                        contacts.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                        contacts.pinInBackground();
-                        contacts.saveEventually();
-                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
-                        Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
-                        startActivity(home);
+                        ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                        query.getInBackground(ois, new GetCallback<ParseObject>() {
+                            public void done(ParseObject object, com.parse.ParseException e) {
+                                object.put("Cat", cat);
+                                object.put("Name", name);
+                                object.put("Phone", phone);
+                                object.put("Email", email);
+                                object.put("Notes", notes);
+                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                object.pinInBackground();
+                                object.saveInBackground();
+                                ListMasterActivity.mainListAdapter.notifyDataSetChanged();
+                                Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
+                                startActivity(home);
+                            }
+                        });
                     }
 
                 }else{
