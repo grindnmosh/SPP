@@ -9,24 +9,25 @@
     tools:context="com.ginddesign.spp.PhotoCell">
 
 
-    <com.parse.ParseImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/preview"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/tempimage"
-        android:contentDescription="@string/previeImage" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/photo_text"
         android:id="@+id/photoName"
+        android:textStyle="bold"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/d_create"
+        android:id="@+id/dCreate"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

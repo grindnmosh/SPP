@@ -42,10 +42,7 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
         setContentView(R.layout.activity_quickcontact);
 
 
-        nameArray = new ArrayList<>();
-        catArray = new ArrayList<>();
-        oidArray = new ArrayList<>();
-        phoneArray = new ArrayList<>();
+
 
         final ListView lv = (ListView) findViewById(R.id.qcList);
 
@@ -54,17 +51,24 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 
             try {
+
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("contacts");
+                ParseObject.unpinAllInBackground("contacts");
                 List<ParseObject> objects = query1.find();
                 ParseObject.pinAllInBackground(objects);
             } catch (com.parse.ParseException e) {
                 e.printStackTrace();
             }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+            query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 @Override
                 public void done(List list, com.parse.ParseException e) {
+                    nameArray = new ArrayList<>();
+                    catArray = new ArrayList<>();
+                    oidArray = new ArrayList<>();
+                    phoneArray = new ArrayList<>();
                     Log.i("Array", "Entry Point Done");
 
                     if (e == null) {

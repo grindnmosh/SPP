@@ -29,9 +29,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +44,7 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
     Bitmap bitmap;
     Bitmap photo;
     public static ArrayList<String> nameArray = new ArrayList<>();
-    public static ArrayList<String> imgrray = new ArrayList<>();
+    public static ArrayList<Bitmap> imgrray = new ArrayList<>();
     public static ArrayList<Bitmap> bmpArray = new ArrayList<>();
 
     @Override
@@ -66,88 +64,62 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("images");
-                List<ParseObject> objects = query1.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("images");
-            query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 @Override
-                public void done(List list, com.parse.ParseException e) {
-                    Log.i("Array", "Entry Point Done");
+                public void done(List<ParseObject> objects, com.parse.ParseException e) {
 
-                    if (e == null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.i("Array", "Entry Point Done");
-                            final ParseObject object = (ParseObject) list.get(i);
-                            final ParseFile photoFile = object.getParseFile("spp_image");
-                            Log.i("XXXXXXXXXXXXXXXXXX", photoFile.getName());
-                            Log.i("XXXXXXXXXXXXXXXXXX", String.valueOf(photoFile.isDataAvailable()));
-                            Log.i("XXXXXXXXXXXXXXXXXX", photoFile.getUrl());
-                            final String pUrl = photoFile.getUrl();
-                            Log.i("XXXXXXXXXXXXXXXXXX", pUrl);
-                            photoFile.getDataInBackground(new GetDataCallback() {
-                                @Override
-                                public void done(byte[] bytes, ParseException e) {
-                                    if (e == null) {
-                                        try {
-                                            byte[] decodedString = photoFile.getData();
-                                            InputStream inputStream  = new ByteArrayInputStream(decodedString);
-                                            photo  = BitmapFactory.decodeStream(inputStream);
-                                        } catch (ParseException e1) {
-                                            e1.printStackTrace();
-                                        }
-                                        String name = object.getString("Name");
+                    for (int i = 0; i < objects.size(); i++) {
 
-                                        nameArray.add(name);
-                                        imgrray.add(pUrl);
-                                        bmpArray.add(photo);
-                                        Log.i("Seeeee", bmpArray.toString());
+                        ParseObject object = objects.get(i);
+                        name = object.getString("Name");
+                        nameArray.add(name);
+                        final ParseFile fileObject = (ParseFile) object.get("spp_image");
+                        Log.i("PARSEFILE IMAGE", fileObject.getName());
+                        Log.i("PARSEFILE IMAGE", fileObject.getUrl());
+                        Log.i("PARSEFILE IMAGE", String.valueOf(fileObject.isDataAvailable()));
+                        fileObject.getDataInBackground(new GetDataCallback() {
+                            public void done(byte[] data, ParseException e) {
+                                if (e == null) {
+                                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                    Log.i("bmp Byte Count", String.valueOf(bmp.getByteCount()));
+                                    imgrray.add(bmp);
 
-                                        mainListAdapter.notifyDataSetChanged();
-                                        Log.i("WTF", nameArray.toString());
-                                    } else {
-                                        Log.d("test", "There was a problem downloading the data.");
-                                    }
+                                } else {
+                                    Log.d("test",
+                                            "There was a problem downloading the data.");
                                 }
-                            });
-                        }
+                            }
+                        });
                     }
-
                     mainListAdapter.notifyDataSetChanged();
                 }
             });
-
-
-            snapShot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    name = picName.getText().toString().trim();
-                    if (!name.equals("")) {
-                        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                        }
-                    } else {
-                        Toast.makeText(context, "Please Provide Name of Image Before launching camera", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            });
-
-            mainListAdapter = new ArrayAdapter<>(context, R.layout.activity_photocell, R.id.photoName,  nameArray);
-
-            lv.setOnItemClickListener(this);
-            lv.setOnItemLongClickListener(this);
-
-            lv.setAdapter(mainListAdapter);
         }
+        mainListAdapter = new PhotoCell(context, R.layout.activity_photocell, nameArray);
+
+        lv.setOnItemClickListener(this);
+        lv.setOnItemLongClickListener(this);
+
+        lv.setAdapter(mainListAdapter);
+
+        snapShot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                name = picName.getText().toString().trim();
+                if (!name.equals("")) {
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    }
+                } else {
+                    Toast.makeText(context, "Please Provide Name of Image Before launching camera", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     @Override

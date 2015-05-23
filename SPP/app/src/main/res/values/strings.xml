@@ -139,6 +139,7 @@
     <string name="previeImage">preview image</string>
     <string name="photo_text">Photo Name</string>
     <string name="title_activity_list_master">ListMasterActivity</string>
+    <string name="d_create">date created</string>
 
 
 </resources>

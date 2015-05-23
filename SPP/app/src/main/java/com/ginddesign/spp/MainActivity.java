@@ -7,8 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseAnonymousUtils;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,10 +56,22 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         setResult(resultCode);
         if (resultCode == RESULT_OK) {
+
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("contacts");
+                List<ParseObject> objects = query1.find();
+                ParseObject.unpinAllInBackground();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+
             Intent home = new Intent(MainActivity.this, ListMasterActivity.class);
             startActivity(home);
         } else {
             finish();
         }
+
+
     }
 }
