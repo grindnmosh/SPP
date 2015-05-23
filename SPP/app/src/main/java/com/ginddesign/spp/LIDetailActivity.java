@@ -1,13 +1,24 @@
 package com.ginddesign.spp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.text.ParseException;
 
 
 public class LIDetailActivity extends AppCompatActivity {
@@ -16,7 +27,9 @@ public class LIDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lidetail);
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -61,6 +61,37 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                 e.printStackTrace();
             }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+            query.findInBackground(new FindCallback<ParseObject>() {
+
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+                    Log.i("Array", "Entry Point Done");
+
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+
+                            Object object = list.get(i);
+
+                            String name = ((ParseObject) object).getString("Name");
+                            String cat = ((ParseObject) object).getString("Cat");
+                            String phone = ((ParseObject) object).getString("Phone");
+                            String oid = ((ParseObject) object).getObjectId();
+
+
+                            nameArray.add(name);
+                            catArray.add(cat);
+                            oidArray.add(oid);
+                            phoneArray.add(phone);
+                            mainListAdapter.notifyDataSetChanged();
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
+        } else {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
             query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
 
@@ -91,13 +122,13 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                     }
                 }
             });
-            mainListAdapter = new ContactCell(context, R.layout.activity_contactcell, nameArray);
-
-            lv.setOnItemClickListener(this);
-            lv.setOnItemLongClickListener(this);
-            lv.setAdapter(mainListAdapter);
 
         }
+        mainListAdapter = new ContactCell(context, R.layout.activity_contactcell, nameArray);
+
+        lv.setOnItemClickListener(this);
+        lv.setOnItemLongClickListener(this);
+        lv.setAdapter(mainListAdapter);
     }
 
 

@@ -9,7 +9,7 @@
     tools:context="com.ginddesign.spp.PhotoCell">
 
 
-    <ImageView
+    <com.parse.ParseImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:id="@+id/preview"
@@ -28,4 +28,5 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:textStyle="bold" />
+
 </RelativeLayout>

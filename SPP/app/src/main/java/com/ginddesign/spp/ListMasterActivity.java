@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -32,7 +33,9 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> listNameArray = new ArrayList<>();
+    ListView lv;
     Context context = this;
+
     public ListMasterActivity() {
     }
 
@@ -44,82 +47,9 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        final ListView lv = (ListView) findViewById(R.id.list_master);
+        lv = (ListView) findViewById(R.id.list_master);
 
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
-                List<ParseObject> objects = query1.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-                ParseQuery<ParseObject> query2 = ParseQuery.getQuery("contacts");
-                List<ParseObject> objects = query2.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-                ParseQuery<ParseObject> query3 = ParseQuery.getQuery("children");
-                List<ParseObject> objects = query3.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-                ParseQuery<ParseObject> query4 = ParseQuery.getQuery("images");
-                List<ParseObject> objects = query4.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            query.fromLocalDatastore();
-            query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List list, com.parse.ParseException e) {
-                    Log.i("Array", "Entry Point Done");
-
-                    if (e == null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.i("Array", "Entry Point Done");
-                            Object object = list.get(i);
-
-
-                            String name = ((ParseObject) object).getString("Name");
-
-                            nameArray.add(name);
-
-                            for (int c = 0; c < nameArray.size(); c++) {
-                                String compare = nameArray.get(i);
-                                for (int l = 0; l < list.size(); l++) {
-                                    if (!listNameArray.contains(compare)) {
-                                        listNameArray.add(compare);
-                                        mainListAdapter.notifyDataSetChanged();
-                                    }
-                                }
-                            }
-                            Log.i("WTF", listNameArray.toString());
-                        }
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-                }
-            });
-            mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
-
-            lv.setOnItemClickListener(this);
-            lv.setOnItemLongClickListener(this);
-
-            lv.setAdapter(mainListAdapter);
-
-            resume();
-        }
+        resume();
     }
 
 
@@ -172,64 +102,80 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
                 } catch (com.parse.ParseException e) {
                     e.printStackTrace();
                 }
-                try {
-                    ParseQuery<ParseObject> query2 = ParseQuery.getQuery("contacts");
-                    List<ParseObject> objects = query2.find();
-                    ParseObject.pinAllInBackground(objects);
-                } catch (com.parse.ParseException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    ParseQuery<ParseObject> query3 = ParseQuery.getQuery("children");
-                    List<ParseObject> objects = query3.find();
-                    ParseObject.pinAllInBackground(objects);
-                } catch (com.parse.ParseException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    ParseQuery<ParseObject> query4 = ParseQuery.getQuery("images");
-                    List<ParseObject> objects = query4.find();
-                    ParseObject.pinAllInBackground(objects);
-                } catch (com.parse.ParseException e) {
-                    e.printStackTrace();
-                }
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-                query.fromLocalDatastore();
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List list, com.parse.ParseException e) {
-                        Log.i("Array", "Entry Point Done");
+                        nameArray = new ArrayList<>();
+                        listNameArray = new ArrayList<>();
 
                         if (e == null) {
                             for (int i = 0; i < list.size(); i++) {
-                                Log.i("Array", "Entry Point Done");
                                 Object object = list.get(i);
 
 
                                 String name = ((ParseObject) object).getString("Name");
-
                                 nameArray.add(name);
 
-                                for (int c = 0; c < nameArray.size(); c++) {
-                                    String compare = nameArray.get(i);
-                                    for (int l = 0; l < list.size(); l++) {
-                                        if (!listNameArray.contains(compare)) {
-                                            listNameArray.add(compare);
-                                            mainListAdapter.notifyDataSetChanged();
-                                        }
-                                    }
-                                }
-                                mainListAdapter.notifyDataSetChanged();
-                                Log.i("WTF", listNameArray.toString());
+
                             }
 
                         } else {
                             Log.d("Failed", "Error: " + e.getMessage());
                         }
-                        mainListAdapter.notifyDataSetChanged();
+                        for (int c = 0; c < nameArray.size(); c++) {
+                            String compare = nameArray.get(c);
+                            for (int l = 0; l < list.size(); l++) {
+                                if (!listNameArray.contains(compare)) {
+                                    listNameArray.add(compare);
+                                    mainListAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    }
+                });
+            } else {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+                query.fromLocalDatastore();
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List list, com.parse.ParseException e) {
+
+                        if (e == null) {
+                            for (int i = 0; i < list.size(); i++) {
+                                Object object = list.get(i);
+
+
+                                String name = ((ParseObject) object).getString("Name");
+                                nameArray.add(name);
+
+
+                            }
+
+                        } else {
+                            Log.d("Failed", "Error: " + e.getMessage());
+                        }
+
+                        for (int c = 0; c < nameArray.size(); c++) {
+                            String compare = nameArray.get(c);
+                            for (int l = 0; l < list.size(); l++) {
+                                if (!listNameArray.contains(compare)) {
+                                    listNameArray.add(compare);
+                                    mainListAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
                     }
                 });
             }
+            Log.i("WTF", listNameArray.toString());
+            mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
+
+            lv.setOnItemClickListener(ListMasterActivity.this);
+            lv.setOnItemLongClickListener(ListMasterActivity.this);
+
+            lv.setAdapter(mainListAdapter);
+
         }
     };
 
@@ -241,7 +187,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
             public void run() {
                 TimerMethod();
             }
-        }, 0, 120000);
+        }, 0, 5000);
     }
 
     @Override
