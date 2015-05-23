@@ -49,7 +49,10 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-
+            nameArray = new ArrayList<>();
+            catArray = new ArrayList<>();
+            oidArray = new ArrayList<>();
+            phoneArray = new ArrayList<>();
             try {
 
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("contacts");
@@ -60,15 +63,11 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                 e.printStackTrace();
             }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-            query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 @Override
                 public void done(List list, com.parse.ParseException e) {
-                    nameArray = new ArrayList<>();
-                    catArray = new ArrayList<>();
-                    oidArray = new ArrayList<>();
-                    phoneArray = new ArrayList<>();
+
                     Log.i("Array", "Entry Point Done");
 
                     if (e == null) {
@@ -86,14 +85,15 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                             catArray.add(cat);
                             oidArray.add(oid);
                             phoneArray.add(phone);
-                            mainListAdapter.notifyDataSetChanged();
-                        }
 
+                        }
+                        mainListAdapter.notifyDataSetChanged();
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
                 }
             });
+
         } else {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
             query.fromLocalDatastore();
@@ -118,9 +118,9 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
                             catArray.add(cat);
                             oidArray.add(oid);
                             phoneArray.add(phone);
-                            mainListAdapter.notifyDataSetChanged();
-                        }
 
+                        }
+                        mainListAdapter.notifyDataSetChanged();
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }

@@ -16,7 +16,9 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class PhotoCell extends ArrayAdapter<String> {
@@ -32,18 +34,18 @@ public class PhotoCell extends ArrayAdapter<String> {
         this.arrayLister = arrayLister;
     }
     public View getView(final int position, View convertView, ViewGroup parent) {
+        String name = arrayLister.get(position);
+        Date create = LImageActivity.createArray.get(position);
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_photocell, null);
-        String name = arrayLister.get(position);
-        if (photoFile != null) {
-            photoFile = LImageActivity.imgrray.get(position);
-        }
-        TextView sub = (TextView) view.findViewById(R.id.photoName);
-        sub.setText(name);
 
-        ParseImageView main = (ParseImageView) view.findViewById(R.id.preview);
-        main.setImageBitmap(photoFile);
+        TextView main = (TextView) view.findViewById(R.id.photoName);
+        main.setText(name);
+
+        TextView sub = (TextView) view.findViewById(R.id.dCreate);
+        SimpleDateFormat sdf = new SimpleDateFormat( "yyyy/MM/dd" );
+        sub.setText(sdf.format(create));
 
         return view;
     }

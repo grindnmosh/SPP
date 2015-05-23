@@ -50,6 +50,92 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
         lv = (ListView) findViewById(R.id.list_master);
 
         resume();
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            nameArray = new ArrayList<>();
+            listNameArray = new ArrayList<>();
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
+                List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+
+
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Object object = list.get(i);
+
+
+                            String name = ((ParseObject) object).getString("Name");
+                            nameArray.add(name);
+
+
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                    for (int c = 0; c < nameArray.size(); c++) {
+                        String compare = nameArray.get(c);
+                        for (int l = 0; l < list.size(); l++) {
+                            if (!listNameArray.contains(compare)) {
+                                listNameArray.add(compare);
+                            }
+                        }
+                    }
+                    mainListAdapter.notifyDataSetChanged();
+                }
+            });
+        } else {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+            query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Object object = list.get(i);
+
+
+                            String name = ((ParseObject) object).getString("Name");
+                            nameArray.add(name);
+
+
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+
+                    for (int c = 0; c < nameArray.size(); c++) {
+                        String compare = nameArray.get(c);
+                        for (int l = 0; l < list.size(); l++) {
+                            if (!listNameArray.contains(compare)) {
+                                listNameArray.add(compare);
+
+                            }
+                        }
+                    }
+                    mainListAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+        Log.i("WTF", listNameArray.toString());
+        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
+
+        lv.setOnItemClickListener(ListMasterActivity.this);
+        lv.setOnItemLongClickListener(ListMasterActivity.this);
+
+        lv.setAdapter(mainListAdapter);
     }
 
 
@@ -216,6 +302,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
         }
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, NewListActivity.class);
+            add.putExtra("listNameArray", listNameArray);
             this.startActivity(add);
         }
 

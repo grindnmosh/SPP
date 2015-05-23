@@ -3,13 +3,11 @@ package com.ginddesign.spp;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetDataCallback;
 import com.parse.ParseACL;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -31,6 +27,7 @@ import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LImageActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
@@ -41,24 +38,23 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
     ImageButton snapShot;
     EditText picName;
     String name;
-    Bitmap bitmap;
-    Bitmap photo;
     public static ArrayList<String> nameArray = new ArrayList<>();
-    public static ArrayList<Bitmap> imgrray = new ArrayList<>();
-    public static ArrayList<Bitmap> bmpArray = new ArrayList<>();
+    public static ArrayList<Date> createArray = new ArrayList<>();
+    public static ArrayList<String> oidArray = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_limage);
-        nameArray = new ArrayList<>();
-        bmpArray = new ArrayList<>();
+
         picName = (EditText) findViewById(R.id.nameImage);
         snapShot = (ImageButton) findViewById(R.id.snapPic);
         final ListView lv = (ListView) findViewById(R.id.ilist);
 
-
-        imgrray = new ArrayList<>();
+        nameArray = new ArrayList<>();
+        createArray = new ArrayList<>();
+        oidArray = new ArrayList<>();
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -66,32 +62,18 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("images");
             query.findInBackground(new FindCallback<ParseObject>() {
-
                 @Override
                 public void done(List<ParseObject> objects, com.parse.ParseException e) {
-
                     for (int i = 0; i < objects.size(); i++) {
-
                         ParseObject object = objects.get(i);
                         name = object.getString("Name");
-                        nameArray.add(name);
-                        final ParseFile fileObject = (ParseFile) object.get("spp_image");
-                        Log.i("PARSEFILE IMAGE", fileObject.getName());
-                        Log.i("PARSEFILE IMAGE", fileObject.getUrl());
-                        Log.i("PARSEFILE IMAGE", String.valueOf(fileObject.isDataAvailable()));
-                        fileObject.getDataInBackground(new GetDataCallback() {
-                            public void done(byte[] data, ParseException e) {
-                                if (e == null) {
-                                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                    Log.i("bmp Byte Count", String.valueOf(bmp.getByteCount()));
-                                    imgrray.add(bmp);
+                        String oid = (object).getObjectId();
+                        Date creation = (object).getCreatedAt();
 
-                                } else {
-                                    Log.d("test",
-                                            "There was a problem downloading the data.");
-                                }
-                            }
-                        });
+                        nameArray.add(name);
+                        oidArray.add(oid);
+                        createArray.add(creation);
+
                     }
                     mainListAdapter.notifyDataSetChanged();
                 }
@@ -124,7 +106,10 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        String oidPos = oidArray.get(position);
         Intent detail = new Intent(LImageActivity.this, LIDetailActivity.class);
+        detail.putExtra("object ID", oidPos);
         startActivity(detail);
     }
 

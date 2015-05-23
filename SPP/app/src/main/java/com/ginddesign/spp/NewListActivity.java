@@ -22,6 +22,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
+import java.util.ArrayList;
+
 
 public class NewListActivity extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class NewListActivity extends AppCompatActivity {
     EditText listName;
     EditText itemName;
     EditText itemDescrip;
+    public static ArrayList<String> listNameArray = new ArrayList<>();
 
     public static ArrayAdapter<String> loadsAdapter;
 
@@ -43,7 +46,8 @@ public class NewListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newlist);
-
+        listNameArray = new ArrayList<>();
+        listNameArray.add("Current Lists");
         save = (Button) findViewById(R.id.save);
         cancel = (Button) findViewById(R.id.cancel);
         s = (Spinner) findViewById(R.id.listSpin);
@@ -51,8 +55,11 @@ public class NewListActivity extends AppCompatActivity {
         itemName = (EditText) findViewById(R.id.newItem);
         itemDescrip = (EditText) findViewById(R.id.itemDescrip);
 
+        final Intent i = getIntent();
+        listNameArray.addAll(i.getStringArrayListExtra("listNameArray"));
+
         loads = getResources().getStringArray(R.array.spinner);
-        loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, loads);
+        loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, listNameArray);
         s.setAdapter(loadsAdapter);
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -106,7 +113,9 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.pinInBackground();
                         listMaster.saveEventually();
                         ListMasterActivity.mainListAdapter.notifyDataSetChanged();
-
+                        listName.setText("");
+                        itemName.setText("");
+                        itemDescrip.setText("");
                     }
 
                 } else {

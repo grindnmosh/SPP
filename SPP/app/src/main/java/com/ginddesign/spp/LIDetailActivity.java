@@ -36,9 +36,13 @@ public class LIDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lidetail);
+
+        final Intent i = getIntent();
+        String oid = i.getStringExtra("Object ID");
+
         ParseQuery<ParseObject> query = new ParseQuery<>(
                 "images");
-        query.getInBackground("S40qtM49m5", new GetCallback<ParseObject>() {
+        query.getInBackground(oid, new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, com.parse.ParseException e) {
                 ParseFile fileObject = (ParseFile) object.get("spp_image");
