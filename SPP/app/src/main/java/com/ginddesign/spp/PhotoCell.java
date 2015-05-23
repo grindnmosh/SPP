@@ -40,7 +40,6 @@ public class PhotoCell extends ArrayAdapter<String> {
         ParseImageView main = (ParseImageView) view.findViewById(R.id.preview);
         Picasso.with(context).load(photoFile).into(main);
 
-
         /*try {
             byte[] bitmapdata = photoFile.getData();
             Bitmap bitmap = BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.length);
