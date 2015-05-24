@@ -62,6 +62,7 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
         itemArray = new ArrayList<>();
         desArray = new ArrayList<>();
         oidArray = new ArrayList<>();
+        cbArray = new ArrayList<>();
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
@@ -72,6 +73,36 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
             } catch (com.parse.ParseException e) {
                 e.printStackTrace();
             }
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+            query.whereEqualTo("Name", passedName);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> list, com.parse.ParseException e) {
+                    Log.i("Array", "Entry Point Done");
+
+                    if (e == null) {
+                        for (ParseObject listmasterobject : list) {
+                            String name = listmasterobject.get("Name").toString();
+                            String item = listmasterobject.get("item").toString();
+                            String descrip = listmasterobject.get("Descrip").toString();
+                            String checkBox = listmasterobject.get("isChecked").toString();
+                            String oid = (listmasterobject).getObjectId();
+                            Log.i("TEST Run", name);
+                            nameArray.add(name);
+                            itemArray.add(item);
+                            desArray.add(descrip);
+                            oidArray.add(oid);
+                            cbArray.add(checkBox);
+                            Log.i("TEST Run", desArray.toString());
+                            mainListAdapter.notifyDataSetChanged();
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
+        } else {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
             query.whereEqualTo("Name", passedName);
             query.fromLocalDatastore();

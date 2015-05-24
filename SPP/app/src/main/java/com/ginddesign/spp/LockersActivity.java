@@ -64,10 +64,19 @@ public class LockersActivity extends AppCompatActivity {
             this.startActivity(qc);
         }
         else if (id == R.id.action_home) {
-            Intent lock = new Intent(this, ListMasterActivity.class);
-            this.startActivity(lock);
+            Intent home = new Intent(this, ListMasterActivity.class);
+            this.startActivity(home);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent home = new Intent(this, ListMasterActivity.class);
+        this.startActivity(home);
+
+
     }
 }

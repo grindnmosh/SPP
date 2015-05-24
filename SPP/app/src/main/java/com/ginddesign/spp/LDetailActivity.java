@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,7 +40,6 @@ public class LDetailActivity extends AppCompatActivity {
     TextView dss;
     TextView dAll;
     TextView dMed;
-    TextView dShot;
     ListView lv;
     JSONArray fileName = new JSONArray();
     JSONArray fileinfo = new JSONArray();
@@ -58,7 +58,7 @@ public class LDetailActivity extends AppCompatActivity {
         dss = (TextView) findViewById(R.id.dss);
         dAll = (TextView) findViewById(R.id.dAll);
         dMed = (TextView) findViewById(R.id.dMed);
-        dShot = (TextView) findViewById(R.id.dShot);
+        final TextView dShot = (TextView) findViewById(R.id.dShot);
         lv = (ListView) findViewById(R.id.linkList);
 
         final Intent i = getIntent();
@@ -78,7 +78,6 @@ public class LDetailActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-            query.fromLocalDatastore();
             query.getInBackground(ois, new GetCallback<ParseObject>() {
                 public void done(ParseObject object, com.parse.ParseException e) {
                     if (e == null) {
@@ -110,7 +109,7 @@ public class LDetailActivity extends AppCompatActivity {
                         dAll.setText(all);
                         dMed.setText(med);
                         dShot.setText(shot);
-
+                        Linkify.addLinks(dShot, Linkify.WEB_URLS);
 
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
@@ -151,6 +150,7 @@ public class LDetailActivity extends AppCompatActivity {
                         dAll.setText(all);
                         dMed.setText(med);
                         dShot.setText(shot);
+                        Linkify.addLinks(dShot, Linkify.WEB_URLS);
 
 
                     } else {

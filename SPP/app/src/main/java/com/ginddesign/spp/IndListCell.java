@@ -51,25 +51,25 @@ public class IndListCell extends ArrayAdapter<String> {
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_indlistcell, null);
 
-                TextView main = (TextView) view.findViewById(R.id.listItem);
-                main.setText(item);
+        TextView main = (TextView) view.findViewById(R.id.listItem);
+        main.setText(item);
 
-                TextView sub  = (TextView) view.findViewById(R.id.listDescrip);
-                sub.setText(descrip);
+        TextView sub  = (TextView) view.findViewById(R.id.listDescrip);
+        sub.setText(descrip);
 
-                cBox[position] = (CheckBox) view.findViewById(R.id.checkBox);
-                cBox[position].setTag(oIDArray.get(position));
-                cBox[position].setChecked(checkIt[position]);
-                if (checker.equals("true")) {
-                    cBox[position].setChecked(!cBox[position].isChecked());
-                } else {
-                    cBox[position].setChecked(cBox[position].isChecked());
-                }
+        cBox[position] = (CheckBox) view.findViewById(R.id.checkBox);
+        cBox[position].setTag(oIDArray.get(position));
+        cBox[position].setChecked(checkIt[position]);
+        if (checker.equals("true")) {
+            cBox[position].setChecked(!cBox[position].isChecked());
+        } else {
+            cBox[position].setChecked(cBox[position].isChecked());
+        }
 
-                cBox[position].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
-                        checkIt[position] = isChecked;
+        cBox[position].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
+                checkIt[position] = isChecked;
                 String current = (String) cBox[position].getTag();
                 Log.i("OID", oID);
 
@@ -77,18 +77,22 @@ public class IndListCell extends ArrayAdapter<String> {
                 query.getInBackground(current, new GetCallback<ParseObject>() {
                     public void done(ParseObject object, com.parse.ParseException e) {
                         Log.i("isChecked", String.valueOf(isChecked));
+
                         object.put("isChecked", String.valueOf(isChecked));
                         object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         object.pinInBackground();
                         object.saveInBackground();
-                        cBox[position].setChecked(cBox[position].isChecked());
+
+                        //cBox[position].setChecked(cBox[position].isChecked());
                     }
                 });
 
             }
 
-        });
 
+
+        });
+        IndListActivity.mainListAdapter.notifyDataSetChanged();
         return view;
     }
 

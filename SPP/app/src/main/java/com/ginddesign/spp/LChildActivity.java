@@ -53,7 +53,6 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
                 e.printStackTrace();
             }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-            query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 @Override
@@ -84,13 +83,47 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
                 }
             });
 
-            mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, nameArray);
 
-            lv.setOnItemClickListener(this);
-            lv.setOnItemLongClickListener(this);
+        } else {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
+            query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
 
-            lv.setAdapter(mainListAdapter);
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+                    Log.i("Array", "Entry Point Done");
+
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", "Entry Point Done");
+                            Object object = list.get(i);
+
+
+                            String name = ((ParseObject) object).getString("Name");
+                            String oid = ((ParseObject) object).getObjectId();
+
+                            nameArray.add(name);
+                            oidArray.add(oid);
+                            if (nameArray != null) {
+                                Log.i("Array", oidArray.toString());
+                                mainListAdapter.notifyDataSetChanged();
+                            }
+
+                        }
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
         }
+
+        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, nameArray);
+
+        lv.setOnItemClickListener(this);
+        lv.setOnItemLongClickListener(this);
+
+        lv.setAdapter(mainListAdapter);
     }
 
     @Override

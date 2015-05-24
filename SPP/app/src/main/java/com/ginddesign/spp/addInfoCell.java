@@ -2,6 +2,7 @@ package com.ginddesign.spp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class addInfoCell extends ArrayAdapter<String> {
         Log.i("sub", inform);
         TextView sub  = (TextView) view.findViewById(R.id.docInfo);
         sub.setText(inform);
+        Linkify.addLinks(sub, Linkify.WEB_URLS);
 
         return view;
     }

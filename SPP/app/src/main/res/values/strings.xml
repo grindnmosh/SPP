@@ -20,7 +20,7 @@
     <string name="allergy">Allergies:</string>
     <string name="medical">Medical Conditions:</string>
     <string name="shot">Shot Records:</string>
-    <string name="add">Additional Documents And Links</string>
+    <string name="add">Additional Information</string>
     <string name="lsign">Please sign in again to access this area.</string>
     <string name="action_settings">Logout</string>
     <string name="title_activity_new_list">NewListActivity</string>

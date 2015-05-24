@@ -122,7 +122,8 @@
         android:layout_below="@+id/textView20"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:clickable="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -134,6 +135,8 @@
         android:textStyle="bold"
         android:textSize="20sp"
         android:layout_below="@+id/dShot"
+        android:autoLink="web"
+        android:linksClickable="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="35dp" />
