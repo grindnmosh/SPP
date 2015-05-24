@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -101,6 +102,30 @@ public class QCDetailActivity extends AppCompatActivity {
                 }
             });
         }
+
+        makeCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL, (Uri.parse("tel:" + conPhone.getText())));
+                startActivity(Intent.createChooser(intent, "Call From"));
+            }
+        });
+
+        sendMess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + conPhone.getText()));
+                startActivity(Intent.createChooser(intent, "Message From"));
+            }
+        });
+
+        sendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", String.valueOf(conEmail.getText()), null));
+                startActivity(Intent.createChooser(emailIntent, "Email From"));
+            }
+        });
 
         conEdit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.ginddesign.spp.IndListActivity">
     <item android:id="@+id/action_share" android:title="@string/share" android:icon="@drawable/share"
-        android:orderInCategory="100" app:showAsAction="ifRoom" />
+        android:orderInCategory="100" app:showAsAction="ifRoom" android:actionProviderClass=
+        "android.widget.ShareActionProvider" />
     <item android:id="@+id/action_add" android:title="@string/addNew" android:icon="@drawable/plus"
         android:orderInCategory="100" app:showAsAction="ifRoom" />
     <item android:id="@+id/action_home" android:title="@string/home"

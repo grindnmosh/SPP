@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -17,8 +18,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseACL;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -41,6 +40,7 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
     TextView listName;
     Boolean isChecked;
     String oid;
+    android.support.v7.widget.ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +116,20 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_indlist, menu);
+
+        MenuItem item = menu.findItem(R.id.action_share);
+
+        mShareActionProvider = (android.support.v7.widget.ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        // Return true to display menu
         return true;
+    }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 
     @Override
@@ -145,7 +158,11 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
             this.startActivity(add);
         }
         else if (id == R.id.action_share) {
-            Log.i("DO", "NOTHING");
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, itemArray.toString());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "Share Using"));
         }
 
         return super.onOptionsItemSelected(item);
