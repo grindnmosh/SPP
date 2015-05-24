@@ -9,11 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseACL;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -22,15 +27,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class IndListActivity extends AppCompatActivity {
+public class IndListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener{
 
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> itemArray = new ArrayList<>();
     public static ArrayList<String> desArray = new ArrayList<>();
+    public static ArrayList<String> oidArray = new ArrayList<>();
+    public static ArrayList<String> cbArray = new ArrayList<>();
     Context context = this;
     String passedName;
+    CheckBox check;
     TextView listName;
+    Boolean isChecked;
+    String oid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +52,16 @@ public class IndListActivity extends AppCompatActivity {
 
         listName = (TextView) findViewById(R.id.indListName);
         final ListView lv = (ListView) findViewById(R.id.list);
+        check = (CheckBox) findViewById(R.id.checkBox);
 
         listName.setText(passedName);
+
+
 
         nameArray = new ArrayList<>();
         itemArray = new ArrayList<>();
         desArray = new ArrayList<>();
+        oidArray = new ArrayList<>();
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
@@ -71,10 +85,14 @@ public class IndListActivity extends AppCompatActivity {
                             String name = listmasterobject.get("Name").toString();
                             String item = listmasterobject.get("item").toString();
                             String descrip = listmasterobject.get("Descrip").toString();
+                            String checkBox = listmasterobject.get("isChecked").toString();
+                            String oid = (listmasterobject).getObjectId();
                             Log.i("TEST Run", name);
                             nameArray.add(name);
                             itemArray.add(item);
                             desArray.add(descrip);
+                            oidArray.add(oid);
+                            cbArray.add(checkBox);
                             Log.i("TEST Run", desArray.toString());
                             mainListAdapter.notifyDataSetChanged();
                         }
@@ -86,9 +104,12 @@ public class IndListActivity extends AppCompatActivity {
             });
         }
 
-        mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray);
+        mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray, oidArray);
 
         lv.setAdapter(mainListAdapter);
+
+
+
     }
 
     @Override
@@ -131,4 +152,14 @@ public class IndListActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return false;
+    }
 }

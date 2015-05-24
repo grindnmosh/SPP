@@ -94,6 +94,7 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.put("Name", lName);
                         listMaster.put("item", iName);
                         listMaster.put("Descrip", descrip);
+                        listMaster.put("isChecked", "false");
                         listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         listMaster.pinInBackground();
                         listMaster.saveInBackground();

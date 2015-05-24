@@ -181,7 +181,7 @@ public class QCNewActivity extends AppCompatActivity {
                                 object.put("Notes", notes);
                                 object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                 object.pinInBackground();
-                                object.saveInBackground();
+                                object.saveEventually();
                                 ListMasterActivity.mainListAdapter.notifyDataSetChanged();
                                 Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
                                 startActivity(home);
