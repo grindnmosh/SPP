@@ -107,6 +107,9 @@ public class QCNewActivity extends AppCompatActivity {
                             qcEmail.setText(email);
                             qcNotes.setText(notes);
 
+                            int spinnerPostion = loadsAdapter.getPosition(compareValue);
+                            s.setSelection(spinnerPostion);
+
 
                         } else {
                             Log.d("Failed", "Error: " + e.getMessage());

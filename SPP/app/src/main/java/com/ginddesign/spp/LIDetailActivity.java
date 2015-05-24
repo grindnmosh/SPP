@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.List;
 
 
 public class LIDetailActivity extends AppCompatActivity {
@@ -34,29 +37,65 @@ public class LIDetailActivity extends AppCompatActivity {
         final Intent i = getIntent();
         String oid = i.getStringExtra("Object ID");
 
-        ParseQuery<ParseObject> query = new ParseQuery<>("images");
-        query.getInBackground(oid, new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, com.parse.ParseException e) {
-                ParseFile fileObject = (ParseFile) object.get("spp_image");
-                String imgName = object.getString("Name");
-                TextView nameIt = (TextView) findViewById(R.id.textView26);
-                nameIt.setText(imgName);
-                fileObject.getDataInBackground(new GetDataCallback() {
-                    @Override
-                    public void done(byte[] data, com.parse.ParseException e) {
-                        if (e == null) {
-                            Log.d("test", "We've got data in data.");
-                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            ImageView image = (ImageView) findViewById(R.id.imageView2);
-                            image.setImageBitmap(bmp);
-                        } else {
-                            Log.d("test", "There was a problem downloading the data.");
-                        }
-                    }
-                });
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("images");
+                List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
             }
-        });
+            ParseQuery<ParseObject> query = new ParseQuery<>("images");
+            query.getInBackground(oid, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, com.parse.ParseException e) {
+                    ParseFile fileObject = (ParseFile) object.get("spp_image");
+                    String imgName = object.getString("Name");
+                    TextView nameIt = (TextView) findViewById(R.id.textView26);
+                    nameIt.setText(imgName);
+                    fileObject.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] data, com.parse.ParseException e) {
+                            if (e == null) {
+                                Log.d("test", "We've got data in data.");
+                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                ImageView image = (ImageView) findViewById(R.id.imageView2);
+                                image.setImageBitmap(bmp);
+                            } else {
+                                Log.d("test", "There was a problem downloading the data.");
+                            }
+                        }
+                    });
+                }
+            });
+        } else {
+            ParseQuery<ParseObject> query = new ParseQuery<>("images");
+            query.fromLocalDatastore();
+            query.getInBackground(oid, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, com.parse.ParseException e) {
+                    ParseFile fileObject = (ParseFile) object.get("spp_image");
+                    String imgName = object.getString("Name");
+                    TextView nameIt = (TextView) findViewById(R.id.textView26);
+                    nameIt.setText(imgName);
+                    fileObject.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] data, com.parse.ParseException e) {
+                            if (e == null) {
+                                Log.d("test", "We've got data in data.");
+                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                ImageView image = (ImageView) findViewById(R.id.imageView2);
+                                image.setImageBitmap(bmp);
+                            } else {
+                                Log.d("test", "There was a problem downloading the data.");
+                            }
+                        }
+                    });
+                }
+            });
+        }
     }
 
 
@@ -77,8 +116,10 @@ public class LIDetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

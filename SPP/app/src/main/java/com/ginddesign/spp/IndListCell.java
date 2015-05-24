@@ -2,6 +2,8 @@ package com.ginddesign.spp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class IndListCell extends ArrayAdapter<String> {
@@ -73,19 +76,45 @@ public class IndListCell extends ArrayAdapter<String> {
                 String current = (String) cBox[position].getTag();
                 Log.i("OID", oID);
 
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-                query.getInBackground(current, new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, com.parse.ParseException e) {
-                        Log.i("isChecked", String.valueOf(isChecked));
-
-                        object.put("isChecked", String.valueOf(isChecked));
-                        object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                        object.pinInBackground();
-                        object.saveInBackground();
-
-                        //cBox[position].setChecked(cBox[position].isChecked());
+                ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo netInfo = cm.getActiveNetworkInfo();
+                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                    try {
+                        ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
+                        List<ParseObject> objects = query1.find();
+                        ParseObject.pinAllInBackground(objects);
+                    } catch (com.parse.ParseException e) {
+                        e.printStackTrace();
                     }
-                });
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+                    query.getInBackground(current, new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, com.parse.ParseException e) {
+                            Log.i("isChecked", String.valueOf(isChecked));
+
+                            object.put("isChecked", String.valueOf(isChecked));
+                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                            object.pinInBackground();
+                            object.saveInBackground();
+
+                            //cBox[position].setChecked(cBox[position].isChecked());
+                        }
+                    });
+                } else {
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
+                    query.fromLocalDatastore();
+                    query.getInBackground(current, new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, com.parse.ParseException e) {
+                            Log.i("isChecked", String.valueOf(isChecked));
+
+                            object.put("isChecked", String.valueOf(isChecked));
+                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                            object.pinInBackground();
+                            object.saveInBackground();
+
+                            //cBox[position].setChecked(cBox[position].isChecked());
+                        }
+                    });
+                }
 
             }
 

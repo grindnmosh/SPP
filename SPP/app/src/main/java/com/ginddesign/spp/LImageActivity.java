@@ -79,6 +79,26 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
                     mainListAdapter.notifyDataSetChanged();
                 }
             });
+        } else {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("images");
+            query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                    for (int i = 0; i < objects.size(); i++) {
+                        ParseObject object = objects.get(i);
+                        name = object.getString("Name");
+                        String oid = (object).getObjectId();
+                        Date creation = (object).getCreatedAt();
+
+                        nameArray.add(name);
+                        oidArray.add(oid);
+                        createArray.add(creation);
+
+                    }
+                    mainListAdapter.notifyDataSetChanged();
+                }
+            });
         }
         mainListAdapter = new PhotoCell(context, R.layout.activity_photocell, nameArray);
 
