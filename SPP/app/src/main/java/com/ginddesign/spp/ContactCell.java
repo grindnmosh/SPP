@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.grindesign.fragment.QuickContactFragment;
+
 import java.util.ArrayList;
 
 
@@ -15,7 +17,7 @@ public class ContactCell extends ArrayAdapter<String> {
 
 
     private Context context;
-    private ArrayList<String> arrayLister = QuickContactActivity.nameArray;
+    private ArrayList<String> arrayLister = QuickContactFragment.nameArray;
 
 
     public ContactCell(Context context, int resource, ArrayList<String> arrayLister) {
@@ -26,8 +28,8 @@ public class ContactCell extends ArrayAdapter<String> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         String name = arrayLister.get(position);
-        String cat = QuickContactActivity.catArray.get(position);
-        String phone = QuickContactActivity.phoneArray.get(position);
+        String cat = QuickContactFragment.catArray.get(position);
+        String phone = QuickContactFragment.phoneArray.get(position);
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_contactcell, null);
