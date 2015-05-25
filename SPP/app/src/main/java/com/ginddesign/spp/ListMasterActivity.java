@@ -289,7 +289,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
             this.startActivity(qc);
         }
         else if (id == R.id.action_lock) {
-            Intent lock = new Intent(this, LockersActivity.class);
+            Intent lock = new Intent(this, LSignInActivity.class);
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {
