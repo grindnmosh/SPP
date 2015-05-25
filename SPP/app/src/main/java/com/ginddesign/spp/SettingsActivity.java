@@ -1,7 +1,6 @@
 package com.ginddesign.spp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,10 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.CountCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.ui.ParseLoginConfig;
+import com.parse.ui.ParseLoginBuilder;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -24,6 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
     EditText newUser;
     EditText newUserVer;
     Button setBut;
+    String email1;
+    String email2;
+    String email3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +40,18 @@ public class SettingsActivity extends AppCompatActivity {
         newUserVer = (EditText) findViewById(R.id.newUserVer);
         setBut = (Button) findViewById(R.id.setBut);
 
-        final ParseUser parseUser = ParseUser.getCurrentUser();
-
         setBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                email1 = currUsername.getText().toString().trim();
+                email2 = newUser.getText().toString().trim();
+                email3 = newUserVer.getText().toString().trim();
+                String PFUser = String.valueOf(ParseUser.getCurrentUser().getUsername());
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 Log.i("START", "FIGHT");
-                Log.i("USERNAME", String.valueOf(currUsername.getText()));
-                Log.i("PARSEUSER", String.valueOf(ParseUser.getCurrentUser().getUsername()));
-                if (String.valueOf(currUsername.getText()).equals(String.valueOf(ParseUser.getCurrentUser().getUsername()))) {
+                if (email1.equals(PFUser)) {
                     Log.i("ENTRY1", "ENTERED");
-                    if (newUser.getText().toString().equals(newUserVer.getText().toString())) {
+                    if (email2.equals(email3) && email2.matches(emailPattern) && email3.matches(emailPattern) && email2.length() > 0 ) {
                         Log.i("ENTRY2", "ENTERED");
                         final ParseUser user = ParseUser.getCurrentUser();
                         user.increment("logins");
@@ -53,26 +59,48 @@ public class SettingsActivity extends AppCompatActivity {
                             @Override
                             public void done(ParseException e) {
                                 if (e == null) {
-                                    user.setUsername(newUser.getText().toString());
-                                    user.setEmail(newUser.getText().toString());
-                                    user.saveInBackground();
-                                } else {
-                                    if (e != null) {
-                                        switch (e.getCode()) {
-                                            case ParseException.INVALID_EMAIL_ADDRESS:
-                                                Toast.makeText(getApplicationContext(), "Please Provide Valid Email", Toast.LENGTH_LONG).show();
-                                                break;
-                                            case ParseException.EMAIL_TAKEN:
-                                                Toast.makeText(getApplicationContext(), "Requested Email is Already Taken", Toast.LENGTH_LONG).show();
-                                                break;
-                                            default:
-                                                Toast.makeText(getApplicationContext(), "Please Ensure All Fields Are Populated", Toast.LENGTH_LONG).show();
+                                    ParseQuery<ParseUser> query = ParseUser.getQuery();
+                                    query.whereEqualTo("email", email2);
+
+                                    query.countInBackground(new CountCallback() {
+
+                                        @Override
+                                        public void done(int count, ParseException e) {
+                                            if (e == null) {
+                                                if (count == 0) {
+                                                    user.setUsername(email2);
+                                                    user.setEmail(email2);
+                                                    user.saveInBackground();
+                                                    Toast.makeText(getApplicationContext(), "Email Has Been Changed", Toast.LENGTH_LONG).show();
+                                                    ParseUser.logOut();
+                                                    try {
+                                                        ParseUser.getCurrentUser().refresh();
+                                                    } catch (ParseException d) {
+                                                        d.printStackTrace();
+                                                    }
+                                                    ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
+                                                    startActivityForResult(builder.build(), 0);
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), "The email entered is already taken", Toast.LENGTH_LONG).show();
+                                                }
+                                            }
                                         }
-                                    }
+
+                                    });
+
+                                } else {
+                                    Log.d("Failed", "Error: " + e.getMessage());
+                                    Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
 
+                    } else {
+                        if (!email2.equals(email3)) {
+                            Toast.makeText(getApplicationContext(), "The email you entered does not match in both fields", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Please Enter A Valid Email", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }

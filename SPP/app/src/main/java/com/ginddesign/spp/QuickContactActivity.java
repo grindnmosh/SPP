@@ -152,6 +152,11 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
+            try {
+                ParseUser.getCurrentUser().refresh();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
             startActivityForResult(builder.build(), 0);
             this.finish();
