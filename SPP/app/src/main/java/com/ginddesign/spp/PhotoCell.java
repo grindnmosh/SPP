@@ -27,7 +27,7 @@ public class PhotoCell extends ArrayAdapter<String> {
     }
     public View getView(final int position, View convertView, ViewGroup parent) {
         String name = arrayLister.get(position);
-        Date create = LImageActivity.createArray.get(position);
+        String date = LImageActivity.createArray.get(position);
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_photocell, null);
@@ -36,8 +36,7 @@ public class PhotoCell extends ArrayAdapter<String> {
         main.setText(name);
 
         TextView sub = (TextView) view.findViewById(R.id.dCreate);
-        SimpleDateFormat sdf = new SimpleDateFormat( "yyyy/MM/dd" );
-        sub.setText(sdf.format(create));
+        sub.setText(date);
 
         return view;
     }

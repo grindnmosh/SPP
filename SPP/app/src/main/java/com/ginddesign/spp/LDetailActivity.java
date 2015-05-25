@@ -197,6 +197,13 @@ public class LDetailActivity extends AppCompatActivity {
             Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
         }
+        else if (id == R.id.action_share) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, dName.getText() + "\n" + ddob.getText() + "\n" + "Allergies: " + dAll.getText() + "\n" + "Medical Conditions: " + dMed.getText());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "Share Using"));
+        }
         return super.onOptionsItemSelected(item);
     }
 }

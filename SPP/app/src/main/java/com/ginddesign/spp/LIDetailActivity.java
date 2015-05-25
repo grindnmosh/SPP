@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +23,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 
@@ -28,6 +31,8 @@ public class LIDetailActivity extends AppCompatActivity {
 
     Context context;
     String name;
+    Bitmap bmp;
+    String oid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,42 +40,70 @@ public class LIDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lidetail);
 
         final Intent i = getIntent();
-        String oid = i.getStringExtra("Object ID");
+        oid = i.getStringExtra("Object ID");
 
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("images");
-                List<ParseObject> objects = query1.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            ParseQuery<ParseObject> query = new ParseQuery<>("images");
-            query.getInBackground(oid, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, com.parse.ParseException e) {
-                    ParseFile fileObject = (ParseFile) object.get("spp_image");
-                    String imgName = object.getString("Name");
-                    TextView nameIt = (TextView) findViewById(R.id.textView26);
-                    nameIt.setText(imgName);
-                    fileObject.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] data, com.parse.ParseException e) {
-                            if (e == null) {
-                                Log.d("test", "We've got data in data.");
-                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                ImageView image = (ImageView) findViewById(R.id.imageView2);
-                                image.setImageBitmap(bmp);
-                            } else {
-                                Log.d("test", "There was a problem downloading the data.");
-                            }
-                        }
-                    });
+        if (Context.CONNECTIVITY_SERVICE != null) {
+            Log.i("sjdhgaf;iahsgo", Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                try {
+                    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("images");
+                    List<ParseObject> objects = query1.find();
+                    ParseObject.pinAllInBackground(objects);
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
                 }
-            });
-        } else {
+                ParseQuery<ParseObject> query = new ParseQuery<>("images");
+                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, com.parse.ParseException e) {
+                        ParseFile fileObject = (ParseFile) object.get("spp_image");
+                        String imgName = object.getString("Name");
+                        TextView nameIt = (TextView) findViewById(R.id.textView26);
+                        nameIt.setText(imgName);
+                        fileObject.getDataInBackground(new GetDataCallback() {
+                            @Override
+                            public void done(byte[] data, com.parse.ParseException e) {
+                                if (e == null) {
+                                    Log.d("test", "We've got data in data.");
+                                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                    ImageView image = (ImageView) findViewById(R.id.imageView2);
+                                    image.setImageBitmap(bmp);
+                                } else {
+                                    Log.d("test", "There was a problem downloading the data.");
+                                }
+                            }
+                        });
+                    }
+                });
+            } else {
+                ParseQuery<ParseObject> query = new ParseQuery<>("images");
+                query.fromLocalDatastore();
+                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, com.parse.ParseException e) {
+                        ParseFile fileObject = (ParseFile) object.get("spp_image");
+                        String imgName = object.getString("Name");
+                        TextView nameIt = (TextView) findViewById(R.id.textView26);
+                        nameIt.setText(imgName);
+                        fileObject.getDataInBackground(new GetDataCallback() {
+                            @Override
+                            public void done(byte[] data, com.parse.ParseException e) {
+                                if (e == null) {
+                                    Log.d("test", "We've got data in data.");
+                                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                    ImageView image = (ImageView) findViewById(R.id.imageView2);
+                                    image.setImageBitmap(bmp);
+                                } else {
+                                    Log.d("test", "There was a problem downloading the data.");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }else {
             ParseQuery<ParseObject> query = new ParseQuery<>("images");
             query.fromLocalDatastore();
             query.getInBackground(oid, new GetCallback<ParseObject>() {
@@ -97,6 +130,7 @@ public class LIDetailActivity extends AppCompatActivity {
             });
         }
     }
+
 
 
     @Override
@@ -130,7 +164,36 @@ public class LIDetailActivity extends AppCompatActivity {
             this.startActivity(home);
         }
         else if (id == R.id.action_share) {
-            Log.i("DO", "NOTHING");
+            ParseQuery<ParseObject> query = new ParseQuery<>("images");
+            query.getInBackground(oid, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject object, com.parse.ParseException e) {
+                    ParseFile fileObject = (ParseFile) object.get("spp_image");
+                    String imgName = object.getString("Name");
+                    TextView nameIt = (TextView) findViewById(R.id.textView26);
+                    nameIt.setText(imgName);
+                    fileObject.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] data, com.parse.ParseException e) {
+                            if (e == null) {
+                                Log.d("test", "We've got data in data.");
+                                bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                Intent share = new Intent(Intent.ACTION_SEND);
+                                share.setType("image/jpeg");
+                                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                                bmp.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+                                String path = MediaStore.Images.Media.insertImage(getContentResolver(),
+                                        bmp, "Title", null);
+                                Uri imageUri = Uri.parse(path);
+                                share.putExtra(Intent.EXTRA_STREAM, imageUri);
+                                startActivity(Intent.createChooser(share, "Select"));
+                            } else {
+                                Log.d("test", "There was a problem downloading the data.");
+                            }
+                        }
+                    });
+                }
+            });
         }
 
         return super.onOptionsItemSelected(item);

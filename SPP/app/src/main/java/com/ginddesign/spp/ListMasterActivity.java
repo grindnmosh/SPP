@@ -34,6 +34,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
     public static ArrayList<String> listNameArray = new ArrayList<>();
     ListView lv;
     Context context = this;
+    Timer sched;
 
     public ListMasterActivity() {
     }
@@ -47,8 +48,6 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         lv = (ListView) findViewById(R.id.list_master);
-
-        resume();
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -99,7 +98,8 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List list, com.parse.ParseException e) {
-
+                    nameArray = new ArrayList<>();
+                    listNameArray = new ArrayList<>();
                     if (e == null) {
                         for (int i = 0; i < list.size(); i++) {
                             Object object = list.get(i);
@@ -225,7 +225,8 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List list, com.parse.ParseException e) {
-
+                        nameArray = new ArrayList<>();
+                        listNameArray = new ArrayList<>();
                         if (e == null) {
                             for (int i = 0; i < list.size(); i++) {
                                 Object object = list.get(i);
@@ -264,15 +265,21 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
         }
     };
 
-    private void resume() {
-        Timer sched;
+    public void onPause() {
+        super.onPause();
+
+        sched.cancel();
+    }
+
+    public void onResume() {
+        super.onResume();
         sched = new Timer();
         sched.schedule(new TimerTask() {
             @Override
             public void run() {
                 TimerMethod();
             }
-        }, 0, 5000);
+        }, 0, 1000);
     }
 
     @Override
@@ -296,7 +303,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
             this.startActivity(qc);
         }
         else if (id == R.id.action_lock) {
-            Intent lock = new Intent(this, LSignInActivity.class);
+            Intent lock = new Intent(this, LockersActivity.class);
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {

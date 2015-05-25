@@ -27,9 +27,12 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LImageActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
@@ -39,10 +42,11 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
     ImageButton snapShot;
     EditText picName;
     String name;
+    Timer sched;
     public static ArrayList<String> nameArray = new ArrayList<>();
-    public static ArrayList<Date> createArray = new ArrayList<>();
+    public static ArrayList<String> createArray = new ArrayList<>();
     public static ArrayList<String> oidArray = new ArrayList<>();
-
+    ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
 
         picName = (EditText) findViewById(R.id.nameImage);
         snapShot = (ImageButton) findViewById(R.id.snapPic);
-        final ListView lv = (ListView) findViewById(R.id.ilist);
+        lv = (ListView) findViewById(R.id.ilist);
 
         nameArray = new ArrayList<>();
         createArray = new ArrayList<>();
@@ -70,10 +74,12 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
                         name = object.getString("Name");
                         String oid = (object).getObjectId();
                         Date creation = (object).getCreatedAt();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                        String date = sdf.format(creation);
 
                         nameArray.add(name);
                         oidArray.add(oid);
-                        createArray.add(creation);
+                        createArray.add(date);
 
                     }
                     mainListAdapter.notifyDataSetChanged();
@@ -87,13 +93,15 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
                 public void done(List<ParseObject> objects, com.parse.ParseException e) {
                     for (int i = 0; i < objects.size(); i++) {
                         ParseObject object = objects.get(i);
-                        name = object.getString("Name");
+                        String name = object.getString("Name");
                         String oid = (object).getObjectId();
                         Date creation = (object).getCreatedAt();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                        String date = sdf.format(creation);
 
                         nameArray.add(name);
                         oidArray.add(oid);
-                        createArray.add(creation);
+                        createArray.add(date);
 
                     }
                     mainListAdapter.notifyDataSetChanged();
@@ -123,6 +131,97 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
 
             }
         });
+    }
+
+    private void TimerMethod()
+    {
+        this.runOnUiThread(Timer_Tick);
+    }
+
+
+    private Runnable Timer_Tick = new Runnable() {
+        public void run() {
+
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("images");
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                        nameArray = new ArrayList<>();
+                        createArray = new ArrayList<>();
+                        oidArray = new ArrayList<>();
+                        for (int i = 0; i < objects.size(); i++) {
+                            ParseObject object = objects.get(i);
+                            name = object.getString("Name");
+                            String oid = (object).getObjectId();
+                            Date creation = (object).getCreatedAt();
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                            String date = sdf.format(creation);
+
+                            nameArray.add(name);
+                            oidArray.add(oid);
+                            createArray.add(date);
+
+                        }
+                        mainListAdapter.notifyDataSetChanged();
+                    }
+                });
+            } else {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("images");
+                query.fromLocalDatastore();
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                        nameArray = new ArrayList<>();
+                        createArray = new ArrayList<>();
+                        oidArray = new ArrayList<>();
+                        for (int i = 0; i < objects.size(); i++) {
+                            ParseObject object = objects.get(i);
+                            name = object.getString("Name");
+                            String oid = (object).getObjectId();
+                            Date creation = (object).getCreatedAt();
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                            String date = sdf.format(creation);
+
+                            nameArray.add(name);
+                            oidArray.add(oid);
+                            createArray.add(date);
+
+                        }
+                        mainListAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+            mainListAdapter = new PhotoCell(context, R.layout.activity_photocell, nameArray);
+
+            lv.setOnItemClickListener(LImageActivity.this);
+            lv.setOnItemLongClickListener(LImageActivity.this);
+
+            lv.setAdapter(mainListAdapter);
+            Log.i("test", "run");
+        }
+    };
+
+
+
+
+    public void onPause() {
+        super.onPause();
+
+        sched.cancel();
+    }
+
+    public void onResume() {
+        super.onResume();
+        sched = new Timer();
+        sched.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                TimerMethod();
+            }
+        }, 0, 1000);
     }
 
     @Override
@@ -188,14 +287,14 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
                 photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteMe = stream.toByteArray();
                 ParseFile imageFile = new ParseFile(imgName + ".png", byteMe);
-                imageFile.saveInBackground();
                 images.setACL(new ParseACL(ParseUser.getCurrentUser()));
                 images.put("Name", name);
                 images.put("spp_image", imageFile);
-                nameArray.add(name);
                 images.pinInBackground();
                 images.saveInBackground();
-                mainListAdapter.notifyDataSetChanged();
+                name = "";
+                picName.setText("");
+
             }
         }
     }

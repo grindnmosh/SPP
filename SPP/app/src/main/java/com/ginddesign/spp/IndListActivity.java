@@ -193,7 +193,7 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
         else if (id == R.id.action_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, itemArray.toString());
+            sendIntent.putExtra(Intent.EXTRA_TEXT, String.valueOf(itemArray));
             sendIntent.setType("text/plain");
             startActivity(Intent.createChooser(sendIntent, "Share Using"));
         }

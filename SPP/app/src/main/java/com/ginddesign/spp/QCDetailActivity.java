@@ -175,7 +175,11 @@ public class QCDetailActivity extends AppCompatActivity {
             this.startActivity(add);
         }
         else if (id == R.id.action_share) {
-            Log.i("DO", "NOTHING");
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, conName.getText() + " " + conPhone.getText() + " " + conEmail.getText() + " " + conNotes.getText());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "Share Using"));
         }
 
         return super.onOptionsItemSelected(item);
