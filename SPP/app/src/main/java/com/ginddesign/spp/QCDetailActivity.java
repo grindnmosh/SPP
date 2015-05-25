@@ -18,6 +18,7 @@ import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 import java.util.List;
 
@@ -159,8 +160,9 @@ public class QCDetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            Intent logout = new Intent(this, MainActivity.class);
-            this.startActivity(logout);
+            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
+            startActivityForResult(builder.build(), 0);
+            this.finish();
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

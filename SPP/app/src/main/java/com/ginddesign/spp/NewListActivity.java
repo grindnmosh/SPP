@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
 
@@ -150,8 +151,9 @@ public class NewListActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            Intent logout = new Intent(this, MainActivity.class);
-            this.startActivity(logout);
+            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
+            startActivityForResult(builder.build(), 0);
+            this.finish();
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

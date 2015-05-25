@@ -21,7 +21,7 @@
     <string name="medical">Medical Conditions:</string>
     <string name="shot">Shot Records:</string>
     <string name="add">Additional Information</string>
-    <string name="lsign">Please sign in again to access this area.</string>
+    <string name="lsign">Change Your Registered Email Login</string>
     <string name="action_settings">Logout</string>
     <string name="title_activity_new_list">NewListActivity</string>
     <string name="title_activity_qcnew">New Contact</string>
@@ -32,7 +32,7 @@
     <string name="title_activity_limage">Image Locker</string>
     <string name="title_activity_lidetail">Image Detail</string>
     <string name="title_activity_lsign_in">Sign Back In</string>
-    <string name="sign">Access Lockers</string>
+    <string name="sign">Change Username and Logout</string>
     <string name="title_activity_home">Single Parent Planner</string>
     <string name="addNew">Add</string>
     <string name="share">Share</string>
@@ -74,6 +74,7 @@
     <string name="save_item">Save Item</string>
     <string name="temp_date">10/17/2001</string>
     <string name="temp_ss">123–45–6789</string>
+    <string name="action_change">Settings</string>
 
 
     <string-array name="listMaster">
@@ -144,6 +145,7 @@
     <string name="qcphone">Phone Number</string>
     <string name="qcemail">Email</string>
     <string name="qcnotes">Notes</string>
+    <string name="title_activity_settings">SPP</string>
 
 
 </resources>

@@ -30,8 +30,8 @@
         <activity
             android:name="com.parse.ui.ParseLoginActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_ENABLED"
                 android:value="true" />
@@ -42,74 +42,74 @@
         <activity
             android:name=".QuickContactActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ListMasterActivity" >
+            android:parentActivityName=".ListMasterActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LockersActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ListMasterActivity" >
+            android:parentActivityName=".ListMasterActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".IndListActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ListMasterActivity" >
+            android:parentActivityName=".ListMasterActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".NewListActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ListMasterActivity" >
+            android:parentActivityName=".ListMasterActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".QCNewActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".QuickContactActivity" >
+            android:parentActivityName=".QuickContactActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".QCDetailActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".QuickContactActivity" >
+            android:parentActivityName=".QuickContactActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LChildActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".LockersActivity" >
+            android:parentActivityName=".LockersActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LNewActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".LChildActivity" >
+            android:parentActivityName=".LChildActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LDetailActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".LChildActivity" >
+            android:parentActivityName=".LChildActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LImageActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".LockersActivity" >
+            android:parentActivityName=".LockersActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LIDetailActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".LImageActivity" >
+            android:parentActivityName=".LImageActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LSignInActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".ListMasterActivity" >
+            android:parentActivityName=".ListMasterActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".addInfoCell"
@@ -129,10 +129,23 @@
         </activity>
         <activity
             android:name=".ListMasterActivity"
-            android:screenOrientation="portrait"
             android:label="@string/app_name"
-            android:parentActivityName=".ListMasterActivity">
+            android:parentActivityName=".ListMasterActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".ListMasterActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_ENABLED"
+                android:value="true" />
+            <meta-data
+                android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_EMAIL_AS_USERNAME"
+                android:value="true" />
         </activity>
     </application>
+
 
 </manifest>
