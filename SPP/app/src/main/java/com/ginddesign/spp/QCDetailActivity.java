@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.grindesign.fragment.QCDetailFragment;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -26,123 +27,12 @@ import java.util.List;
 
 public class QCDetailActivity extends AppCompatActivity {
 
-    TextView conName;
-    TextView conPhone;
-    TextView conEmail;
-    TextView conNotes;
-    ImageButton makeCall;
-    ImageButton sendMess;
-    ImageButton sendEmail;
-    ImageButton conEdit;
-    String ois;
-    String name;
-    String phone;
-    String email;
-    String notes;
-    Context context = this;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qcdetail);
-
-        conName = (TextView) findViewById(R.id.conName);
-        conPhone = (TextView) findViewById(R.id.conPhone);
-        conEmail = (TextView) findViewById(R.id.conEmail);
-        conNotes = (TextView) findViewById(R.id.conNotes);
-        makeCall = (ImageButton) findViewById(R.id.makeCall);
-        sendMess = (ImageButton) findViewById(R.id.sendMess);
-        sendEmail = (ImageButton) findViewById(R.id.sendEmail);
-        conEdit = (ImageButton) findViewById(R.id.conEdit);
-
-        final Intent i = getIntent();
-        ois = i.getStringExtra("Object ID");
-
-
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-            query.getInBackground(ois, new GetCallback<ParseObject>() {
-                public void done(ParseObject object, com.parse.ParseException e) {
-                    if (e == null) {
-                        name = object.getString("Name");
-                        phone = object.getString("Phone");
-                        email = object.getString("Email");
-                        notes = object.getString("Notes");
-                        conName.setText(name);
-                        conPhone.setText(phone);
-                        conEmail.setText(email);
-                        conNotes.setText(notes);
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-                }
-            });
-
-        }else{
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-            query.fromLocalDatastore();
-            query.getInBackground(ois, new GetCallback<ParseObject>() {
-                public void done(ParseObject object, com.parse.ParseException e) {
-                    if (e == null) {
-                        name = object.getString("Name");
-                        phone = object.getString("Phone");
-                        email = object.getString("Email");
-                        notes = object.getString("Notes");
-                        conName.setText(name);
-                        conPhone.setText(phone);
-                        conEmail.setText(email);
-                        conNotes.setText(notes);
-
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-                }
-            });
-        }
-
-        makeCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, (Uri.parse("tel:" + conPhone.getText())));
-                startActivity(Intent.createChooser(intent, "Call From"));
-            }
-        });
-
-        sendMess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + conPhone.getText()));
-                startActivity(Intent.createChooser(intent, "Message From"));
-            }
-        });
-
-        sendEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", String.valueOf(conEmail.getText()), null));
-                startActivity(Intent.createChooser(emailIntent, "Email From"));
-            }
-        });
-
-        conEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent add = new Intent(QCDetailActivity.this, QCNewActivity.class);
-                add.putExtra("Title", "Edit Contact");
-                add.putExtra("Object ID", ois);
-                startActivity(add);
-            }
-        });
-
+        setContentView(R.layout.fragment_qcdetail);
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -184,7 +74,7 @@ public class QCDetailActivity extends AppCompatActivity {
         else if (id == R.id.action_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, conName.getText() + " " + conPhone.getText() + " " + conEmail.getText() + " " + conNotes.getText());
+            sendIntent.putExtra(Intent.EXTRA_TEXT, QCDetailFragment.conName.getText() + " " + QCDetailFragment.conPhone.getText() + " " + QCDetailFragment.conEmail.getText() + " " + QCDetailFragment.conNotes.getText());
             sendIntent.setType("text/plain");
             startActivity(Intent.createChooser(sendIntent, "Share Using"));
         }
