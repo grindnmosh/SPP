@@ -314,4 +314,6 @@ public class ParseLoginBuilder {
   private String maybeGetString(int id) {
     return id != 0 ? context.getString(id) : null;
   }
+
+
 }
