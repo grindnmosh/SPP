@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.grindesign.fragment.IndListFragment;
 import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
@@ -29,8 +30,8 @@ public class IndListCell extends ArrayAdapter<String> {
 
     String oID;
     private Context context;
-    private ArrayList<String> arrayLister = IndListActivity.nameArray;
-    private ArrayList<String> oIDArray = IndListActivity.oidArray;
+    private ArrayList<String> arrayLister = IndListFragment.nameArray;
+    private ArrayList<String> oIDArray = IndListFragment.oidArray;
 
 
     public IndListCell(Context context, int resource, ArrayList<String> arrayLister, ArrayList<String> oIDArray) {
@@ -43,11 +44,11 @@ public class IndListCell extends ArrayAdapter<String> {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         String names = arrayLister.get(position);
-        String item = IndListActivity.itemArray.get(position);
-        String descrip = IndListActivity.desArray.get(position);
-        String checker = IndListActivity.cbArray.get(position);
-        final CheckBox[] cBox = new CheckBox[IndListActivity.desArray.size()];
-        final boolean[] checkIt = new boolean[IndListActivity.itemArray.size()];
+        String item = IndListFragment.itemArray.get(position);
+        String descrip = IndListFragment.desArray.get(position);
+        String checker = IndListFragment.cbArray.get(position);
+        final CheckBox[] cBox = new CheckBox[IndListFragment.desArray.size()];
+        final boolean[] checkIt = new boolean[IndListFragment.itemArray.size()];
         oID = oIDArray.get(position);
         Log.i("ArrayLister", names);
 
@@ -121,7 +122,7 @@ public class IndListCell extends ArrayAdapter<String> {
 
 
         });
-        IndListActivity.mainListAdapter.notifyDataSetChanged();
+        IndListFragment.mainListAdapter.notifyDataSetChanged();
         return view;
     }
 

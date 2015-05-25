@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.grindesign.fragment.ListMasterFragment;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -100,7 +101,7 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         listMaster.pinInBackground();
                         listMaster.saveInBackground();
-                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
+                        ListMasterFragment.mainListAdapter.notifyDataSetChanged();
                         listName.setText("");
                         itemName.setText("");
                         itemDescrip.setText("");
@@ -114,7 +115,7 @@ public class NewListActivity extends AppCompatActivity {
                         listMaster.setACL(new ParseACL(ParseUser.getCurrentUser()));
                         listMaster.pinInBackground();
                         listMaster.saveEventually();
-                        ListMasterActivity.mainListAdapter.notifyDataSetChanged();
+                        ListMasterFragment.mainListAdapter.notifyDataSetChanged();
                         listName.setText("");
                         itemName.setText("");
                         itemDescrip.setText("");

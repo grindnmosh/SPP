@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.grindesign.fragment.ListMasterFragment;
 import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
@@ -169,7 +170,7 @@ public class QCNewActivity extends AppCompatActivity {
                                 object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                 object.pinInBackground();
                                 object.saveInBackground();
-                                ListMasterActivity.mainListAdapter.notifyDataSetChanged();
+                                ListMasterFragment.mainListAdapter.notifyDataSetChanged();
                                 Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
                                 startActivity(home);
                             }
@@ -188,7 +189,7 @@ public class QCNewActivity extends AppCompatActivity {
                                 object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                 object.pinInBackground();
                                 object.saveEventually();
-                                ListMasterActivity.mainListAdapter.notifyDataSetChanged();
+                                ListMasterFragment.mainListAdapter.notifyDataSetChanged();
                                 Intent home = new Intent(QCNewActivity.this, QuickContactActivity.class);
                                 startActivity(home);
                             }
