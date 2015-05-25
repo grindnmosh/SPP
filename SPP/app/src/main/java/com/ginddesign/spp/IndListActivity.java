@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -174,9 +175,13 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
+            try {
+                ParseUser.getCurrentUser().refresh();
+            } catch (ParseException d) {
+                d.printStackTrace();
+            }
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
             startActivityForResult(builder.build(), 0);
-            this.finish();
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -144,9 +145,13 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
+            try {
+                ParseUser.getCurrentUser().refresh();
+            } catch (ParseException d) {
+                d.printStackTrace();
+            }
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
             startActivityForResult(builder.build(), 0);
-            this.finish();
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

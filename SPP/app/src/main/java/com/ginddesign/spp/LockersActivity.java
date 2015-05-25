@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
@@ -57,9 +58,13 @@ public class LockersActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
+            try {
+                ParseUser.getCurrentUser().refresh();
+            } catch (ParseException d) {
+                d.printStackTrace();
+            }
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
             startActivityForResult(builder.build(), 0);
-            this.finish();
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

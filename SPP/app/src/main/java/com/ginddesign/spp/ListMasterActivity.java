@@ -283,9 +283,13 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
+            try {
+                ParseUser.getCurrentUser().refresh();
+            } catch (ParseException d) {
+                d.printStackTrace();
+            }
             ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
             startActivityForResult(builder.build(), 0);
-            this.finish();
         }
         if (id == R.id.action_change) {
             Intent change = new Intent(this, SettingsActivity.class);
