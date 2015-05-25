@@ -29,19 +29,15 @@ public class addInfoCell extends ArrayAdapter<String> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        Log.i("getView", arrayLister.toString());
         String names = arrayLister.get(position);
         String inform = LDetailActivity.nameInfo.get(position);
 
-        Log.i("inflator", names);
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_add_info_cell, null);
 
-        Log.i("main", names);
         TextView main = (TextView) view.findViewById(R.id.docTitle);
         main.setText(names);
 
-        Log.i("sub", inform);
         TextView sub  = (TextView) view.findViewById(R.id.docInfo);
         sub.setText(inform);
         Linkify.addLinks(sub, Linkify.WEB_URLS);

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/tempCSave"
-        android:id="@+id/textView5"
+        android:id="@+id/cTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -24,7 +24,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/cName"
-        android:layout_below="@+id/textView5"
+        android:layout_below="@+id/cTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -113,8 +113,8 @@
         android:layout_below="@+id/docName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5" />
+        android:layout_alignRight="@+id/cTitle"
+        android:layout_alignEnd="@+id/cTitle" />
 
     <Button
         android:layout_width="wrap_content"

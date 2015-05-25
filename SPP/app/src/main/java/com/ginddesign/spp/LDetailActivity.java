@@ -35,14 +35,15 @@ public class LDetailActivity extends AppCompatActivity {
     String all;
     String med;
     String shot;
+    String oid;
     TextView dName;
     TextView ddob;
     TextView dss;
     TextView dAll;
     TextView dMed;
     ListView lv;
-    JSONArray fileName = new JSONArray();
-    JSONArray fileinfo = new JSONArray();
+    public static JSONArray fileName = new JSONArray();
+    public static JSONArray fileinfo = new JSONArray();
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> nameInfo = new ArrayList<>();
     public static ArrayAdapter<String> mainListAdapter;
@@ -64,12 +65,16 @@ public class LDetailActivity extends AppCompatActivity {
         final Intent i = getIntent();
         ois = i.getStringExtra("object ID");
 
-        nameArray = new ArrayList<>();
-        nameInfo = new ArrayList<>();
+
+
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            fileName = new JSONArray();
+            fileinfo = new JSONArray();
+            nameArray = new ArrayList<>();
+            nameInfo = new ArrayList<>();
             try {
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
                 List<ParseObject> objects = query1.find();
@@ -89,17 +94,20 @@ public class LDetailActivity extends AppCompatActivity {
                         shot = object.getString("Shot");
                         fileName = object.getJSONArray("AdditionalNames");
                         fileinfo = object.getJSONArray("AdditionalInfo");
+                        Log.i("TESSSSSST", fileinfo.toString());
                         try {
                             for (int i = 0; i < fileName.length(); i++) {
                                 Log.i("Array", "Entry Point Done");
                                 String name = fileName.getString(i);
                                 String info = fileinfo.getString(i);
+
                                 Log.i("TESSSSSST", name);
                                 nameArray.add(name);
                                 nameInfo.add(info);
-                                Log.i("TESSSSSST", nameArray.toString());
+                                Log.i("TESSSSSST", nameInfo.toString());
                                 //loadList();
                             }
+                            mainListAdapter.notifyDataSetChanged();
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
@@ -114,9 +122,9 @@ public class LDetailActivity extends AppCompatActivity {
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
+
                 }
             });
-
         }else{
             ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
             query.fromLocalDatastore();
@@ -156,6 +164,7 @@ public class LDetailActivity extends AppCompatActivity {
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
+                    mainListAdapter.notifyDataSetChanged();
                 }
             });
         }
@@ -196,6 +205,12 @@ public class LDetailActivity extends AppCompatActivity {
         else if (id == R.id.action_home) {
             Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
+        }
+        else if (id == R.id.action_edit) {
+            Intent edit = new Intent(this, LNewActivity.class);
+            edit.putExtra("Title", "Update Child Information");
+            edit.putExtra("Object ID", ois);
+            this.startActivity(edit);
         }
         else if (id == R.id.action_share) {
             Intent sendIntent = new Intent();

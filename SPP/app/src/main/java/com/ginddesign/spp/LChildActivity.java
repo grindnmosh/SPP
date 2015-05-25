@@ -158,6 +158,7 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
         }
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, LNewActivity.class);
+            add.putExtra("Title", "Create New Child");
             this.startActivity(add);
         }
 
