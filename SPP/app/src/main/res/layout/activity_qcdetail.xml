@@ -11,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/sam_name2"
         android:id="@+id/conName"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -23,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/sam_num"
         android:id="@+id/conPhone"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -35,7 +33,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/sam_email"
         android:id="@+id/conEmail"
         android:layout_below="@+id/conPhone"
         android:layout_centerHorizontal="true" />
@@ -46,7 +43,6 @@
         android:id="@+id/conNotes"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:text="@string/notes"
         android:layout_below="@+id/conEmail"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

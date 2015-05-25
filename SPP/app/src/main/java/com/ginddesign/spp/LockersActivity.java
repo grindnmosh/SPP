@@ -15,33 +15,12 @@ import com.parse.ui.ParseLoginBuilder;
 
 public class LockersActivity extends AppCompatActivity {
 
-    Button cLocker;
-    Button iLocker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lockers);
+        setContentView(R.layout.fragment_lockers);
 
-        cLocker = (Button) findViewById(R.id.cLButt);
-        iLocker = (Button) findViewById(R.id.iLButt);
-
-
-
-        cLocker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent home = new Intent(LockersActivity.this, LChildActivity.class);
-                startActivity(home);
-            }
-        });
-
-        iLocker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent home = new Intent(LockersActivity.this, LImageActivity.class);
-                startActivity(home);
-            }
-        });
     }
 
     @Override
@@ -83,7 +62,5 @@ public class LockersActivity extends AppCompatActivity {
     {
         Intent home = new Intent(this, ListMasterActivity.class);
         this.startActivity(home);
-
-
     }
 }
