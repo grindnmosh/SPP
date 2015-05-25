@@ -150,8 +150,8 @@ public class QuickContactActivity extends AppCompatActivity implements AdapterVi
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            Intent logout = new Intent(this, MainActivity.class);
+            this.startActivity(logout);
         }
         else if (id == R.id.action_home) {
             Intent qc = new Intent(this, ListMasterActivity.class);

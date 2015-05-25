@@ -150,8 +150,8 @@ public class NewListActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            Intent logout = new Intent(this, MainActivity.class);
+            this.startActivity(logout);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

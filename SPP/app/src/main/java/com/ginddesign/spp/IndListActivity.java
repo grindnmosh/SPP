@@ -173,10 +173,8 @@ public class IndListActivity extends AppCompatActivity implements AdapterView.On
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            Intent logout = new Intent(this, MainActivity.class);
+            this.startActivity(logout);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
