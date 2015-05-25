@@ -1,14 +1,16 @@
-package com.ginddesign.spp;
+package com.grindesign.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,23 +18,21 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.grindesign.fragment.ListMasterFragment;
+import com.ginddesign.spp.ListMasterActivity;
+import com.ginddesign.spp.R;
 import com.parse.ParseACL;
-import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
 import java.util.ArrayList;
 
-
-public class NewListActivity extends AppCompatActivity {
+public class NewListFragment extends Fragment {
 
     String[] loads;
     Button cancel;
     Button save;
     Spinner s;
-    Context context = this;
+    Context context;
     String lName;
     String iName;
     String descrip;
@@ -43,20 +43,26 @@ public class NewListActivity extends AppCompatActivity {
 
     public static ArrayAdapter<String> loadsAdapter;
 
+    public NewListFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_newlist);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.activity_newlist, container, false);
+
         listNameArray = new ArrayList<>();
         listNameArray.add("Current Lists");
-        save = (Button) findViewById(R.id.save);
-        cancel = (Button) findViewById(R.id.cancel);
-        s = (Spinner) findViewById(R.id.listSpin);
-        listName = (EditText) findViewById(R.id.listName);
-        itemName = (EditText) findViewById(R.id.newItem);
-        itemDescrip = (EditText) findViewById(R.id.itemDescrip);
+        save = (Button) view.findViewById(R.id.save);
+        cancel = (Button) view.findViewById(R.id.cancel);
+        s = (Spinner) view.findViewById(R.id.listSpin);
+        listName = (EditText) view.findViewById(R.id.listName);
+        itemName = (EditText) view.findViewById(R.id.newItem);
+        itemDescrip = (EditText) view.findViewById(R.id.itemDescrip);
 
-        final Intent i = getIntent();
+        final Intent i = getActivity().getIntent();
         listNameArray.addAll(i.getStringArrayListExtra("listNameArray"));
 
         loads = getResources().getStringArray(R.array.spinner);
@@ -131,49 +137,27 @@ public class NewListActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(NewListActivity.this, ListMasterActivity.class);
+                Intent home = new Intent(context, ListMasterActivity.class);
                 startActivity(home);
             }
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_newlist, menu);
-        return true;
+        return view;
     }
 
 
 
+
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.context = activity;
+    }
 
-        int id = item.getItemId();
+    @Override
+    public void onDetach() {
+        super.onDetach();
 
-        if (id == R.id.action_settings) {
-            ParseUser.logOut();
-            try {
-                ParseUser.getCurrentUser().refresh();
-            } catch (ParseException d) {
-                d.printStackTrace();
-            }
-            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
-            startActivityForResult(builder.build(), 0);
-        }
-        else if (id == R.id.action_qc) {
-            Intent qc = new Intent(this, QuickContactActivity.class);
-            this.startActivity(qc);
-        }
-        else if (id == R.id.action_lock) {
-            Intent lock = new Intent(this, LSignInActivity.class);
-            this.startActivity(lock);
-        }
-        else if (id == R.id.action_home) {
-            Intent home = new Intent(this, ListMasterActivity.class);
-            this.startActivity(home);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
