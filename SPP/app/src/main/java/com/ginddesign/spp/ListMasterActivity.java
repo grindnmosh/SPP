@@ -1,42 +1,20 @@
 package com.ginddesign.spp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import com.parse.FindCallback;
+import com.grindesign.fragment.ListMasterFragment;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+public class ListMasterActivity extends AppCompatActivity {
 
 
-public class ListMasterActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
-
-    String namePos;
-
-    public static ArrayAdapter<String> mainListAdapter;
-    public static ArrayList<String> nameArray = new ArrayList<>();
-    public static ArrayList<String> listNameArray = new ArrayList<>();
-    ListView lv;
-    Context context = this;
-    Timer sched;
 
     public ListMasterActivity() {
     }
@@ -45,230 +23,9 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i("Hit", "Hit");
-        setContentView(R.layout.activity_listmaster);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
-        lv = (ListView) findViewById(R.id.list_master);
-
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            nameArray = new ArrayList<>();
-            listNameArray = new ArrayList<>();
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
-                List<ParseObject> objects = query1.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List list, com.parse.ParseException e) {
-
-
-                    if (e == null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            Object object = list.get(i);
-
-
-                            String name = ((ParseObject) object).getString("Name");
-                            nameArray.add(name);
-
-
-                        }
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-                    for (int c = 0; c < nameArray.size(); c++) {
-                        String compare = nameArray.get(c);
-                        for (int l = 0; l < list.size(); l++) {
-                            if (!listNameArray.contains(compare)) {
-                                listNameArray.add(compare);
-                            }
-                        }
-                    }
-                    mainListAdapter.notifyDataSetChanged();
-                }
-            });
-        } else {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            query.fromLocalDatastore();
-            query.findInBackground(new FindCallback<ParseObject>() {
-                @Override
-                public void done(List list, com.parse.ParseException e) {
-                    nameArray = new ArrayList<>();
-                    listNameArray = new ArrayList<>();
-                    if (e == null) {
-                        for (int i = 0; i < list.size(); i++) {
-                            Object object = list.get(i);
-
-
-                            String name = ((ParseObject) object).getString("Name");
-                            nameArray.add(name);
-
-
-                        }
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-
-                    for (int c = 0; c < nameArray.size(); c++) {
-                        String compare = nameArray.get(c);
-                        for (int l = 0; l < list.size(); l++) {
-                            if (!listNameArray.contains(compare)) {
-                                listNameArray.add(compare);
-
-                            }
-                        }
-                    }
-                    mainListAdapter.notifyDataSetChanged();
-                }
-            });
-        }
-        Log.i("WTF", listNameArray.toString());
-        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
-
-        lv.setOnItemClickListener(ListMasterActivity.this);
-        lv.setOnItemLongClickListener(ListMasterActivity.this);
-
-        lv.setAdapter(mainListAdapter);
+        setContentView(R.layout.fragment_list_master);
     }
 
-
-
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-        namePos = listNameArray.get(position);
-        Intent update = new Intent(ListMasterActivity.this, IndListActivity.class);
-        update.putExtra("listName", namePos);
-        startActivity(update);
-
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return false;
-    }
-
-    private void TimerMethod()
-    {
-        this.runOnUiThread(Timer_Tick);
-    }
-
-
-    private Runnable Timer_Tick = new Runnable() {
-        public void run() {
-            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                try {
-                    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("listMaster");
-                    List<ParseObject> objects = query1.find();
-                    ParseObject.pinAllInBackground(objects);
-                } catch (com.parse.ParseException e) {
-                    e.printStackTrace();
-                }
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List list, com.parse.ParseException e) {
-                        nameArray = new ArrayList<>();
-                        listNameArray = new ArrayList<>();
-
-                        if (e == null) {
-                            for (int i = 0; i < list.size(); i++) {
-                                Object object = list.get(i);
-
-
-                                String name = ((ParseObject) object).getString("Name");
-                                nameArray.add(name);
-
-
-                            }
-
-                        } else {
-                            Log.d("Failed", "Error: " + e.getMessage());
-                        }
-                        for (int c = 0; c < nameArray.size(); c++) {
-                            String compare = nameArray.get(c);
-                            for (int l = 0; l < list.size(); l++) {
-                                if (!listNameArray.contains(compare)) {
-                                    listNameArray.add(compare);
-                                    mainListAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    }
-                });
-            } else {
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-                query.fromLocalDatastore();
-                query.findInBackground(new FindCallback<ParseObject>() {
-                    @Override
-                    public void done(List list, com.parse.ParseException e) {
-                        nameArray = new ArrayList<>();
-                        listNameArray = new ArrayList<>();
-                        if (e == null) {
-                            for (int i = 0; i < list.size(); i++) {
-                                Object object = list.get(i);
-
-
-                                String name = ((ParseObject) object).getString("Name");
-                                nameArray.add(name);
-
-
-                            }
-
-                        } else {
-                            Log.d("Failed", "Error: " + e.getMessage());
-                        }
-
-                        for (int c = 0; c < nameArray.size(); c++) {
-                            String compare = nameArray.get(c);
-                            for (int l = 0; l < list.size(); l++) {
-                                if (!listNameArray.contains(compare)) {
-                                    listNameArray.add(compare);
-                                    mainListAdapter.notifyDataSetChanged();
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            Log.i("WTF", listNameArray.toString());
-            mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
-
-            lv.setOnItemClickListener(ListMasterActivity.this);
-            lv.setOnItemLongClickListener(ListMasterActivity.this);
-
-            lv.setAdapter(mainListAdapter);
-
-        }
-    };
-
-    public void onPause() {
-        super.onPause();
-
-        sched.cancel();
-    }
-
-    public void onResume() {
-        super.onResume();
-        sched = new Timer();
-        sched.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                TimerMethod();
-            }
-        }, 0, 1000);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -305,7 +62,7 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
         }
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, NewListActivity.class);
-            add.putExtra("listNameArray", listNameArray);
+            add.putExtra("listNameArray", ListMasterFragment.listNameArray);
             this.startActivity(add);
         }
 

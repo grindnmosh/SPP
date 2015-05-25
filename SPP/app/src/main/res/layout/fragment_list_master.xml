@@ -3,5 +3,10 @@
     android:layout_height="match_parent" tools:context="com.grindesign.fragment.ListMasterFragment">
 
 
-
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.grindesign.fragment.ListMasterFragment"
+        android:id="@+id/fragment"
+        android:layout_gravity="left|top" />
 </FrameLayout>
