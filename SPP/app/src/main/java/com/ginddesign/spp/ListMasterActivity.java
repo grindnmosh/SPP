@@ -142,26 +142,12 @@ public class ListMasterActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("listMaster");
-            query.findInBackground(new FindCallback<ParseObject>() {
 
-                @Override
-                public void done(List list, com.parse.ParseException e) {
+        namePos = listNameArray.get(position);
+        Intent update = new Intent(ListMasterActivity.this, IndListActivity.class);
+        update.putExtra("listName", namePos);
+        startActivity(update);
 
-                    if (e == null) {
-                        namePos = listNameArray.get(position);
-                        Intent update = new Intent(ListMasterActivity.this, IndListActivity.class);
-                        update.putExtra("listName", namePos);
-                        startActivity(update);
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-                }
-            });
-        }
     }
 
     @Override

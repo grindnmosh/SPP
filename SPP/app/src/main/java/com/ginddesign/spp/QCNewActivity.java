@@ -175,6 +175,7 @@ public class QCNewActivity extends AppCompatActivity {
 
                     } else {
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                        query.fromLocalDatastore();
                         query.getInBackground(ois, new GetCallback<ParseObject>() {
                             public void done(ParseObject object, com.parse.ParseException e) {
                                 object.put("Cat", cat);

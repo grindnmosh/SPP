@@ -210,6 +210,44 @@ public class LChildActivity extends AppCompatActivity implements AdapterView.OnI
                     }
                 }
             });
+        } else {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
+            query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
+
+                @Override
+                public void done(List list, com.parse.ParseException e) {
+
+                    if (e == null) {
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", "Entry Point Done");
+                            Object object = list.get(i);
+
+                            String oid = ((ParseObject) object).getObjectId();
+                            oidArray.add(oid);
+                            if (nameArray != null) {
+                                Log.i("Array", oidArray.toString());
+                                mainListAdapter.notifyDataSetChanged();
+                            }
+
+                        }
+                        Log.i("OIDs", oidArray.toString());
+                        oidPos = oidArray.get(position);
+                        for (int i = 0; i < list.size(); i++) {
+                            Object object = list.get(i);
+                            String oid = ((ParseObject) object).getObjectId();
+                            if (oidPos.equals(oid)) {
+                                Log.i("ObjectID", oid);
+                                Intent update = new Intent(LChildActivity.this, LDetailActivity.class);
+                                update.putExtra("object ID", oid);
+                                startActivity(update);
+                            }
+                        }
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+                }
+            });
         }
     }
 }

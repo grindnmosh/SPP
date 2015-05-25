@@ -55,7 +55,7 @@ public class QCDetailActivity extends AppCompatActivity {
         conEdit = (ImageButton) findViewById(R.id.conEdit);
 
         final Intent i = getIntent();
-        ois = i.getStringExtra("object ID");
+        ois = i.getStringExtra("Object ID");
 
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -64,7 +64,13 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-
+            try {
+                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("images");
+                List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
             ParseQuery<ParseObject> query = ParseQuery.getQuery("images");
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
@@ -145,6 +151,13 @@ public class LImageActivity extends AppCompatActivity implements AdapterView.OnI
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                try {
+                    ParseQuery<ParseObject> query1 = ParseQuery.getQuery("images");
+                    List<ParseObject> objects = query1.find();
+                    ParseObject.pinAllInBackground(objects);
+                } catch (com.parse.ParseException e) {
+                    e.printStackTrace();
+                }
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("images");
                 query.findInBackground(new FindCallback<ParseObject>() {
                     @Override
