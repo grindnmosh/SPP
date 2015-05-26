@@ -21,6 +21,9 @@ public class PhotoCell extends ArrayAdapter<String> {
     private Context context;
     private ArrayList<String> arrayLister = LImageFragment.nameArray;
 
+    public PhotoCell(){
+        super(null,0);
+    }
 
     public PhotoCell(Context context, int resource, ArrayList<String> arrayLister) {
         super(context, resource, arrayLister);

@@ -2,6 +2,7 @@ package com.ginddesign.spp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,17 @@ public class ContactCell extends ArrayAdapter<String> {
     private Context context;
     private ArrayList<String> arrayLister = QuickContactFragment.nameArray;
 
+    public ContactCell(){
+        super(null,0);
+    }
 
     public ContactCell(Context context, int resource, ArrayList<String> arrayLister) {
         super(context, resource, arrayLister);
         this.context = context;
         this.arrayLister = arrayLister;
     }
+
+
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         String name = arrayLister.get(position);

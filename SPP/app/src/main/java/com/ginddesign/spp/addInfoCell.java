@@ -21,12 +21,14 @@ public class addInfoCell extends ArrayAdapter<String> {
     private Context context;
     private ArrayList<String> arrayLister = LDetailFragment.nameArray;
 
+    public addInfoCell(){
+        super(null,0);
+    }
 
     public addInfoCell(Context context, int resource, ArrayList<String> arrayLister) {
         super(context, resource, arrayLister);
         this.context = context;
         this.arrayLister = arrayLister;
-        Log.i("Contxt", arrayLister.toString());
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {

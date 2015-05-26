@@ -33,6 +33,9 @@ public class IndListCell extends ArrayAdapter<String> {
     private ArrayList<String> arrayLister = IndListFragment.nameArray;
     private ArrayList<String> oIDArray = IndListFragment.oidArray;
 
+    public IndListCell(){
+        super(null,0);
+    }
 
     public IndListCell(Context context, int resource, ArrayList<String> arrayLister, ArrayList<String> oIDArray) {
         super(context, resource, arrayLister);
