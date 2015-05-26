@@ -58,13 +58,12 @@ public class LIDetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            try {
-                ParseUser.getCurrentUser().refresh();
-            } catch (ParseException d) {
-                d.printStackTrace();
-            }
-            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
-            startActivityForResult(builder.build(), 0);
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+            System.exit(0);
         }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);

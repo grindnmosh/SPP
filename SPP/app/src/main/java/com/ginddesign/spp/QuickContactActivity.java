@@ -49,14 +49,12 @@ public class QuickContactActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            try {
-                ParseUser.getCurrentUser().refresh();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
-            startActivityForResult(builder.build(), 0);
-            this.finish();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+            System.exit(0);
         }
         else if (id == R.id.action_home) {
             Intent qc = new Intent(this, ListMasterActivity.class);

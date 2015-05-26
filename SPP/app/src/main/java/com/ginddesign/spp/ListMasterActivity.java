@@ -42,14 +42,12 @@ public class ListMasterActivity extends AppCompatActivity {
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
-            try {
-                ParseUser.getCurrentUser().refresh();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
-            startActivityForResult(builder.build(), 0);
-            this.finish();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+            System.exit(0);
         }
         if (id == R.id.action_change) {
             Intent change = new Intent(this, SettingsActivity.class);
@@ -79,5 +77,7 @@ public class ListMasterActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        finish();
+        System.exit(0);
     }
 }
