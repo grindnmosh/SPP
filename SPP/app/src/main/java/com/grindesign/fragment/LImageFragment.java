@@ -89,6 +89,9 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                    nameArray = new ArrayList<>();
+                    createArray = new ArrayList<>();
+                    oidArray = new ArrayList<>();
                     for (int i = 0; i < objects.size(); i++) {
                         ParseObject object = objects.get(i);
                         name = object.getString("Name");
@@ -117,6 +120,9 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                    nameArray = new ArrayList<>();
+                    createArray = new ArrayList<>();
+                    oidArray = new ArrayList<>();
                     for (int i = 0; i < objects.size(); i++) {
                         ParseObject object = objects.get(i);
                         String name = object.getString("Name");
@@ -288,7 +294,7 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
             public void run() {
                 TimerMethod();
             }
-        }, 0, 10000);
+        }, 0, 2000);
     }
 
     @Override
