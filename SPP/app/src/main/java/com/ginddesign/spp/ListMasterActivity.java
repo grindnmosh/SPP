@@ -65,6 +65,7 @@ public class ListMasterActivity extends AppCompatActivity {
         }
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, NewListActivity.class);
+            Log.i("TESTTTTTTT", String.valueOf(ListMasterFragment.listNameArray));
             add.putExtra("listNameArray", ListMasterFragment.listNameArray);
             this.startActivity(add);
         }
@@ -78,7 +79,5 @@ public class ListMasterActivity extends AppCompatActivity {
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-
-
     }
 }

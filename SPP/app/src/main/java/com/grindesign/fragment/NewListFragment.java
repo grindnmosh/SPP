@@ -71,7 +71,7 @@ public class NewListFragment extends Fragment {
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (loads[position].equals("Current Lists")) {
+                if (listNameArray.get(position).equals("Current Lists")) {
                     listName.setText("");
                 } else {
                     listName.setText(loads[position]);
@@ -83,6 +83,7 @@ public class NewListFragment extends Fragment {
 
             }
         });
+
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +141,8 @@ public class NewListFragment extends Fragment {
                 startActivity(home);
             }
         });
+
+
 
         return view;
     }
