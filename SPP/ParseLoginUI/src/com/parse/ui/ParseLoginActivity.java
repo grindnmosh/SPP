@@ -22,6 +22,7 @@
 package com.parse.ui;
 
 import android.annotation.TargetApi;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -237,5 +238,7 @@ public class ParseLoginActivity extends FragmentActivity implements
     intent.addCategory(Intent.CATEGORY_HOME);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     startActivity(intent);
+    System.exit(0);
+
   }
 }
