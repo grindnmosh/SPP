@@ -76,46 +76,6 @@
     <string name="temp_ss">123–45–6789</string>
     <string name="action_change">Settings</string>
 
-
-    <string-array name="listMaster">
-        <item >Groceries</item>
-        <item >School Supplies</item>
-        <item >Winter Clothes</item>
-        <item >Chores for Allowance</item>
-    </string-array>
-
-    <string-array name="spinner">
-        <item >Current Lists</item>
-        <item >Groceries</item>
-        <item >School Supplies</item>
-        <item >Winter Clothes</item>
-        <item >Chores for Allowance</item>
-    </string-array>
-
-    <string-array name="sampleList">
-        <item >Milk</item>
-        <item >Eggs</item>
-        <item >Bread</item>
-        <item >Lettuce</item>
-        <item >2 Tomatoes</item>
-        <item >Onion</item>
-    </string-array>
-
-    <string-array name="childList">
-        <item >Michael</item>
-    </string-array>
-
-    <string-array name="links">
-        <item >custom cell with doc name and link</item>
-        <item >custom cell with doc name and link</item>
-    </string-array>
-
-    <string-array name="qc">
-        <item >Mary Poppins 6025551212 Child Care(cust cell)</item>
-        <item >Dr Payne 4805551212 Medical(cust cell)</item>
-        <item >Me Modomom 3055551212 Education(cust cell)</item>
-    </string-array>
-
     <string-array name="qc_cat">
         <item >Select Category</item>
         <item >Child Care</item>
@@ -124,11 +84,6 @@
         <item >Other</item>
     </string-array>
 
-    <string-array name="ilist">
-        <item >/image/ picture 1(cust cell)</item>
-        <item >/image/ picture 2(cust cell)</item>
-        <item >/image/ picture 3(cust cell)</item>
-    </string-array>
     <string name="title_activity_add_info_cell">addInfoCell</string>
     <string name="title_activity_contact_cell">ContactCell</string>
     <string name="dialer">dialer</string>
@@ -151,11 +106,10 @@
     <string name="name_new_img">Name New Image</string>
     <string name="take_pic">take pic</string>
     <string name="warning_img">Please be aware new images may take a few moments to appear.</string>
-    <string name="l_instructions">Click The Add Icon to start creating your fitst List</string>
-    <string name="c_ins">Click the add icon to add a child\'s Info</string>
-    <string name="q_contact">Click the Add Icon to add your first important contact</string>
+    <string name="l_instructions">Click The Add Icon to start creating your first list</string>
+    <string name="c_ins">Click the Add Icon to add a child\'s Information</string>
+    <string name="q_contact">Click the Add Icon to add your first Quick Contact</string>
     <string name="img_ins">Take a quick photo of your important documents and store them here. Simply name your image and click the camera icon. We will take it from there.</string>
-    <string name="title_activity_logout_catch">LogoutCatchActivity</string>
 
 
 </resources>

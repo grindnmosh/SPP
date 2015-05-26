@@ -61,10 +61,12 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
         lv = (ListView) view.findViewById(R.id.list_master);
         ins = (TextView) view.findViewById(R.id.instructions);
-        ins.setVisibility(View.VISIBLE);
+        Log.i("WTFMAN", listNameArray.toString());
+        ins.setVisibility(View.INVISIBLE);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        ins.setVisibility(View.INVISIBLE);
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             nameArray = new ArrayList<>();
             listNameArray = new ArrayList<>();
@@ -79,7 +81,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List list, com.parse.ParseException e) {
-
+                    ins.setVisibility(View.INVISIBLE);
 
                     if (e == null) {
                         for (int i = 0; i < list.size(); i++) {
@@ -88,7 +90,6 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
                             String name = ((ParseObject) object).getString("Name");
                             nameArray.add(name);
-                            Log.i("NAMEARRAY", String.valueOf(nameArray));
 
 
                         }
@@ -143,13 +144,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
                 }
             });
         }
-        Log.i("WTF", listNameArray.toString());
-        Log.i("NAMEARRAY", String.valueOf(nameArray));
-        if (nameArray.isEmpty()) {
-            ins.setVisibility(View.VISIBLE);
-        } else {
-            ins.setVisibility(View.INVISIBLE);
-        }
+        ins.setVisibility(View.INVISIBLE);
 
         mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
 
@@ -258,9 +253,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
                     }
                 });
             }
-            Log.i("WTF", listNameArray.toString());
-            Log.i("NAMEARRAY", String.valueOf(nameArray));
-            if (nameArray.isEmpty()) {
+            if (listNameArray.isEmpty()) {
                 ins.setVisibility(View.VISIBLE);
             } else {
                 ins.setVisibility(View.INVISIBLE);
@@ -294,7 +287,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
             public void run() {
                 TimerMethod();
             }
-        }, 0, 120000);
+        }, 0, 2000);
     }
 
 

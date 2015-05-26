@@ -65,7 +65,6 @@ public class NewListFragment extends Fragment {
         final Intent i = getActivity().getIntent();
         listNameArray.addAll(i.getStringArrayListExtra("listNameArray"));
 
-        loads = getResources().getStringArray(R.array.spinner);
         loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, listNameArray);
         s.setAdapter(loadsAdapter);
 
