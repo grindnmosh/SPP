@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.grindesign.fragment.LDetailFragment;
+import com.grindesign.fragment.LIDetailFragment;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -31,82 +33,13 @@ import java.util.List;
 
 public class LIDetailActivity extends AppCompatActivity {
 
-    Context context;
-    String name;
     Bitmap bmp;
-    String oid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lidetail);
-
-        final Intent i = getIntent();
-        oid = i.getStringExtra("Object ID");
-
-        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            try {
-                ParseQuery<ParseObject> query1 = ParseQuery.getQuery("images");
-                List<ParseObject> objects = query1.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            ParseQuery<ParseObject> query = new ParseQuery<>("images");
-            query.getInBackground(oid, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, com.parse.ParseException e) {
-                    ParseFile fileObject = (ParseFile) object.get("spp_image");
-                    String imgName = object.getString("Name");
-                    TextView nameIt = (TextView) findViewById(R.id.textView26);
-                    nameIt.setText(imgName);
-                    fileObject.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] data, com.parse.ParseException e) {
-                            if (e == null) {
-                                Log.d("test", "We've got data in data.");
-                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                ImageView image = (ImageView) findViewById(R.id.imageView2);
-                                image.setImageBitmap(bmp);
-                            } else {
-                                Log.d("test", "There was a problem downloading the data.");
-                            }
-                        }
-                    });
-                }
-            });
-        } else {
-            ParseQuery<ParseObject> query = new ParseQuery<>("images");
-            query.fromLocalDatastore();
-            query.getInBackground(oid, new GetCallback<ParseObject>() {
-                @Override
-                public void done(ParseObject object, com.parse.ParseException e) {
-                    ParseFile fileObject = (ParseFile) object.get("spp_image");
-                    String imgName = object.getString("Name");
-                    TextView nameIt = (TextView) findViewById(R.id.textView26);
-                    nameIt.setText(imgName);
-                    fileObject.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] data, com.parse.ParseException e) {
-                            if (e == null) {
-                                Log.d("test", "We've got data in data.");
-                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                ImageView image = (ImageView) findViewById(R.id.imageView2);
-                                image.setImageBitmap(bmp);
-                            } else {
-                                Log.d("test", "There was a problem downloading the data.");
-                            }
-                        }
-                    });
-                }
-            });
-        }
-
+        setContentView(R.layout.fragment_lidetail);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -153,7 +86,7 @@ public class LIDetailActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 ParseQuery<ParseObject> query = new ParseQuery<>("images");
-                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                query.getInBackground(LIDetailFragment.oid, new GetCallback<ParseObject>() {
                     @Override
                     public void done(ParseObject object, com.parse.ParseException e) {
                         ParseFile fileObject = (ParseFile) object.get("spp_image");
@@ -185,7 +118,7 @@ public class LIDetailActivity extends AppCompatActivity {
             } else {
                 ParseQuery<ParseObject> query = new ParseQuery<>("images");
                 query.fromLocalDatastore();
-                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                query.getInBackground(LIDetailFragment.oid, new GetCallback<ParseObject>() {
                     @Override
                     public void done(ParseObject object, com.parse.ParseException e) {
                         ParseFile fileObject = (ParseFile) object.get("spp_image");
