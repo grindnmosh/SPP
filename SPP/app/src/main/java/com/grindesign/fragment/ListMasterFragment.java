@@ -61,6 +61,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
         lv = (ListView) view.findViewById(R.id.list_master);
         ins = (TextView) view.findViewById(R.id.instructions);
+        ins.setVisibility(View.VISIBLE);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -87,11 +88,8 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
                             String name = ((ParseObject) object).getString("Name");
                             nameArray.add(name);
-                            if (nameArray.isEmpty() || nameArray == null) {
-                                ins.setVisibility(View.VISIBLE);
-                            } else {
-                                ins.setVisibility(View.INVISIBLE);
-                            }
+                            Log.i("NAMEARRAY", String.valueOf(nameArray));
+
 
                         }
 
@@ -124,11 +122,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
                             String name = ((ParseObject) object).getString("Name");
                             nameArray.add(name);
-                            if (nameArray.isEmpty() || nameArray == null) {
-                                ins.setVisibility(View.VISIBLE);
-                            } else {
-                                ins.setVisibility(View.INVISIBLE);
-                            }
+
 
                         }
 
@@ -150,6 +144,12 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
             });
         }
         Log.i("WTF", listNameArray.toString());
+        Log.i("NAMEARRAY", String.valueOf(nameArray));
+        if (nameArray.isEmpty()) {
+            ins.setVisibility(View.VISIBLE);
+        } else {
+            ins.setVisibility(View.INVISIBLE);
+        }
 
         mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
 
@@ -181,11 +181,6 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
     private Runnable Timer_Tick = new Runnable() {
         public void run() {
-            if (nameArray.isEmpty()) {
-                ins.setVisibility(View.VISIBLE);
-            } else {
-                ins.setVisibility(View.INVISIBLE);
-            }
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnectedOrConnecting()) {
@@ -210,11 +205,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
                                 String name = ((ParseObject) object).getString("Name");
                                 nameArray.add(name);
-                                if (nameArray.isEmpty()) {
-                                    ins.setVisibility(View.VISIBLE);
-                                } else {
-                                    ins.setVisibility(View.INVISIBLE);
-                                }
+
 
                             }
 
@@ -247,11 +238,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
                                 String name = ((ParseObject) object).getString("Name");
                                 nameArray.add(name);
-                                if (nameArray.isEmpty()) {
-                                    ins.setVisibility(View.VISIBLE);
-                                } else {
-                                    ins.setVisibility(View.INVISIBLE);
-                                }
+
 
                             }
 
@@ -272,10 +259,11 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
                 });
             }
             Log.i("WTF", listNameArray.toString());
-            if (listNameArray != null) {
-                ins.setVisibility(View.INVISIBLE);
-            } else {
+            Log.i("NAMEARRAY", String.valueOf(nameArray));
+            if (nameArray.isEmpty()) {
                 ins.setVisibility(View.VISIBLE);
+            } else {
+                ins.setVisibility(View.INVISIBLE);
             }
             mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
 
