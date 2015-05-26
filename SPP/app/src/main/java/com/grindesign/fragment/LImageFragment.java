@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ginddesign.spp.LIDetailActivity;
@@ -48,6 +49,7 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
     Context context;
     ImageButton snapShot;
     EditText picName;
+    TextView imgIns;
     String name;
     Timer sched;
     public static ArrayList<String> nameArray = new ArrayList<>();
@@ -66,6 +68,7 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
 
         picName = (EditText) view.findViewById(R.id.nameImage);
         snapShot = (ImageButton) view.findViewById(R.id.snapPic);
+        imgIns = (TextView) view.findViewById(R.id.imgIns);
         lv = (ListView) view.findViewById(R.id.ilist);
 
         nameArray = new ArrayList<>();
@@ -97,6 +100,12 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
                         nameArray.add(name);
                         oidArray.add(oid);
                         createArray.add(date);
+                        nameArray.add(name);
+                        if (nameArray.isEmpty()) {
+                            imgIns.setVisibility(View.VISIBLE);
+                        } else {
+                            imgIns.setVisibility(View.INVISIBLE);
+                        }
 
                     }
                     mainListAdapter.notifyDataSetChanged();
@@ -119,7 +128,11 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
                         nameArray.add(name);
                         oidArray.add(oid);
                         createArray.add(date);
-
+                        if (nameArray.isEmpty()) {
+                            imgIns.setVisibility(View.VISIBLE);
+                        } else {
+                            imgIns.setVisibility(View.INVISIBLE);
+                        }
                     }
                     mainListAdapter.notifyDataSetChanged();
                 }
@@ -187,7 +200,11 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
                             nameArray.add(name);
                             oidArray.add(oid);
                             createArray.add(date);
-
+                            if (nameArray.isEmpty()) {
+                                imgIns.setVisibility(View.VISIBLE);
+                            } else {
+                                imgIns.setVisibility(View.INVISIBLE);
+                            }
                         }
                         mainListAdapter.notifyDataSetChanged();
                     }
@@ -212,7 +229,11 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
                             nameArray.add(name);
                             oidArray.add(oid);
                             createArray.add(date);
-
+                            if (nameArray.isEmpty()) {
+                                imgIns.setVisibility(View.VISIBLE);
+                            } else {
+                                imgIns.setVisibility(View.INVISIBLE);
+                            }
                         }
                         mainListAdapter.notifyDataSetChanged();
                     }

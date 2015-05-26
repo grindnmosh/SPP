@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ginddesign.spp.LDetailActivity;
 import com.ginddesign.spp.R;
@@ -33,6 +34,7 @@ public class LChildFragment extends Fragment implements AdapterView.OnItemClickL
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> oidArray;
     Context context;
+    TextView cIns;
 
     public LChildFragment() {
         // Required empty public constructor
@@ -44,6 +46,7 @@ public class LChildFragment extends Fragment implements AdapterView.OnItemClickL
         View view = inflater.inflate(R.layout.activity_lchild, container, false);
 
         lv = (ListView) view.findViewById(R.id.childList);
+        cIns = (TextView) view.findViewById(R.id.cIns);
 
         nameArray = new ArrayList<>();
         oidArray = new ArrayList<>();
@@ -75,6 +78,11 @@ public class LChildFragment extends Fragment implements AdapterView.OnItemClickL
                             String oid = ((ParseObject) object).getObjectId();
 
                             nameArray.add(name);
+                            if (nameArray.isEmpty()) {
+                                cIns.setVisibility(View.VISIBLE);
+                            } else {
+                                cIns.setVisibility(View.INVISIBLE);
+                            }
                             oidArray.add(oid);
                             if (nameArray != null) {
                                 Log.i("Array", oidArray.toString());
@@ -109,6 +117,11 @@ public class LChildFragment extends Fragment implements AdapterView.OnItemClickL
                             String oid = ((ParseObject) object).getObjectId();
 
                             nameArray.add(name);
+                            if (nameArray.isEmpty()) {
+                                cIns.setVisibility(View.VISIBLE);
+                            } else {
+                                cIns.setVisibility(View.INVISIBLE);
+                            }
                             oidArray.add(oid);
                             if (nameArray != null) {
                                 Log.i("Array", oidArray.toString());

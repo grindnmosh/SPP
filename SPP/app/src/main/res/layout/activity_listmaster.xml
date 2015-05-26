@@ -17,7 +17,7 @@
         android:layout_alignParentStart="true"
         android:textStyle="bold|normal"
         android:typeface="normal"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:textIsSelectable="false" />
 
     <ListView
@@ -27,6 +27,20 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/l_instructions"
+        android:id="@+id/instructions"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="italic"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginBottom="174dp" />
 
 </RelativeLayout>

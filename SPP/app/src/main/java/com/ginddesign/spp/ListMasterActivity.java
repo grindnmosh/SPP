@@ -1,5 +1,6 @@
 package com.ginddesign.spp;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +23,6 @@ public class ListMasterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("Hit", "Hit");
         setContentView(R.layout.fragment_list_master);
     }
 
@@ -37,6 +37,8 @@ public class ListMasterActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+
 
         if (id == R.id.action_settings) {
             ParseUser.logOut();
@@ -65,7 +67,6 @@ public class ListMasterActivity extends AppCompatActivity {
             add.putExtra("listNameArray", ListMasterFragment.listNameArray);
             this.startActivity(add);
         }
-
         return super.onOptionsItemSelected(item);
     }
 

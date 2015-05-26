@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ginddesign.spp.ContactCell;
 import com.ginddesign.spp.QCDetailActivity;
@@ -35,6 +36,7 @@ public class QuickContactFragment extends Fragment implements AdapterView.OnItem
     public static ArrayList<String> oidArray = new ArrayList<>();
     public static ArrayList<String> phoneArray = new ArrayList<>();
     Context context;
+    TextView qIns;
 
     public QuickContactFragment() {
 
@@ -46,6 +48,7 @@ public class QuickContactFragment extends Fragment implements AdapterView.OnItem
         View view = inflater.inflate(R.layout.activity_quickcontact, container, false);
 
         final ListView lv = (ListView) view.findViewById(R.id.qcList);
+        qIns = (TextView) view.findViewById(R.id.qIns);
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -86,6 +89,11 @@ public class QuickContactFragment extends Fragment implements AdapterView.OnItem
                             catArray.add(cat);
                             oidArray.add(oid);
                             phoneArray.add(phone);
+                            if (nameArray.isEmpty()) {
+                                qIns.setVisibility(View.VISIBLE);
+                            } else {
+                                qIns.setVisibility(View.INVISIBLE);
+                            }
 
                         }
                         mainListAdapter.notifyDataSetChanged();
@@ -119,6 +127,11 @@ public class QuickContactFragment extends Fragment implements AdapterView.OnItem
                             catArray.add(cat);
                             oidArray.add(oid);
                             phoneArray.add(phone);
+                            if (nameArray.isEmpty()) {
+                                qIns.setVisibility(View.VISIBLE);
+                            } else {
+                                qIns.setVisibility(View.INVISIBLE);
+                            }
 
                         }
                         mainListAdapter.notifyDataSetChanged();

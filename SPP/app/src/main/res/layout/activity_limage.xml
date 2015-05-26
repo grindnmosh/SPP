@@ -60,4 +60,16 @@
         android:layout_alignRight="@+id/snapPic"
         android:layout_alignEnd="@+id/snapPic" />
 
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/img_ins"
+        android:id="@+id/imgIns"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="italic" />
+
 </RelativeLayout>

@@ -151,6 +151,10 @@
     <string name="name_new_img">Name New Image</string>
     <string name="take_pic">take pic</string>
     <string name="warning_img">Please be aware new images may take a few moments to appear.</string>
+    <string name="l_instructions">Click The Add Icon to start creating your fitst List</string>
+    <string name="c_ins">Click the add icon to add a child\'s Info</string>
+    <string name="q_contact">Click the Add Icon to add your first important contact</string>
+    <string name="img_ins">Take a quick photo of your important documents and store them here. Simply name your image and click the camera icon. We will take it from there.</string>
 
 
 </resources>
