@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.grindesign.fragment.LDetailFragment;
+
 import java.util.ArrayList;
 
 
@@ -17,7 +19,7 @@ public class addInfoCell extends ArrayAdapter<String> {
 
 
     private Context context;
-    private ArrayList<String> arrayLister = LDetailActivity.nameArray;
+    private ArrayList<String> arrayLister = LDetailFragment.nameArray;
 
 
     public addInfoCell(Context context, int resource, ArrayList<String> arrayLister) {
@@ -30,7 +32,7 @@ public class addInfoCell extends ArrayAdapter<String> {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         String names = arrayLister.get(position);
-        String inform = LDetailActivity.nameInfo.get(position);
+        String inform = LDetailFragment.nameInfo.get(position);
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_add_info_cell, null);
