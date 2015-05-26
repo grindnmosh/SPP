@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 
 public class NewListFragment extends Fragment {
 
-    String[] loads;
     Button cancel;
     Button save;
     Spinner s;
@@ -74,7 +72,7 @@ public class NewListFragment extends Fragment {
                 if (listNameArray.get(position).equals("Current Lists")) {
                     listName.setText("");
                 } else {
-                    listName.setText(loads[position]);
+                    listName.setText(listNameArray.get(position));
                 }
             }
 

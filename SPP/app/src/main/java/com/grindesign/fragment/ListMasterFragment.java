@@ -5,13 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,7 +17,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ginddesign.spp.IndListActivity;
-import com.ginddesign.spp.ListMasterActivity;
 import com.ginddesign.spp.R;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -66,8 +62,8 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        ins.setVisibility(View.INVISIBLE);
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            ins.setVisibility(View.INVISIBLE);
             nameArray = new ArrayList<>();
             listNameArray = new ArrayList<>();
             try {
@@ -81,9 +77,10 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List list, com.parse.ParseException e) {
-                    ins.setVisibility(View.INVISIBLE);
+
 
                     if (e == null) {
+                        ins.setVisibility(View.INVISIBLE);
                         for (int i = 0; i < list.size(); i++) {
                             Object object = list.get(i);
 
@@ -117,6 +114,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
                     nameArray = new ArrayList<>();
                     listNameArray = new ArrayList<>();
                     if (e == null) {
+                        ins.setVisibility(View.INVISIBLE);
                         for (int i = 0; i < list.size(); i++) {
                             Object object = list.get(i);
 
