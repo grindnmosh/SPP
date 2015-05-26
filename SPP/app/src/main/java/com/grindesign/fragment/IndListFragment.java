@@ -36,6 +36,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
     public static ArrayList<String> desArray = new ArrayList<>();
     public static ArrayList<String> oidArray = new ArrayList<>();
     public static ArrayList<String> cbArray = new ArrayList<>();
+    public static ArrayList<String> listArray = new ArrayList<>();
     Context context;
     String passedName;
     CheckBox check;

@@ -268,7 +268,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
             public void run() {
                 TimerMethod();
             }
-        }, 0, 1000);
+        }, 0, 120000);
     }
 
 

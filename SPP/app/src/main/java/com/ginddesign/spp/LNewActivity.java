@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.grindesign.fragment.LChildFragment;
+import com.grindesign.fragment.ListMasterFragment;
 import com.parse.GetCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
@@ -177,7 +179,7 @@ public class LNewActivity extends AppCompatActivity {
                                 object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                 object.pinInBackground();
                                 object.saveInBackground();
-                                LChildActivity.mainListAdapter.notifyDataSetChanged();
+                                LChildFragment.mainListAdapter.notifyDataSetChanged();
                                 Intent home = new Intent(LNewActivity.this, LChildActivity.class);
                                 startActivity(home);
                             }
@@ -199,7 +201,7 @@ public class LNewActivity extends AppCompatActivity {
                                 object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                 object.pinInBackground();
                                 object.saveEventually();
-                                LChildActivity.mainListAdapter.notifyDataSetChanged();
+                                LChildFragment.mainListAdapter.notifyDataSetChanged();
                                 Intent home = new Intent(LNewActivity.this, LChildActivity.class);
                                 startActivity(home);
                             }
@@ -255,7 +257,11 @@ public class LNewActivity extends AppCompatActivity {
             this.startActivity(lock);
         }
         else if (id == R.id.action_image) {
-            Intent add = new Intent(this, LImageActivity.class);
+            Intent image = new Intent(this, LImageActivity.class);
+            this.startActivity(image);
+        }
+        else if (id == R.id.action_add) {
+            Intent add = new Intent(this, NewListActivity.class);
             this.startActivity(add);
         }
         return super.onOptionsItemSelected(item);
