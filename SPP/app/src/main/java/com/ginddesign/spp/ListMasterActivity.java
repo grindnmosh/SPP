@@ -44,12 +44,12 @@ public class ListMasterActivity extends AppCompatActivity {
             ParseUser.logOut();
             try {
                 ParseUser.getCurrentUser().refresh();
-            } catch (ParseException d) {
-                d.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-            Intent main = new Intent(this, LogoutCatchActivity.class);
-            this.startActivity(main);
-            finish();
+            ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
+            startActivityForResult(builder.build(), 0);
+            this.finish();
         }
         if (id == R.id.action_change) {
             Intent change = new Intent(this, SettingsActivity.class);
