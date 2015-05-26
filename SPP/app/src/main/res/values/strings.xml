@@ -148,6 +148,9 @@
     <string name="title_activity_settings">SPP</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name_new_img">Name New Image</string>
+    <string name="take_pic">take pic</string>
+    <string name="warning_img">Please be aware new images may take a few moments to appear.</string>
 
 
 </resources>

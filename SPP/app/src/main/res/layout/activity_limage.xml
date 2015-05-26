@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
     <ListView
@@ -23,11 +23,11 @@
         android:layout_height="300dp"
         android:id="@+id/ilist"
         android:choiceMode="singleChoice"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/nameImage"
-        android:background="#07000000" />
+        android:background="#07000000"
+        android:layout_above="@+id/textView3" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/snapPic"
         android:layout_toStartOf="@+id/snapPic"
-        android:hint="Name New Image" />
+        android:hint="@string/name_new_img" />
 
     <ImageButton
         android:layout_width="50dp"
@@ -47,5 +47,17 @@
         android:layout_alignBottom="@+id/nameImage"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/cam48" />
+        android:src="@drawable/cam48"
+        android:contentDescription="@string/take_pic" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/warning_img"
+        android:id="@+id/textView3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/snapPic"
+        android:layout_alignEnd="@+id/snapPic" />
+
 </RelativeLayout>
