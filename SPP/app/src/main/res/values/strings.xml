@@ -155,6 +155,7 @@
     <string name="c_ins">Click the add icon to add a child\'s Info</string>
     <string name="q_contact">Click the Add Icon to add your first important contact</string>
     <string name="img_ins">Take a quick photo of your important documents and store them here. Simply name your image and click the camera icon. We will take it from there.</string>
+    <string name="title_activity_logout_catch">LogoutCatchActivity</string>
 
 
 </resources>

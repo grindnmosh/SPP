@@ -47,8 +47,9 @@ public class ListMasterActivity extends AppCompatActivity {
             } catch (ParseException d) {
                 d.printStackTrace();
             }
-            ParseLoginBuilder builder = new ParseLoginBuilder(ListMasterActivity.this);
-            startActivityForResult(builder.build(), 0);
+            Intent main = new Intent(this, LogoutCatchActivity.class);
+            this.startActivity(main);
+            finish();
         }
         if (id == R.id.action_change) {
             Intent change = new Intent(this, SettingsActivity.class);

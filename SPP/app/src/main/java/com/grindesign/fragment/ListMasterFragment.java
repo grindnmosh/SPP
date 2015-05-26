@@ -62,7 +62,6 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
         lv = (ListView) view.findViewById(R.id.list_master);
         ins = (TextView) view.findViewById(R.id.instructions);
 
-
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
@@ -88,7 +87,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
                             String name = ((ParseObject) object).getString("Name");
                             nameArray.add(name);
-                            if (nameArray.isEmpty()) {
+                            if (nameArray.isEmpty() || nameArray == null) {
                                 ins.setVisibility(View.VISIBLE);
                             } else {
                                 ins.setVisibility(View.INVISIBLE);
@@ -125,7 +124,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
                             String name = ((ParseObject) object).getString("Name");
                             nameArray.add(name);
-                            if (nameArray.isEmpty()) {
+                            if (nameArray.isEmpty() || nameArray == null) {
                                 ins.setVisibility(View.VISIBLE);
                             } else {
                                 ins.setVisibility(View.INVISIBLE);
@@ -182,6 +181,11 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
 
     private Runnable Timer_Tick = new Runnable() {
         public void run() {
+            if (nameArray.isEmpty()) {
+                ins.setVisibility(View.VISIBLE);
+            } else {
+                ins.setVisibility(View.INVISIBLE);
+            }
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnectedOrConnecting()) {
