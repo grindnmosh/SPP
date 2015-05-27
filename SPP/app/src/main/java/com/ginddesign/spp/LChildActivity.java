@@ -68,6 +68,7 @@ public class LChildActivity extends AppCompatActivity {
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, LNewActivity.class);
             add.putExtra("Title", "Create New Child");
+            add.putExtra("Object ID", "New");
             this.startActivity(add);
         }
 

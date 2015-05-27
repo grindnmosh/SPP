@@ -144,6 +144,10 @@
                 android:name="com.parse.ui.ParseLoginActivity.PARSE_LOGIN_EMAIL_AS_USERNAME"
                 android:value="true" />
         </activity>
+        <activity
+            android:name=".ChildNameCell"
+            android:label="@string/title_activity_child_name_cell" >
+        </activity>
     </application>
 
 </manifest>

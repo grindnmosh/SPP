@@ -54,6 +54,9 @@ MERGED from SPP:ParseLoginUI:unspecified:15:5
 MERGED from com.android.support:support-v4:22.1.1:22:5
 MERGED from com.facebook.android:facebook-android-sdk:4.0.1:28:5
 MERGED from com.android.support:support-v4:22.1.1:22:5
+MERGED from com.android.support:recyclerview-v7:21.0.0:17:5
+MERGED from com.android.support:support-v4:22.1.1:22:5
+MERGED from com.android.support:support-v4:22.1.1:22:5
 	android:allowBackup
 		ADDED from AndroidManifest.xml:17:9
 	android:icon
@@ -262,6 +265,12 @@ ADDED from AndroidManifest.xml:135:9
 		ADDED from AndroidManifest.xml:138:13
 	android:name
 		ADDED from AndroidManifest.xml:136:13
+activity#com.ginddesign.spp.ChildNameCell
+ADDED from AndroidManifest.xml:147:9
+	android:label
+		ADDED from AndroidManifest.xml:149:13
+	android:name
+		ADDED from AndroidManifest.xml:148:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:22.1.1:20:5
@@ -270,6 +279,10 @@ MERGED from SPP:ParseLoginUI:unspecified:7:5
 MERGED from com.android.support:support-v4:22.1.1:20:5
 MERGED from com.facebook.android:facebook-android-sdk:4.0.1:24:5
 MERGED from com.android.support:support-v4:22.1.1:20:5
+MERGED from com.android.support:recyclerview-v7:21.0.0:15:5
+MERGED from com.android.support:support-v4:22.1.1:20:5
+MERGED from com.android.support:support-v4:22.1.1:20:5
+MERGED from com.daimajia.swipelayout:library:1.2.0:6:5
 	android:targetSdkVersion
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
@@ -282,3 +295,9 @@ ADDED from SPP:ParseLoginUI:unspecified:16:9
 		ADDED from SPP:ParseLoginUI:unspecified:18:13
 	android:name
 		ADDED from SPP:ParseLoginUI:unspecified:17:13
+activity#android.support.v7.widget.TestActivity
+ADDED from com.android.support:recyclerview-v7:21.0.0:18:9
+	android:label
+		ADDED from com.android.support:recyclerview-v7:21.0.0:18:19
+	android:name
+		ADDED from com.android.support:recyclerview-v7:21.0.0:18:60

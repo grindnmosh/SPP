@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ginddesign.spp.ChildNameCell;
 import com.ginddesign.spp.LDetailActivity;
 import com.ginddesign.spp.R;
 import com.parse.FindCallback;
@@ -37,7 +38,7 @@ public class LChildFragment extends Fragment implements AdapterView.OnItemClickL
     TextView cIns;
 
     public LChildFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -137,7 +138,7 @@ public class LChildFragment extends Fragment implements AdapterView.OnItemClickL
             });
         }
 
-        mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, nameArray);
+        mainListAdapter = new ChildNameCell(context, R.layout.activity_childnamecell, nameArray);
 
         lv.setOnItemClickListener(this);
         lv.setOnItemLongClickListener(this);

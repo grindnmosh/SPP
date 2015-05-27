@@ -113,6 +113,7 @@
     <string name="detete_text">Delete Item?</string>
     <string name="trash_can">trash can</string>
     <string name="wsrning_text">Page will reload on on delete</string>
+    <string name="title_activity_child_name_cell">ChildNameCell</string>
 
 
 </resources>
