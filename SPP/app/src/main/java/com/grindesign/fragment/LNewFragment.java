@@ -1,6 +1,7 @@
 package com.grindesign.fragment;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +28,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import org.json.JSONArray;
+
+import java.util.Calendar;
 
 
 public class LNewFragment extends Fragment {
@@ -49,6 +53,9 @@ public class LNewFragment extends Fragment {
     String med;
     String shot;
     String oid;
+    private int day;
+    private int month;
+    private int year;
     Context context;
     JSONArray fileName = new JSONArray();
     JSONArray fileInfo = new JSONArray();
@@ -62,6 +69,7 @@ public class LNewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_lnew, container, false);
 
+        Calendar cal;
         final Intent i = getActivity().getIntent();
         String pageTitle = i.getStringExtra("Title");
         oid = i.getStringExtra("Object ID");
@@ -78,6 +86,35 @@ public class LNewFragment extends Fragment {
         saveIt = (Button) view.findViewById(R.id.saveIt);
         cancel = (Button) view.findViewById(R.id.cancel2);
         indSave = (Button) view.findViewById(R.id.indSave);
+
+        cal = Calendar.getInstance();
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        month = cal.get(Calendar.MONTH);
+        year = cal.get(Calendar.YEAR);
+
+
+
+
+
+
+        cdob.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    DateDialog();
+                }
+            }
+        });
+
+        cdob.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                DateDialog();
+
+            }
+        });
 
         cTitle.setText(pageTitle);
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -264,7 +301,22 @@ public class LNewFragment extends Fragment {
         return view;
     }
 
+    public void DateDialog(){
 
+        DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,int dayOfMonth)
+            {
+
+                cdob.setText((monthOfYear + 1) + "/" + (dayOfMonth) + "/" + year);
+
+            }};
+
+        DatePickerDialog dpDialog=new DatePickerDialog(context, listener, year, month, day);
+        dpDialog.show();
+
+    }
 
 
     @Override
