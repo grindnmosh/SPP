@@ -76,54 +76,56 @@ public class QCNewFragment extends Fragment {
         if (pageTitle.equals("Edit Contact")) {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-                query.getInBackground(ois, new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, com.parse.ParseException e) {
-                        if (e == null) {
-                            name = object.getString("Name");
-                            phone = object.getString("Phone");
-                            email = object.getString("Email");
-                            notes = object.getString("Notes");
-                            compareValue = object.getString("Cat");
-                            qcName.setText(name);
-                            qcPhone.setText(phone);
-                            qcEmail.setText(email);
-                            qcNotes.setText(notes);
+            if (!ois.equals("New")) {
+                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                    query.getInBackground(ois, new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, com.parse.ParseException e) {
+                            if (e == null) {
+                                name = object.getString("Name");
+                                phone = object.getString("Phone");
+                                email = object.getString("Email");
+                                notes = object.getString("Notes");
+                                compareValue = object.getString("Cat");
+                                qcName.setText(name);
+                                qcPhone.setText(phone);
+                                qcEmail.setText(email);
+                                qcNotes.setText(notes);
 
-                            int spinnerPostion = loadsAdapter.getPosition(compareValue);
-                            s.setSelection(spinnerPostion);
+                                int spinnerPostion = loadsAdapter.getPosition(compareValue);
+                                s.setSelection(spinnerPostion);
 
-                        } else {
-                            Log.d("Failed", "Error: " + e.getMessage());
+                            } else {
+                                Log.d("Failed", "Error: " + e.getMessage());
+                            }
                         }
-                    }
-                });
+                    });
 
-            }else{
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-                query.fromLocalDatastore();
-                query.getInBackground(ois, new GetCallback<ParseObject>() {
-                    public void done(ParseObject object, com.parse.ParseException e) {
-                        if (e == null) {
-                            name = object.getString("Name");
-                            phone = object.getString("Phone");
-                            email = object.getString("Email");
-                            notes = object.getString("Notes");
-                            qcName.setText(name);
-                            qcPhone.setText(phone);
-                            qcEmail.setText(email);
-                            qcNotes.setText(notes);
+                } else {
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                    query.fromLocalDatastore();
+                    query.getInBackground(ois, new GetCallback<ParseObject>() {
+                        public void done(ParseObject object, com.parse.ParseException e) {
+                            if (e == null) {
+                                name = object.getString("Name");
+                                phone = object.getString("Phone");
+                                email = object.getString("Email");
+                                notes = object.getString("Notes");
+                                qcName.setText(name);
+                                qcPhone.setText(phone);
+                                qcEmail.setText(email);
+                                qcNotes.setText(notes);
 
-                            int spinnerPostion = loadsAdapter.getPosition(compareValue);
-                            s.setSelection(spinnerPostion);
+                                int spinnerPostion = loadsAdapter.getPosition(compareValue);
+                                s.setSelection(spinnerPostion);
 
 
-                        } else {
-                            Log.d("Failed", "Error: " + e.getMessage());
+                            } else {
+                                Log.d("Failed", "Error: " + e.getMessage());
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         }
 
@@ -139,8 +141,7 @@ public class QCNewFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (loads[position].equals("Current Lists")) {
                     cat = loads[position].trim();
-                }
-                else {
+                } else {
                     cat = loads[position].trim();
                 }
             }
@@ -159,46 +160,81 @@ public class QCNewFragment extends Fragment {
                 phone = qcPhone.getText().toString().trim();
                 email = qcEmail.getText().toString().trim();
                 notes = qcNotes.getText().toString().trim();
+                Log.i("Category", cat);
 
-                if (!cat.equals("Current Lists") && !name.equals("") && !phone.equals("")) {
+                if (!cat.equals("Current Contacts") && !name.equals("") && !phone.equals("")) {
+                    Log.i("Category", cat);
                     ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo netInfo = cm.getActiveNetworkInfo();
-                    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                        ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-                        query.getInBackground(ois, new GetCallback<ParseObject>() {
-                            public void done(ParseObject object, com.parse.ParseException e) {
-                                object.put("Cat", cat);
-                                object.put("Name", name);
-                                object.put("Phone", phone);
-                                object.put("Email", email);
-                                object.put("Notes", notes);
-                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                object.pinInBackground();
-                                object.saveInBackground();
-                                ListMasterFragment.mainListAdapter.notifyDataSetChanged();
-                                Intent home = new Intent(context, QuickContactActivity.class);
-                                startActivity(home);
-                            }
-                        });
+                    if (!ois.equals("New")) {
+                        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                            query.getInBackground(ois, new GetCallback<ParseObject>() {
+                                public void done(ParseObject object, com.parse.ParseException e) {
+                                    Log.i("Category", cat);
+                                    object.put("Cat", cat);
+                                    object.put("Name", name);
+                                    object.put("Phone", phone);
+                                    object.put("Email", email);
+                                    object.put("Notes", notes);
+                                    object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                    object.pinInBackground();
+                                    object.saveInBackground();
+                                    ListMasterFragment.mainListAdapter.notifyDataSetChanged();
+                                    Intent home = new Intent(context, QuickContactActivity.class);
+                                    startActivity(home);
+                                }
+                            });
 
+                        } else {
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
+                            query.fromLocalDatastore();
+                            query.getInBackground(ois, new GetCallback<ParseObject>() {
+                                public void done(ParseObject object, com.parse.ParseException e) {
+                                    object.put("Cat", cat);
+                                    object.put("Name", name);
+                                    object.put("Phone", phone);
+                                    object.put("Email", email);
+                                    object.put("Notes", notes);
+                                    object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                    object.pinInBackground();
+                                    object.saveEventually();
+                                    ListMasterFragment.mainListAdapter.notifyDataSetChanged();
+                                    Intent home = new Intent(context, QuickContactActivity.class);
+                                    startActivity(home);
+                                }
+                            });
+                        }
                     } else {
-                        ParseQuery<ParseObject> query = ParseQuery.getQuery("contacts");
-                        query.fromLocalDatastore();
-                        query.getInBackground(ois, new GetCallback<ParseObject>() {
-                            public void done(ParseObject object, com.parse.ParseException e) {
-                                object.put("Cat", cat);
-                                object.put("Name", name);
-                                object.put("Phone", phone);
-                                object.put("Email", email);
-                                object.put("Notes", notes);
-                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                object.pinInBackground();
-                                object.saveEventually();
-                                ListMasterFragment.mainListAdapter.notifyDataSetChanged();
-                                Intent home = new Intent(context, QuickContactActivity.class);
-                                startActivity(home);
-                            }
-                        });
+                        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                            ParseObject object = new ParseObject("contacts");
+                            Log.i("Category", cat);
+                            object.put("Cat", cat);
+                            object.put("Name", name);
+                            object.put("Phone", phone);
+                            object.put("Email", email);
+                            object.put("Notes", notes);
+                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                            object.pinInBackground();
+                            object.saveInBackground();
+                            ListMasterFragment.mainListAdapter.notifyDataSetChanged();
+                            Intent home = new Intent(context, QuickContactActivity.class);
+                            startActivity(home);
+
+                        } else {
+                            ParseObject object = new ParseObject("contacts");
+                            object.put("Cat", cat);
+                            object.put("Name", name);
+                            object.put("Phone", phone);
+                            object.put("Email", email);
+                            object.put("Notes", notes);
+                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                            object.pinInBackground();
+                            object.saveEventually();
+                            ListMasterFragment.mainListAdapter.notifyDataSetChanged();
+                            Intent home = new Intent(context, QuickContactActivity.class);
+                            startActivity(home);
+                        }
                     }
 
                 }else{

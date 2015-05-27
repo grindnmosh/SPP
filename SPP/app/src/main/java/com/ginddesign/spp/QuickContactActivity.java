@@ -67,6 +67,7 @@ public class QuickContactActivity extends AppCompatActivity {
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, QCNewActivity.class);
             add.putExtra("Title", "New Contact");
+            add.putExtra("Object ID", "New");
             this.startActivity(add);
         }
 
