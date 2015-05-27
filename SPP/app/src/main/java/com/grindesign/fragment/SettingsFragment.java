@@ -2,6 +2,7 @@ package com.grindesign.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ginddesign.spp.ListMasterActivity;
 import com.ginddesign.spp.MainActivity;
 import com.ginddesign.spp.R;
+import com.ginddesign.spp.SettingsActivity;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -113,6 +116,14 @@ public class SettingsFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        getActivity().setResult(resultCode);
+        Intent home = new Intent(context, ListMasterActivity.class);
+        startActivity(home);
     }
 
     @Override
