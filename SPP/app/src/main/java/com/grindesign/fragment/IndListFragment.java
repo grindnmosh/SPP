@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.ginddesign.spp.IndListCell;
 import com.ginddesign.spp.R;
 import com.parse.FindCallback;
@@ -55,13 +56,12 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
         final Intent i = getActivity().getIntent();
         passedName = i.getStringExtra("listName");
 
+
         listName = (TextView) view.findViewById(R.id.indListName);
         final ListView lv = (ListView) view.findViewById(R.id.list);
         check = (CheckBox) view.findViewById(R.id.checkBox);
 
         listName.setText(passedName);
-
-
 
         nameArray = new ArrayList<>();
         itemArray = new ArrayList<>();

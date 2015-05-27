@@ -36,4 +36,9 @@ dependencies {
     // Uncomment if using Facebook Login (optional Maven dependency)
     compile 'com.facebook.android:facebook-android-sdk:4.0.1'
     compile files('libs/Connection.jar')
+
+    compile 'com.android.support:recyclerview-v7:21.0.0'
+    compile 'com.android.support:support-v4:20.+'
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+
 }
