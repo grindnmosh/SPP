@@ -106,6 +106,7 @@ public class NewListFragment extends Fragment {
                         listMaster.pinInBackground();
                         listMaster.saveInBackground();
                         ListMasterFragment.mainListAdapter.notifyDataSetChanged();
+                        listNameArray.add(lName);
                         listName.setText("");
                         itemName.setText("");
                         itemDescrip.setText("");
