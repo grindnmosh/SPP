@@ -301,7 +301,7 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
             public void run() {
                 TimerMethod();
             }
-        }, 0, 3000);
+        }, 0, 5000);
     }
 
     @Override

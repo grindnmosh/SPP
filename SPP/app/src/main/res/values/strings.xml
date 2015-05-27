@@ -114,6 +114,7 @@
     <string name="trash_can">trash can</string>
     <string name="wsrning_text">Page will reload on on delete</string>
     <string name="title_activity_child_name_cell">ChildNameCell</string>
+    <string name="warning_text_2">Warning! This can not be undone!</string>
 
 
 </resources>
