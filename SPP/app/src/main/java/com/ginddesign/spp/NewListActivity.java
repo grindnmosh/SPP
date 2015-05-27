@@ -75,4 +75,10 @@ public class NewListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void onBackPressed()
+    {
+        Intent lock = new Intent(this, ListMasterActivity.class);
+        this.startActivity(lock);
+    }
 }

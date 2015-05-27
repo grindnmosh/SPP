@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.grindesign.fragment.QCDetailFragment;
+import com.grindesign.fragment.QuickContactFragment;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -79,5 +80,11 @@ public class QCDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed()
+    {
+        Intent lock = new Intent(this, QuickContactActivity.class);
+        this.startActivity(lock);
     }
 }

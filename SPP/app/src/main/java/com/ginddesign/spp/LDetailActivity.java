@@ -85,4 +85,10 @@ public class LDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void onBackPressed()
+    {
+        Intent lock = new Intent(this, LChildActivity.class);
+        this.startActivity(lock);
+    }
 }

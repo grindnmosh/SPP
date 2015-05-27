@@ -82,7 +82,9 @@ public class LImageActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
+    public void onBackPressed()
+    {
+        Intent lock = new Intent(this, LockersActivity.class);
+        this.startActivity(lock);
+    }
 }

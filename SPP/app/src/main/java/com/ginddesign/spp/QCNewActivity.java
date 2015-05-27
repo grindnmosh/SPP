@@ -62,4 +62,10 @@ public class QCNewActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void onBackPressed()
+    {
+        Intent lock = new Intent(this, QuickContactActivity.class);
+        this.startActivity(lock);
+    }
 }

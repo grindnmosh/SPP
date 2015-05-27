@@ -177,15 +177,20 @@ public class LNewFragment extends Fragment {
         indSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String cdn = cDocName.getText().toString().trim();
                 String cdl = cDocLink.getText().toString().trim();
 
-                fileName.put(cdn);
-                fileInfo.put(cdl);
-                Log.i("Saved", fileName.toString());
-                cDocName.setText("");
-                cDocLink.setText("");
-                Toast.makeText(context, "Document Temporarily saved, Save It to finalize", Toast.LENGTH_SHORT).show();
+                if (!cdn.equals("") && !cdl.equals("")) {
+                    fileName.put(cdn);
+                    fileInfo.put(cdl);
+                    Log.i("Saved", fileName.toString());
+                    cDocName.setText("");
+                    cDocLink.setText("");
+                    Toast.makeText(context, "Document Temporarily saved, Save It to finalize", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Nothing was entered to save. Save not completed", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -330,4 +335,5 @@ public class LNewFragment extends Fragment {
         super.onDetach();
 
     }
+
 }
