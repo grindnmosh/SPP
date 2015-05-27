@@ -58,7 +58,7 @@ public class ListMasterActivity extends AppCompatActivity {
             this.startActivity(qc);
         }
         else if (id == R.id.action_lock) {
-            Intent lock = new Intent(this, LSignInActivity.class);
+            Intent lock = new Intent(this, LockersActivity.class);
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {

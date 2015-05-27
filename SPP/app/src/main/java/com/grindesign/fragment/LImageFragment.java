@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.ginddesign.spp.LIDetailActivity;
 import com.ginddesign.spp.LImageActivity;
 import com.ginddesign.spp.PhotoCell;
@@ -51,11 +52,12 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
     EditText picName;
     TextView imgIns;
     String name;
-    Timer sched;
+    public static Timer  sched;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> createArray = new ArrayList<>();
     public static ArrayList<String> oidArray = new ArrayList<>();
-    ListView lv;
+    public static ListView lv;
+
 
     public LImageFragment() {
 
@@ -75,6 +77,7 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
         createArray = new ArrayList<>();
         oidArray = new ArrayList<>();
 
+        imgIns.setVisibility(View.INVISIBLE);
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
@@ -89,6 +92,7 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                    imgIns.setVisibility(View.INVISIBLE);
                     nameArray = new ArrayList<>();
                     createArray = new ArrayList<>();
                     oidArray = new ArrayList<>();
@@ -166,10 +170,11 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
                 }
             }
         });
+
         return view;
     }
 
-    private void TimerMethod()
+    public void TimerMethod()
     {
         getActivity().runOnUiThread(Timer_Tick);
     }
@@ -249,10 +254,10 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
 
             lv.setOnItemClickListener(LImageFragment.this);
             lv.setOnItemLongClickListener(LImageFragment.this);
-
             lv.setAdapter(mainListAdapter);
             Log.i("test", "run");
         }
+
     };
 
     @Override
@@ -280,6 +285,8 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
     }
 
 
+
+
     public void onPause() {
         super.onPause();
 
@@ -294,7 +301,7 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
             public void run() {
                 TimerMethod();
             }
-        }, 0, 2000);
+        }, 0, 3000);
     }
 
     @Override

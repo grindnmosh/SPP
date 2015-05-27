@@ -110,6 +110,9 @@
     <string name="c_ins">Click the Add Icon to add a child\'s Information</string>
     <string name="q_contact">Click the Add Icon to add your first Quick Contact</string>
     <string name="img_ins">Take a quick photo of your important documents and store them here. Simply name your image and click the camera icon. We will take it from there.</string>
+    <string name="detete_text">Delete Item?</string>
+    <string name="trash_can">trash can</string>
+    <string name="wsrning_text">Page will reload on on delete</string>
 
 
 </resources>

@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Delete Item?"
+            android:text="@string/detete_text"
             android:id="@+id/textView5"
             android:layout_centerVertical="true" />
 
@@ -29,7 +29,8 @@
             android:id="@+id/deleteItem"
             android:layout_alignParentRight="true"
             android:src="@drawable/delete64"
-            android:background="#F2F4F7" />
+            android:background="#F2F4F7"
+            android:contentDescription="@string/trash_can" />
     </RelativeLayout>
 
     <RelativeLayout
