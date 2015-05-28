@@ -37,5 +37,6 @@ public class LSignInActivity extends AppCompatActivity {
     {
         Intent home = new Intent(this, ListMasterActivity.class);
         this.startActivity(home);
+
     }
 }
