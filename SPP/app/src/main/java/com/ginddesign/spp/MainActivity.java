@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "bIfkzLusNLlewJ7kGFhHq7WhnHtt0feiUiAYnZ1k", "REgMp3bU0c5bubYdCL9QphwvlFqmkEtep0gN3pZT");
 
+
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
 
@@ -58,9 +59,22 @@ public class MainActivity extends AppCompatActivity {
             Intent home = new Intent(MainActivity.this, ListMasterActivity.class);
             startActivity(home);
         } else {
-            finish();
+            this.finish();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            System.exit(0);
         }
+    }
 
-
+    public void onBackPressed()
+    {
+        this.finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        System.exit(0);
     }
 }
