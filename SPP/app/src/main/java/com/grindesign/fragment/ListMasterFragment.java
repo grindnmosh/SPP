@@ -63,7 +63,6 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            ins.setVisibility(View.INVISIBLE);
             nameArray = new ArrayList<>();
             listNameArray = new ArrayList<>();
             try {
@@ -142,7 +141,11 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
                 }
             });
         }
-        ins.setVisibility(View.INVISIBLE);
+        if (listNameArray.isEmpty()) {
+            ins.setVisibility(View.VISIBLE);
+        } else {
+            ins.setVisibility(View.INVISIBLE);
+        }
 
         mainListAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, android.R.id.text1, listNameArray);
 
@@ -285,7 +288,7 @@ public class ListMasterFragment extends Fragment implements AdapterView.OnItemCl
             public void run() {
                 TimerMethod();
             }
-        }, 0, 120000);
+        }, 0, 5000);
     }
 
 

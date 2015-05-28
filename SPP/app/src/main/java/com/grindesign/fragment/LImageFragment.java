@@ -3,6 +3,7 @@ package com.grindesign.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -163,6 +164,8 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
                 if (!name.equals("")) {
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        takePictureIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                        takePictureIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
                         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                     }
                 } else {
@@ -249,6 +252,11 @@ public class LImageFragment extends Fragment implements AdapterView.OnItemClickL
                         mainListAdapter.notifyDataSetChanged();
                     }
                 });
+            }
+            if (nameArray.isEmpty()) {
+                imgIns.setVisibility(View.VISIBLE);
+            } else {
+                imgIns.setVisibility(View.INVISIBLE);
             }
             mainListAdapter = new PhotoCell(context, R.layout.activity_photocell, nameArray);
 
