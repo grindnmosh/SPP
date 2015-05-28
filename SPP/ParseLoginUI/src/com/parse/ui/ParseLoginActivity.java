@@ -37,6 +37,7 @@ import android.view.Window;
 
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseUser;
 
 /**
  * Encapsulates the Parse login flow. The user can log in by username/password,
@@ -233,12 +234,17 @@ public class ParseLoginActivity extends FragmentActivity implements
 
   public void onBackPressed()
   {
-    this.finish();
-    Intent intent = new Intent(Intent.ACTION_MAIN);
-    intent.addCategory(Intent.CATEGORY_HOME);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    startActivity(intent);
-    System.exit(0);
+    ParseUser currentUser = ParseUser.getCurrentUser();
+    if (currentUser != null) {
+      finish();
+    } else {
+      this.finish();
+      Intent intent = new Intent(Intent.ACTION_MAIN);
+      intent.addCategory(Intent.CATEGORY_HOME);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      startActivity(intent);
+      System.exit(0);
+    }
 
   }
 }
