@@ -65,6 +65,10 @@ public class LChildActivity extends AppCompatActivity {
             Intent lock = new Intent(this, ListMasterActivity.class);
             this.startActivity(lock);
         }
+        else if (id == R.id.action_image) {
+            Intent image = new Intent(this, LImageActivity.class);
+            this.startActivity(image);
+        }
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, LNewActivity.class);
             add.putExtra("Title", "Create New Child");

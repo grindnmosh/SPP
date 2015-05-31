@@ -86,6 +86,10 @@ public class IndListActivity extends AppCompatActivity {
             add.putExtra("listNameArray", ListMasterFragment.listNameArray);
             this.startActivity(add);
         }
+        else if (id == R.id.action_lock) {
+            Intent lock = new Intent(this, LSignInActivity.class);
+            this.startActivity(lock);
+        }
         else if (id == R.id.action_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);

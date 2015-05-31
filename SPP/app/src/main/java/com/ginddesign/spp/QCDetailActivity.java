@@ -71,6 +71,10 @@ public class QCDetailActivity extends AppCompatActivity {
             Intent add = new Intent(this, LNewActivity.class);
             this.startActivity(add);
         }
+        else if (id == R.id.action_lock) {
+            Intent lock = new Intent(this, LSignInActivity.class);
+            this.startActivity(lock);
+        }
         else if (id == R.id.action_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);

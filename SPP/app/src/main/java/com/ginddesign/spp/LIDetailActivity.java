@@ -73,6 +73,10 @@ public class LIDetailActivity extends AppCompatActivity {
             Intent home = new Intent(this, ListMasterActivity.class);
             this.startActivity(home);
         }
+        else if (id == R.id.action_child) {
+            Intent child = new Intent(this, LChildActivity.class);
+            this.startActivity(child);
+        }
         else if (id == R.id.action_share) {
             ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();

@@ -70,6 +70,10 @@ public class LImageActivity extends AppCompatActivity {
             finish();
             System.exit(0);
         }
+        else if (id == R.id.action_child) {
+            Intent child = new Intent(this, LChildActivity.class);
+            this.startActivity(child);
+        }
         else if (id == R.id.action_qc) {
             Intent qc = new Intent(this, QuickContactActivity.class);
             this.startActivity(qc);

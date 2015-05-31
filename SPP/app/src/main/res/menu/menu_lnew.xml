@@ -5,7 +5,7 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_qc" android:title="@string/qc"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_image" android:title="@string/image"
+    <item android:id="@+id/action_image" android:title="@string/img_lock"
         android:orderInCategory="100" app:showAsAction="never" />
 
 </menu>

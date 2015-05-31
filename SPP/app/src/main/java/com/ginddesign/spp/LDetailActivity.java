@@ -76,6 +76,10 @@ public class LDetailActivity extends AppCompatActivity {
             edit.putExtra("Object ID", LDetailFragment.ois);
             this.startActivity(edit);
         }
+        else if (id == R.id.action_image) {
+            Intent image = new Intent(this, LImageActivity.class);
+            this.startActivity(image);
+        }
         else if (id == R.id.action_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
