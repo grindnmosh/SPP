@@ -62,7 +62,9 @@
         android:layout_below="@+id/qcSpin"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="38dp" />
+        android:layout_marginTop="38dp"
+        android:layout_toLeftOf="@+id/save1"
+        android:layout_toStartOf="@+id/save1" />
 
     <EditText
         android:layout_width="match_parent"
@@ -101,5 +103,17 @@
         android:layout_marginTop="47dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Import"
+        android:id="@+id/contactsImport"
+        android:layout_alignTop="@+id/qcName"
+        android:layout_alignRight="@+id/save1"
+        android:layout_alignEnd="@+id/save1"
+        android:layout_toRightOf="@+id/qcName"
+        android:layout_toEndOf="@+id/qcName"
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>

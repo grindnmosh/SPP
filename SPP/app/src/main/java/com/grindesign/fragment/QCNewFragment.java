@@ -3,11 +3,13 @@ package com.grindesign.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,16 +40,21 @@ public class QCNewFragment extends Fragment {
     String email;
     String notes;
     String compareValue;
+    String phoneNum;
+    String emailAdd;
     EditText qcName;
     EditText qcPhone;
     EditText qcEmail;
     EditText qcNotes;
     Button cancel;
     Button save;
+    Button contactsImport;
     TextView title;
     Spinner s;
     Context context;
+    int PICK_CONTACT;
     public static ArrayAdapter<String> loadsAdapter;
+    private static final int CONTACT_PICKER_RESULT = 1001;
 
     public QCNewFragment() {
 
@@ -69,6 +76,7 @@ public class QCNewFragment extends Fragment {
         qcPhone = (EditText) view.findViewById(R.id.qcPhone);
         qcEmail = (EditText) view.findViewById(R.id.qcEmail);
         qcNotes = (EditText) view.findViewById(R.id.qcNotes);
+        contactsImport = (Button) view.findViewById(R.id.contactsImport);
         s = (Spinner) view.findViewById(R.id.qcSpin);
 
         title.setText(pageTitle);
@@ -151,6 +159,15 @@ public class QCNewFragment extends Fragment {
 
             }
 
+        });
+
+        contactsImport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+                startActivityForResult(intent, PICK_CONTACT);
+            }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -273,5 +290,45 @@ public class QCNewFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
 
+    }
+
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        if (reqCode == PICK_CONTACT)
+        {
+            Cursor dataGrabber =  getActivity().getContentResolver().query(data.getData(), null, null, null, null);
+            dataGrabber.moveToNext();
+            String  name = dataGrabber.getString(dataGrabber.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+            String contactId = dataGrabber.getString(dataGrabber.getColumnIndex(ContactsContract.Contacts._ID));
+            String hasPhone = dataGrabber.getString(dataGrabber.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+
+            if ( hasPhone.equalsIgnoreCase("1"))
+                hasPhone = "true";
+            else
+                hasPhone = "false" ;
+            if (Boolean.parseBoolean(hasPhone))
+            {
+                Cursor phones = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                while (phones.moveToNext())
+                {
+                    phoneNum = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                }
+                phones.close();
+            }
+
+            // Find Email Addresses
+            Cursor emails = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null, ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = " + contactId, null, null);
+            while (emails.moveToNext())
+            {
+                emailAdd = emails.getString(emails.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+            }
+            emails.close();
+
+            qcName.setText(name);
+            qcPhone.setText(phoneNum);
+            qcEmail.setText(emailAdd);
+        }
     }
 }
