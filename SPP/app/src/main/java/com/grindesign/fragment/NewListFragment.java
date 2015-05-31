@@ -114,10 +114,16 @@ public class NewListFragment extends Fragment {
                         listMaster.saveInBackground();
                         ListMasterFragment.mainListAdapter.notifyDataSetChanged();
                         listNameArray.add(lName);
-                        listName.setText("");
                         itemName.setText("");
                         itemDescrip.setText("");
-                        s.setSelection(0);
+
+                        if (passedName.equals("none")){
+                            listName.setText("");
+                            s.setSelection(0);
+                        } else {
+                            int spinPos = loadsAdapter.getPosition(passedName);
+                            s.setSelection(spinPos);
+                        }
 
                     } else {
                         ParseObject listMaster = new ParseObject("listMaster");
@@ -128,10 +134,17 @@ public class NewListFragment extends Fragment {
                         listMaster.pinInBackground();
                         listMaster.saveEventually();
                         ListMasterFragment.mainListAdapter.notifyDataSetChanged();
-                        listName.setText("");
+                        listNameArray.add(lName);
                         itemName.setText("");
                         itemDescrip.setText("");
-                        s.setSelection(0);
+
+                        if (passedName.equals("none")){
+                            listName.setText("");
+                            s.setSelection(0);
+                        } else {
+                            int spinPos = loadsAdapter.getPosition(passedName);
+                            s.setSelection(spinPos);
+                        }
                     }
 
                 } else {
