@@ -24,6 +24,16 @@
         android:id="@+id/list"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/indListName" />
+        android:layout_below="@+id/filter"
+        android:layout_alignParentBottom="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/filter"
+        android:layout_below="@+id/indListName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:spinnerMode="dropdown" />
 
 </RelativeLayout>

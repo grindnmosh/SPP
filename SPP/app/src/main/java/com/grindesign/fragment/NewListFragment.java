@@ -37,6 +37,7 @@ public class NewListFragment extends Fragment {
     EditText listName;
     EditText itemName;
     EditText itemDescrip;
+    String passedName;
     public static ArrayList<String> listNameArray = new ArrayList<>();
 
     public static ArrayAdapter<String> loadsAdapter;
@@ -62,10 +63,16 @@ public class NewListFragment extends Fragment {
 
         final Intent i = getActivity().getIntent();
         listNameArray.addAll(i.getStringArrayListExtra("listNameArray"));
+        passedName = i.getStringExtra("listName");
 
         loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, listNameArray);
         s.setAdapter(loadsAdapter);
-
+        if (passedName.equals("none")){
+            s.setSelection(0);
+        } else {
+            int spinPos = loadsAdapter.getPosition(passedName);
+            s.setSelection(spinPos);
+        }
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

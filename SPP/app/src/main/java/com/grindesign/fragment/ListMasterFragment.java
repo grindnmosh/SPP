@@ -30,8 +30,7 @@ import java.util.TimerTask;
 public class ListMasterFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-    String namePos;
-
+    public static String namePos;
     public static ArrayAdapter<String> mainListAdapter;
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> listNameArray = new ArrayList<>();

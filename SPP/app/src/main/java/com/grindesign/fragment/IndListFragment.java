@@ -39,7 +39,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
     public static ArrayList<String> cbArray = new ArrayList<>();
     public static ArrayList<String> listArray = new ArrayList<>();
     Context context;
-    String passedName;
+    public static String passedName;
     CheckBox check;
     TextView listName;
     android.support.v7.widget.ShareActionProvider mShareActionProvider;

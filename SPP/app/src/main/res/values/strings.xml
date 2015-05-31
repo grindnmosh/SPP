@@ -38,7 +38,7 @@
     <string name="share">Share</string>
     <string name="cl">Current Lists</string>
     <string name="image">Image</string>
-    <string name="list_save">Add items to lists and Save. Click on Done when finished</string>
+    <string name="list_save">Add items to Current Lists or Create a New List and Save. Click on Done when finished</string>
     <string name="finish">Done</string>
     <string name="cancel">Nevermind</string>
     <string name="save">Save It</string>
@@ -82,6 +82,12 @@
         <item >Medical</item>
         <item >Education</item>
         <item >Other</item>
+    </string-array>
+
+    <string-array name="list_filter">
+        <item >Show All</item>
+        <item >Show Pending</item>
+        <item >Show Completed</item>
     </string-array>
 
     <string name="title_activity_add_info_cell">addInfoCell</string>

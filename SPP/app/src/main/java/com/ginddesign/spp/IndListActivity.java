@@ -84,6 +84,7 @@ public class IndListActivity extends AppCompatActivity {
         else if (id == R.id.action_add) {
             Intent add = new Intent(this, NewListActivity.class);
             add.putExtra("listNameArray", ListMasterFragment.listNameArray);
+            add.putExtra("listName", IndListFragment.passedName);
             this.startActivity(add);
         }
         else if (id == R.id.action_lock) {
