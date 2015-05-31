@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.ginddesign.spp.ListMasterActivity;
 import com.ginddesign.spp.MainActivity;
 import com.ginddesign.spp.R;
-import com.ginddesign.spp.SettingsActivity;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

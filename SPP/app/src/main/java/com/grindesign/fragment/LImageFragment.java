@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
@@ -23,9 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.ginddesign.spp.LIDetailActivity;
-import com.ginddesign.spp.LImageActivity;
 import com.ginddesign.spp.PhotoCell;
 import com.ginddesign.spp.R;
 import com.parse.FindCallback;

@@ -1,35 +1,15 @@
 package com.ginddesign.spp;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.grindesign.fragment.LDetailFragment;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class LDetailActivity extends AppCompatActivity {
 

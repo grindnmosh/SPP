@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.interfaces.SwipeAdapterInterface;

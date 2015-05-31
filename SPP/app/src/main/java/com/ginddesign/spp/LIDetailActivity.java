@@ -15,19 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.grindesign.fragment.LDetailFragment;
 import com.grindesign.fragment.LIDetailFragment;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;

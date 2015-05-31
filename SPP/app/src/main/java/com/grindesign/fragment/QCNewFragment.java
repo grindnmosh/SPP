@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.ContactsContract;
@@ -54,7 +53,6 @@ public class QCNewFragment extends Fragment {
     Context context;
     int PICK_CONTACT;
     public static ArrayAdapter<String> loadsAdapter;
-    private static final int CONTACT_PICKER_RESULT = 1001;
 
     public QCNewFragment() {
 
