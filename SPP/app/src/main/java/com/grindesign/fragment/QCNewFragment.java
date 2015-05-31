@@ -329,6 +329,7 @@ public class QCNewFragment extends Fragment {
             qcName.setText(name);
             qcPhone.setText(phoneNum);
             qcEmail.setText(emailAdd);
+            dataGrabber.close();
         }
     }
 }
