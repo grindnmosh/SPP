@@ -1,14 +1,19 @@
 package com.ginddesign.spp;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.TaskStackBuilder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -22,7 +27,6 @@ public class LockersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_lockers);
-
     }
 
     @Override
@@ -86,6 +90,37 @@ public class LockersActivity extends AppCompatActivity {
             lockExit.setIcon(android.R.drawable.ic_dialog_alert);
             lockExit.show();
         }
+        switch (item.getItemId()) {
+        case R.id.home:
+            Log.i("TEST", "TESSSSSSSSSSSSSSSST");
+            final Intent upIntent = NavUtils.getParentActivityIntent(this);
+            if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                Log.i("TEST", "TESSSSSSSSSSSSSSSST IFFFFF");
+                finish();
+                return true;
+            } else {
+                Log.i("TEST", "TESSSSSSSSSSSSSSSST ELSE");
+                AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
+                lockExit.setTitle("Leave The Lockers?");
+                lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
+                lockExit.setPositiveButton("Exit Locker", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        NavUtils.navigateUpTo(LockersActivity.this, upIntent);
+                    }
+                });
+                lockExit.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+                lockExit.show();
+
+            }
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

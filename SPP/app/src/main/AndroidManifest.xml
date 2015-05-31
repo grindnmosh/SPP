@@ -50,7 +50,6 @@
         <activity
             android:name=".LockersActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".ListMasterActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
