@@ -29,10 +29,16 @@ public class SettingsFragment extends Fragment {
     EditText currUsername;
     EditText newUser;
     EditText newUserVer;
+    EditText currPass;
+    EditText newPass;
+    EditText reNewPass;
     Button setBut;
     String email1;
     String email2;
     String email3;
+    String pass1;
+    String pass2;
+    String pass3;
     Context context;
 
     public SettingsFragment() {
@@ -44,23 +50,23 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.activity_settings, container, false);
 
-        currUsername = (EditText) view.findViewById(R.id.curUsername);
         newUser = (EditText) view.findViewById(R.id.newUser);
         newUserVer = (EditText) view.findViewById(R.id.newUserVer);
+        newPass = (EditText) view.findViewById(R.id.newPass);
+        reNewPass = (EditText) view.findViewById(R.id.reNewPass);
         setBut = (Button) view.findViewById(R.id.setBut);
 
         setBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email1 = currUsername.getText().toString().trim();
-                email2 = newUser.getText().toString().trim();
-                email3 = newUserVer.getText().toString().trim();
-                String PFUser = String.valueOf(ParseUser.getCurrentUser().getUsername());
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                Log.i("START", "FIGHT");
-                if (email1.equals(PFUser)) {
-                    Log.i("ENTRY1", "ENTERED");
-                    if (email2.equals(email3) && email2.matches(emailPattern) && email3.matches(emailPattern) && email2.length() > 0 ) {
+                if (!newUser.equals("") || !pass2.equals("")) {
+                    email2 = newUser.getText().toString().trim();
+                    email3 = newUserVer.getText().toString().trim();
+                    pass2 = newPass.getText().toString().trim();
+                    pass3 = reNewPass.getText().toString().trim();
+                    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                    Log.i("START", "FIGHT");
+                    if (email2.equals(email3) && email2.matches(emailPattern) && email3.matches(emailPattern) && email2.length() > 0) {
                         Log.i("ENTRY2", "ENTERED");
                         final ParseUser user = ParseUser.getCurrentUser();
                         user.increment("logins");
@@ -81,14 +87,7 @@ public class SettingsFragment extends Fragment {
                                                     user.setEmail(email2);
                                                     user.saveInBackground();
                                                     Toast.makeText(getActivity().getApplicationContext(), "Email Has Been Changed", Toast.LENGTH_LONG).show();
-                                                    ParseUser.logOut();
-                                                    try {
-                                                        ParseUser.getCurrentUser().refresh();
-                                                    } catch (ParseException d) {
-                                                        d.printStackTrace();
-                                                    }
-                                                    ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
-                                                    startActivityForResult(builder.build(), 0);
+
                                                 } else {
                                                     Toast.makeText(getActivity().getApplicationContext(), "The email entered is already taken", Toast.LENGTH_LONG).show();
                                                 }
@@ -107,10 +106,27 @@ public class SettingsFragment extends Fragment {
                     } else {
                         if (!email2.equals(email3)) {
                             Toast.makeText(getActivity().getApplicationContext(), "The email you entered does not match in both fields", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "Please Enter A Valid Email", Toast.LENGTH_LONG).show();
                         }
                     }
+
+                    if (pass2.equals(pass3)) {
+                        final ParseUser user = ParseUser.getCurrentUser();
+                        user.setPassword(pass2);
+                        user.saveInBackground();
+                        Toast.makeText(getActivity().getApplicationContext(), "Password Has Been Changed", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Passwords Do Not Match", Toast.LENGTH_LONG).show();
+                    }
+                    ParseUser.logOut();
+                    try {
+                        ParseUser.getCurrentUser().refresh();
+                    } catch (ParseException d) {
+                        d.printStackTrace();
+                    }
+                    ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
+                    startActivityForResult(builder.build(), 0);
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "No Changes Entered", Toast.LENGTH_LONG).show();
                 }
             }
         });
