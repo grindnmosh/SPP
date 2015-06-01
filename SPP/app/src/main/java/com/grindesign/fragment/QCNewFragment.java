@@ -97,7 +97,7 @@ public class QCNewFragment extends Fragment {
                                 qcPhone.setText(phone);
                                 qcEmail.setText(email);
                                 qcNotes.setText(notes);
-
+                                contactsImport.setVisibility(View.INVISIBLE);
                                 int spinnerPostion = loadsAdapter.getPosition(compareValue);
                                 s.setSelection(spinnerPostion);
 
@@ -121,7 +121,7 @@ public class QCNewFragment extends Fragment {
                                 qcPhone.setText(phone);
                                 qcEmail.setText(email);
                                 qcNotes.setText(notes);
-
+                                contactsImport.setVisibility(View.INVISIBLE);
                                 int spinnerPostion = loadsAdapter.getPosition(compareValue);
                                 s.setSelection(spinnerPostion);
 

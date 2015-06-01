@@ -19,14 +19,14 @@
         android:fontFamily="Times New Roman" />
 
     <Spinner
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/qcSpin"
         android:paddingLeft="30dp"
         android:spinnerMode="dropdown"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/title"
-        android:layout_toEndOf="@+id/title" />
+        android:layout_below="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
         android:layout_alignParentEnd="true" />
 
     <EditText
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
@@ -76,7 +76,9 @@
         android:layout_below="@+id/qcName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="28dp"
+        android:layout_toLeftOf="@+id/contactsImport"
+        android:layout_toStartOf="@+id/contactsImport" />
 
     <EditText
         android:layout_width="match_parent"
@@ -88,7 +90,9 @@
         android:layout_below="@+id/qcPhone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="36dp" />
+        android:layout_marginTop="36dp"
+        android:layout_alignRight="@+id/qcPhone"
+        android:layout_alignEnd="@+id/qcPhone" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -101,8 +105,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="47dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toLeftOf="@+id/save1"
+        android:layout_toStartOf="@+id/save1" />
 
     <Button
         android:layout_width="wrap_content"
