@@ -159,8 +159,6 @@ public class LIDetailFragment extends Fragment {
         return view;
     }
 
-
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
