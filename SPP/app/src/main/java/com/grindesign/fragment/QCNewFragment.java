@@ -139,9 +139,6 @@ public class QCNewFragment extends Fragment {
         loadsAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, android.R.id.text1, loads);
         s.setAdapter(loadsAdapter);
 
-
-
-
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
