@@ -14,29 +14,23 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ginddesign.spp.ListMasterActivity;
-import com.ginddesign.spp.MainActivity;
 import com.ginddesign.spp.R;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.ui.ParseLoginBuilder;
 
 
 public class SettingsFragment extends Fragment {
 
-    EditText currUsername;
     EditText newUser;
     EditText newUserVer;
-    EditText currPass;
     EditText newPass;
     EditText reNewPass;
     Button setBut;
-    String email1;
     String email2;
     String email3;
-    String pass1;
     String pass2;
     String pass3;
     Context context;
@@ -59,11 +53,11 @@ public class SettingsFragment extends Fragment {
         setBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!newUser.equals("") || !pass2.equals("")) {
-                    email2 = newUser.getText().toString().trim();
-                    email3 = newUserVer.getText().toString().trim();
-                    pass2 = newPass.getText().toString().trim();
-                    pass3 = reNewPass.getText().toString().trim();
+                email2 = newUser.getText().toString().trim();
+                email3 = newUserVer.getText().toString().trim();
+                pass2 = newPass.getText().toString().trim();
+                pass3 = reNewPass.getText().toString().trim();
+                if (!email2.equals("") || !pass2.equals("")) {
                     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                     Log.i("START", "FIGHT");
                     if (email2.equals(email3) && email2.matches(emailPattern) && email3.matches(emailPattern) && email2.length() > 0) {
@@ -87,7 +81,8 @@ public class SettingsFragment extends Fragment {
                                                     user.setEmail(email2);
                                                     user.saveInBackground();
                                                     Toast.makeText(getActivity().getApplicationContext(), "Email Has Been Changed", Toast.LENGTH_LONG).show();
-
+                                                    newUser.setText("");
+                                                    newUserVer.setText("");
                                                 } else {
                                                     Toast.makeText(getActivity().getApplicationContext(), "The email entered is already taken", Toast.LENGTH_LONG).show();
                                                 }
@@ -114,11 +109,14 @@ public class SettingsFragment extends Fragment {
                         user.setPassword(pass2);
                         user.saveInBackground();
                         Toast.makeText(getActivity().getApplicationContext(), "Password Has Been Changed", Toast.LENGTH_LONG).show();
+                        newPass.setText("");
+                        reNewPass.setText("");
                     } else if (pass2.equals("")) {
                         //do nothing
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "Passwords Do Not Match", Toast.LENGTH_LONG).show();
                     }
+
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "No Changes Entered", Toast.LENGTH_LONG).show();
                 }
