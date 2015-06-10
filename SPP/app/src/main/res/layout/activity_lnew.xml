@@ -125,7 +125,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/cShot"
         android:layout_alignEnd="@+id/cShot"
-        android:clickable="true" />
+        android:clickable="true"
+        android:textColor="#F2F4F7" />
 
     <Button
         android:layout_width="wrap_content"
@@ -136,7 +137,8 @@
         android:layout_centerHorizontal="true"
         android:background="#000EFF"
         android:textSize="18sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:textColor="#F2F4F7" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

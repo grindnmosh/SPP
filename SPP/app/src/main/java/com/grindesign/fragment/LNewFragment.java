@@ -115,6 +115,18 @@ public class LNewFragment extends Fragment {
             }
         });
 
+        css.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (css.getText().toString().trim().length() != 9) {
+                        css.setText("");
+                        Toast.makeText(context, "Please Enter Valid Social Security Number or Leave Blank", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
         cTitle.setText(pageTitle);
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
