@@ -22,7 +22,7 @@
     <string name="shot">Shot Records:</string>
     <string name="add">Additional Information</string>
     <string name="lsign">Change Your Registered Email Login</string>
-    <string name="action_settings">Logout &amp; Close</string>
+    <string name="action_settings">Logout</string>
     <string name="title_activity_new_list">NewListActivity</string>
     <string name="title_activity_qcnew">New Contact</string>
     <string name="title_activity_qcdetail">Contact Details</string>

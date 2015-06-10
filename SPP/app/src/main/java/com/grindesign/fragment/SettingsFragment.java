@@ -109,22 +109,16 @@ public class SettingsFragment extends Fragment {
                         }
                     }
 
-                    if (pass2.equals(pass3)) {
+                    if (pass2.equals(pass3) && !pass2.equals("")) {
                         final ParseUser user = ParseUser.getCurrentUser();
                         user.setPassword(pass2);
                         user.saveInBackground();
                         Toast.makeText(getActivity().getApplicationContext(), "Password Has Been Changed", Toast.LENGTH_LONG).show();
+                    } else if (pass2.equals("")) {
+                        //do nothing
                     } else {
                         Toast.makeText(getActivity().getApplicationContext(), "Passwords Do Not Match", Toast.LENGTH_LONG).show();
                     }
-                    ParseUser.logOut();
-                    try {
-                        ParseUser.getCurrentUser().refresh();
-                    } catch (ParseException d) {
-                        d.printStackTrace();
-                    }
-                    ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.context);
-                    startActivityForResult(builder.build(), 0);
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "No Changes Entered", Toast.LENGTH_LONG).show();
                 }
