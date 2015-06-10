@@ -92,6 +92,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
     emailField = (EditText) v.findViewById(R.id.signup_email_input);
     nameField = (EditText) v.findViewById(R.id.signup_name_input);
     createAccountButton = (Button) v.findViewById(R.id.create_account);
+    nameField.setVisibility(View.INVISIBLE);
 
     usernameField.setText(username);
     passwordField.setText(password);
@@ -172,9 +173,10 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       confirmPasswordField.requestFocus();
     } else if (email != null && email.length() == 0) {
       showToast(R.string.com_parse_ui_no_email_toast);
-    } else if (name != null && name.length() == 0) {
+    } /*else if (name != null && name.length() == 0) {
       showToast(R.string.com_parse_ui_no_name_toast);
-    } else {
+    }*/
+    else {
       ParseUser user = new ParseUser();
 
       // Set standard fields
