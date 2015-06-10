@@ -20,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ginddesign.spp.ListMasterActivity;
-import com.ginddesign.spp.NewListActivity;
 import com.ginddesign.spp.R;
 import com.parse.ParseACL;
 import com.parse.ParseObject;

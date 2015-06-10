@@ -1,7 +1,9 @@
 package com.grindesign.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -278,8 +280,36 @@ public class QCNewFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(context, QuickContactActivity.class);
-                startActivity(home);
+                name = qcName.getText().toString().trim();
+                phone = qcPhone.getText().toString().trim();
+                email = qcEmail.getText().toString().trim();
+                notes = qcNotes.getText().toString().trim();
+                if (!name.equals("") || !phone.equals("") || !email.equals("") || notes.equals("")) {
+                    AlertDialog.Builder lockExit = new AlertDialog.Builder(context);
+                    lockExit.setTitle("Leave Without Saving?");
+                    lockExit.setMessage("You will lose all information entered.");
+                    lockExit.setPositiveButton("Exit Without Saving", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent home = new Intent(context, QuickContactActivity.class);
+                            startActivity(home);
+                        }
+                    });
+                    lockExit.setNegativeButton("Stay On Page", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+                    lockExit.show();
+                } else {
+                    Intent home = new Intent(context, QuickContactActivity.class);
+                    startActivity(home);
+                }
+
+
+
             }
         });
 
