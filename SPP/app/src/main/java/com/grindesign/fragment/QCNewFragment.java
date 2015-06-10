@@ -79,6 +79,17 @@ public class QCNewFragment extends Fragment {
 
         title.setText(pageTitle);
 
+        qcPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (qcPhone.getText().toString().trim().length() != 10) {
+                        Toast.makeText(context, "Please Enter A Valid 10 digit Phone Number", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
         if (pageTitle.equals("Edit Contact")) {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -142,7 +153,7 @@ public class QCNewFragment extends Fragment {
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (loads[position].equals("Current Lists")) {
+                if (loads[position].equals("Select Category")) {
                     cat = loads[position].trim();
                 } else {
                     cat = loads[position].trim();
@@ -175,7 +186,7 @@ public class QCNewFragment extends Fragment {
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 Log.i("Category", cat);
 
-                if (!cat.equals("Current Contacts") && !name.equals("") && !phone.equals("") && (email.equals("") || email.matches(emailPattern))) {
+                if (!cat.equals("Select Category") && !name.equals("") && phone.length() == 10 && (email.equals("") || email.matches(emailPattern))){
                     Log.i("Category", cat);
                     ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -250,13 +261,16 @@ public class QCNewFragment extends Fragment {
                         }
                     }
 
-                }else{
-                    if (email.matches(emailPattern) || email.equals("")) {
-                        Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
-                    } else {
+                } else {
+                    if (cat.equals("Select Category")) {
+                        Toast.makeText(context, "Please select a category before saving", Toast.LENGTH_SHORT).show();
+                    } else if (name.equals("")) {
+                        Toast.makeText(context, "Please a valid name before saving", Toast.LENGTH_SHORT).show();
+                    } else if (phone.length() != 10) {
+                        Toast.makeText(context, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
+                    } else if (!email.matches(emailPattern) || !email.equals("")) {
                         Toast.makeText(context, "Please enter valid email", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
         });
