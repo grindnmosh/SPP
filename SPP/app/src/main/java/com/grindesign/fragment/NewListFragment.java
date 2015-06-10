@@ -1,7 +1,9 @@
 package com.grindesign.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -18,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ginddesign.spp.ListMasterActivity;
+import com.ginddesign.spp.NewListActivity;
 import com.ginddesign.spp.R;
 import com.parse.ParseACL;
 import com.parse.ParseObject;
@@ -157,8 +160,31 @@ public class NewListFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(context, ListMasterActivity.class);
-                startActivity(home);
+                lName = listName.getText().toString().trim();
+                iName = itemName.getText().toString().trim();
+                if (!lName.equals("") || !iName.equals("")) {
+                    AlertDialog.Builder lockExit = new AlertDialog.Builder(context);
+                    lockExit.setTitle("Leave Without Saving?");
+                    lockExit.setMessage("You will lose all information entered.");
+                    lockExit.setPositiveButton("Exit Without Saving", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent home = new Intent(context, ListMasterActivity.class);
+                            startActivity(home);
+                        }
+                    });
+                    lockExit.setNegativeButton("Stay On Page", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+                    lockExit.show();
+                } else {
+                    Intent home = new Intent(context, ListMasterActivity.class);
+                    startActivity(home);
+                }
             }
         });
 
