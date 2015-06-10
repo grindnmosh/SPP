@@ -10,7 +10,9 @@
         android:layout_height="wrap_content"
         style="@style/ParseLoginUI.TextView"
         android:gravity="center"
-        android:text="@string/com_parse_ui_login_help_instructions" />
+        android:text="@string/com_parse_ui_login_help_instructions"
+        android:textColor="#000000"
+        android:textIsSelectable="true" />
 
     <EditText
         android:id="@+id/login_help_email_input"
