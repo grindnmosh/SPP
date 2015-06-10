@@ -39,7 +39,8 @@
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/snapPic"
         android:layout_toStartOf="@+id/snapPic"
-        android:hint="@string/name_new_img" />
+        android:hint="@string/name_new_img"
+        android:inputType="textCapWords|textAutoCorrect" />
 
     <ImageButton
         android:layout_width="50dp"

@@ -128,6 +128,11 @@
     <string name="repeat_user">repeat new email address</string>
     <string name="user_name">new email address</string>
     <string name="logo_descrip">logo</string>
+    <string name="l_signin_logo">logo</string>
+    <string name="verify_pass">Verify Password</string>
+    <string name="verify_pass_inst">Please Verify Your Password To Access The Locker Area</string>
+    <string name="entry_lock">Enter Lockers</string>
+    <string name="swipe_left">Swipe Left To Delete</string>
 
 
 </resources>
