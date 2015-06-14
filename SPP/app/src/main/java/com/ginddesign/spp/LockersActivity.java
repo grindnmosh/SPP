@@ -122,7 +122,7 @@ public class LockersActivity extends AppCompatActivity {
     {
         AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
         lockExit.setTitle("Leave The Lockers?");
-        lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
+        lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to verify password to enter again. Are you sure you want to do this?");
         lockExit.setPositiveButton("Exit Locker", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
