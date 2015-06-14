@@ -133,6 +133,7 @@
     <string name="verify_pass_inst">Please Verify Your Password To Access The Locker Area</string>
     <string name="entry_lock">Enter Lockers</string>
     <string name="swipe_left">Swipe Left To Delete</string>
+    <string name="add_info_hint">You must save additional information prior to saving. No Limit.</string>
 
 
 </resources>
