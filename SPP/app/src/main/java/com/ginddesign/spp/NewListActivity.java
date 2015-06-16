@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 
 import com.parse.ParseUser;
 
 public class NewListActivity extends AppCompatActivity {
 
 
-    public static ArrayAdapter<String> loadsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

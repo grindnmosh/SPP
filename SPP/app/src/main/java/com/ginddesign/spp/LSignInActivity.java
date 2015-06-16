@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
 
 public class LSignInActivity extends AppCompatActivity {
