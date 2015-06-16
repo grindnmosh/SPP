@@ -98,4 +98,5 @@ public class LImageActivity extends AppCompatActivity {
         Intent lock = new Intent(this, LockersActivity.class);
         this.startActivity(lock);
     }
+
 }
