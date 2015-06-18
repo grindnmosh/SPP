@@ -140,6 +140,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
     String username = usernameField.getText().toString().trim();
     String password = passwordField.getText().toString();
     String passwordAgain = confirmPasswordField.getText().toString();
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     String email = null;
     if (config.isParseLoginEmailAsUsername()) {
@@ -153,12 +154,14 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       name = nameField.getText().toString().trim();
     }
 
-    if (username.length() == 0) {
+    if (username.length() == 0 || !username.matches(emailPattern)) {
       if (config.isParseLoginEmailAsUsername()) {
         showToast(R.string.com_parse_ui_no_email_toast);
       } else {
         showToast(R.string.com_parse_ui_no_username_toast);
       }
+    } else if (email != null && email.length() == 0) {
+      showToast(R.string.com_parse_ui_no_email_toast);
     } else if (password.length() == 0) {
       showToast(R.string.com_parse_ui_no_password_toast);
     } else if (password.length() < minPasswordLength) {
@@ -171,8 +174,6 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       showToast(R.string.com_parse_ui_mismatch_confirm_password_toast);
       confirmPasswordField.selectAll();
       confirmPasswordField.requestFocus();
-    } else if (email != null && email.length() == 0) {
-      showToast(R.string.com_parse_ui_no_email_toast);
     } /*else if (name != null && name.length() == 0) {
       showToast(R.string.com_parse_ui_no_name_toast);
     }*/
