@@ -17,6 +17,8 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.interfaces.SwipeAdapterInterface;
 import com.daimajia.swipe.interfaces.SwipeItemMangerInterface;
 import com.daimajia.swipe.util.Attributes;
+import com.grindesign.fragment.IndListFragment;
+import com.grindesign.fragment.LChildFragment;
 import com.grindesign.fragment.LDetailFragment;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
@@ -29,6 +31,7 @@ import java.util.List;
 public class addInfoCell extends ArrayAdapter<String> implements SwipeItemMangerInterface, SwipeAdapterInterface {
 
     ImageButton delete;
+    String oID;
     private Context context;
     private ArrayList<String> arrayLister = LDetailFragment.nameArray;
 
@@ -46,6 +49,7 @@ public class addInfoCell extends ArrayAdapter<String> implements SwipeItemManger
 
         final String names = arrayLister.get(position);
         final String inform = LDetailFragment.nameInfo.get(position);
+        final ArrayList<String> oIDArray = LDetailFragment.oidArray;
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_add_info_cell, null);
@@ -63,16 +67,19 @@ public class addInfoCell extends ArrayAdapter<String> implements SwipeItemManger
             @Override
             public void onClick(View v) {
                 RelativeLayout rl = (RelativeLayout) v.getParent();
+                oID = oIDArray.get(position);
                 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo netInfo = cm.getActiveNetworkInfo();
                 if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                    query.getInBackground(LDetailFragment.ois, new GetCallback<ParseObject>() {
-                        public void done(ParseObject object, com.parse.ParseException e) {
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery("AddInfo");
+                    query.getInBackground(oID, new GetCallback<ParseObject>() {
+                        public void done(ParseObject addUp, com.parse.ParseException e) {
+                            //String name = addUp.get("AddName").toString();
+                            //String item = addUp.get("AddItem").toString();
+                            addUp.unpinInBackground();
+                            addUp.deleteEventually();
                             LDetailFragment.nameArray.remove(names);
                             LDetailFragment.nameInfo.remove(inform);
-                            object.put("AdditionalNames", LDetailFragment.nameArray);
-                            object.put("AdditionalNames", LDetailFragment.nameArray);
                             LDetailFragment.mainListAdapter.notifyDataSetChanged();
 
 

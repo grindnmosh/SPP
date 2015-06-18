@@ -153,4 +153,15 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addAdd"
+        android:src="@drawable/plus"
+        android:layout_above="@+id/linkList"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#000EFF"
+        android:contentDescription="@string/add_add" />
+
 </RelativeLayout>

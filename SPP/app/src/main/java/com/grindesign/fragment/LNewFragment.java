@@ -37,7 +37,6 @@ public class LNewFragment extends Fragment {
 
     Button saveIt;
     Button cancel;
-    Button indSave;
     EditText cName;
     EditText cdob;
     EditText css;
@@ -58,8 +57,6 @@ public class LNewFragment extends Fragment {
     private int month;
     private int year;
     Context context;
-    JSONArray fileName = new JSONArray();
-    JSONArray fileInfo = new JSONArray();
 
     public LNewFragment() {
 
@@ -82,11 +79,8 @@ public class LNewFragment extends Fragment {
         cAllergy = (EditText) view.findViewById(R.id.cAllergy);
         cMed = (EditText) view.findViewById(R.id.cMed);
         cShot = (EditText) view.findViewById(R.id.cShot);
-        cDocName = (EditText) view.findViewById(R.id.docName);
-        cDocLink = (EditText) view.findViewById(R.id.docLink);
         saveIt = (Button) view.findViewById(R.id.saveIt);
         cancel = (Button) view.findViewById(R.id.cancel2);
-        indSave = (Button) view.findViewById(R.id.indSave);
 
         cal = Calendar.getInstance();
         day = cal.get(Calendar.DAY_OF_MONTH);
@@ -134,8 +128,6 @@ public class LNewFragment extends Fragment {
                             allergy = object.getString("Allergies");
                             med = object.getString("Medical");
                             shot = object.getString("Shot");
-                            fileName = object.getJSONArray("AdditionalNames");
-                            fileInfo = object.getJSONArray("AdditionalInfo");
                             cName.setText(name);
                             cdob.setText(dob);
                             css.setText(ss);
@@ -160,8 +152,6 @@ public class LNewFragment extends Fragment {
                             allergy = object.getString("Allergies");
                             med = object.getString("Medical");
                             shot = object.getString("Shot");
-                            fileName = object.getJSONArray("AdditionalNames");
-                            fileInfo = object.getJSONArray("AdditionalInfo");
                             cName.setText(name);
                             cdob.setText(dob);
                             css.setText(ss);
@@ -176,26 +166,6 @@ public class LNewFragment extends Fragment {
 
             }
         }
-
-        indSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String cdn = cDocName.getText().toString().trim();
-                String cdl = cDocLink.getText().toString().trim();
-
-                if (!cdn.equals("") && !cdl.equals("")) {
-                    fileName.put(cdn);
-                    fileInfo.put(cdl);
-                    Log.i("Saved", fileName.toString());
-                    cDocName.setText("");
-                    cDocLink.setText("");
-                    Toast.makeText(context, "Document Temporarily saved, Save It to finalize", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, "Nothing was entered to save. Save not completed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         saveIt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,12 +203,9 @@ public class LNewFragment extends Fragment {
                                                 object.put("Allergies", allergy);
                                                 object.put("Medical", med);
                                                 object.put("Shot", shot);
-                                                object.put("AdditionalNames", fileName);
-                                                object.put("AdditionalInfo", fileInfo);
                                                 object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                                 object.pinInBackground();
                                                 object.saveInBackground();
-                                                LChildFragment.mainListAdapter.notifyDataSetChanged();
                                                 Intent home = new Intent(context, LChildActivity.class);
                                                 startActivity(home);
                                             }
@@ -255,12 +222,9 @@ public class LNewFragment extends Fragment {
                                                 object.put("Allergies", allergy);
                                                 object.put("Medical", med);
                                                 object.put("Shot", shot);
-                                                object.put("AdditionalNames", fileName);
-                                                object.put("AdditionalInfo", fileInfo);
                                                 object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                                 object.pinInBackground();
                                                 object.saveEventually();
-                                                LChildFragment.mainListAdapter.notifyDataSetChanged();
                                                 Intent home = new Intent(context, LChildActivity.class);
                                                 startActivity(home);
                                             }
@@ -275,12 +239,9 @@ public class LNewFragment extends Fragment {
                                         object.put("Allergies", allergy);
                                         object.put("Medical", med);
                                         object.put("Shot", shot);
-                                        object.put("AdditionalNames", fileName);
-                                        object.put("AdditionalInfo", fileInfo);
                                         object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                         object.pinInBackground();
                                         object.saveInBackground();
-                                        LChildFragment.mainListAdapter.notifyDataSetChanged();
                                         Intent home = new Intent(context, LChildActivity.class);
                                         startActivity(home);
                                     } else {
@@ -291,12 +252,9 @@ public class LNewFragment extends Fragment {
                                         object.put("Allergies", allergy);
                                         object.put("Medical", med);
                                         object.put("Shot", shot);
-                                        object.put("AdditionalNames", fileName);
-                                        object.put("AdditionalInfo", fileInfo);
                                         object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                         object.pinInBackground();
                                         object.saveEventually();
-                                        LChildFragment.mainListAdapter.notifyDataSetChanged();
                                         Intent home = new Intent(context, LChildActivity.class);
                                         startActivity(home);
                                     }
@@ -332,12 +290,9 @@ public class LNewFragment extends Fragment {
                                             object.put("Allergies", allergy);
                                             object.put("Medical", med);
                                             object.put("Shot", shot);
-                                            object.put("AdditionalNames", fileName);
-                                            object.put("AdditionalInfo", fileInfo);
                                             object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                             object.pinInBackground();
                                             object.saveInBackground();
-                                            LChildFragment.mainListAdapter.notifyDataSetChanged();
                                             Intent home = new Intent(context, LChildActivity.class);
                                             startActivity(home);
                                         }
@@ -354,12 +309,9 @@ public class LNewFragment extends Fragment {
                                             object.put("Allergies", allergy);
                                             object.put("Medical", med);
                                             object.put("Shot", shot);
-                                            object.put("AdditionalNames", fileName);
-                                            object.put("AdditionalInfo", fileInfo);
                                             object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                             object.pinInBackground();
                                             object.saveEventually();
-                                            LChildFragment.mainListAdapter.notifyDataSetChanged();
                                             Intent home = new Intent(context, LChildActivity.class);
                                             startActivity(home);
                                         }
@@ -374,12 +326,9 @@ public class LNewFragment extends Fragment {
                                     object.put("Allergies", allergy);
                                     object.put("Medical", med);
                                     object.put("Shot", shot);
-                                    object.put("AdditionalNames", fileName);
-                                    object.put("AdditionalInfo", fileInfo);
                                     object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                     object.pinInBackground();
                                     object.saveInBackground();
-                                    LChildFragment.mainListAdapter.notifyDataSetChanged();
                                     Intent home = new Intent(context, LChildActivity.class);
                                     startActivity(home);
                                 } else {
@@ -390,12 +339,9 @@ public class LNewFragment extends Fragment {
                                     object.put("Allergies", allergy);
                                     object.put("Medical", med);
                                     object.put("Shot", shot);
-                                    object.put("AdditionalNames", fileName);
-                                    object.put("AdditionalInfo", fileInfo);
                                     object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                     object.pinInBackground();
                                     object.saveEventually();
-                                    LChildFragment.mainListAdapter.notifyDataSetChanged();
                                     Intent home = new Intent(context, LChildActivity.class);
                                     startActivity(home);
                                 }
@@ -422,10 +368,8 @@ public class LNewFragment extends Fragment {
                 allergy = cAllergy.getText().toString().trim();
                 med = cMed.getText().toString().trim();
                 shot = cShot.getText().toString().trim();
-                String cdn = cDocName.getText().toString().trim();
-                String cdl = cDocLink.getText().toString().trim();
 
-                if (!name.equals("") || !dob.equals("") || !ss.equals("") || !allergy.equals("") || !med.equals("") || !shot.equals("") || !cdn.equals("") || !cdl.equals("")) {
+                if (!name.equals("") || !dob.equals("") || !ss.equals("") || !allergy.equals("") || !med.equals("") || !shot.equals("")) {
                     AlertDialog.Builder lockExit = new AlertDialog.Builder(context);
                     lockExit.setTitle("Leave Without Saving?");
                     lockExit.setMessage("You will lose all information entered.");

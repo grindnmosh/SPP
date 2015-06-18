@@ -19,17 +19,16 @@
         android:textStyle="bold" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapWords|textPersonName|textAutoCorrect"
         android:ems="10"
         android:id="@+id/cName"
+        android:hint="@string/cName"
         android:layout_below="@+id/cTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:hint="@string/cName" />
+        android:layout_marginTop="51dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -82,40 +81,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/add_info"
-        android:id="@+id/textView6"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:layout_below="@+id/cShot"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/docName"
-        android:layout_below="@+id/textView6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="@string/due_name"
-        android:inputType="textCapWords" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/docLink"
-        android:hint="@string/doc_link"
-        android:layout_below="@+id/docName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/cTitle"
-        android:layout_alignEnd="@+id/cTitle"
-        android:inputType="textCapSentences" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -143,30 +108,5 @@
         android:textSize="18sp"
         android:textStyle="bold|italic"
         android:textColor="#F2F4F7" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_item"
-        android:id="@+id/indSave"
-        android:layout_below="@+id/docLink"
-        android:layout_alignRight="@+id/docName"
-        android:layout_alignEnd="@+id/docName"
-        android:background="#07000000" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/add_info_hint"
-        android:id="@+id/textView18"
-        android:layout_below="@+id/docLink"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/saveIt"
-        android:layout_toStartOf="@+id/saveIt"
-        android:textSize="12sp"
-        android:gravity="center_vertical|center_horizontal" />
 
 </RelativeLayout>

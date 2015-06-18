@@ -14,11 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ginddesign.spp.AddInfoActivity;
+import com.ginddesign.spp.QuickContactActivity;
 import com.ginddesign.spp.R;
 import com.ginddesign.spp.addInfoCell;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -39,16 +44,16 @@ public class LDetailFragment extends Fragment {
     String all;
     String med;
     String shot;
+    ImageButton addInfoButt;
     public static TextView dName;
     public static TextView ddob;
     TextView dss;
     public static TextView dAll;
     public static TextView dMed;
     ListView lv;
-    public static JSONArray fileName = new JSONArray();
-    public static JSONArray fileinfo = new JSONArray();
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> nameInfo = new ArrayList<>();
+    public static ArrayList<String> oidArray = new ArrayList<>();
     public static ArrayAdapter<String> mainListAdapter;
     Context context;
 
@@ -63,7 +68,7 @@ public class LDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_ldetail, container, false);
 
@@ -72,25 +77,37 @@ public class LDetailFragment extends Fragment {
         dss = (TextView) view.findViewById(R.id.dss);
         dAll = (TextView) view.findViewById(R.id.dAll);
         dMed = (TextView) view.findViewById(R.id.dMed);
+        addInfoButt = (ImageButton) view.findViewById(R.id.addAdd);
         final TextView dShot = (TextView) view.findViewById(R.id.dShot);
         lv = (ListView) view.findViewById(R.id.linkList);
 
         final Intent i = getActivity().getIntent();
         ois = i.getStringExtra("object ID");
 
-
+        addInfoButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent qc = new Intent(context, AddInfoActivity.class);
+                context.startActivity(qc);
+            }
+        });
 
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-            fileName = new JSONArray();
-            fileinfo = new JSONArray();
             nameArray = new ArrayList<>();
             nameInfo = new ArrayList<>();
             try {
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
                 List<ParseObject> objects = query1.find();
+                ParseObject.pinAllInBackground(objects);
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                ParseQuery<ParseObject> query3 = ParseQuery.getQuery("AddInfo");
+                List<ParseObject> objects = query3.find();
                 ParseObject.pinAllInBackground(objects);
             } catch (com.parse.ParseException e) {
                 e.printStackTrace();
@@ -105,25 +122,6 @@ public class LDetailFragment extends Fragment {
                         all = object.getString("Allergies");
                         med = object.getString("Medical");
                         shot = object.getString("Shot");
-                        fileName = object.getJSONArray("AdditionalNames");
-                        fileinfo = object.getJSONArray("AdditionalInfo");
-                        Log.i("TESSSSSST", fileinfo.toString());
-                        try {
-                            for (int i = 0; i < fileName.length(); i++) {
-                                Log.i("Array", "Entry Point Done");
-                                String name = fileName.getString(i);
-                                String info = fileinfo.getString(i);
-
-                                Log.i("TESSSSSST", name);
-                                nameArray.add(name);
-                                nameInfo.add(info);
-                                Log.i("TESSSSSST", nameInfo.toString());
-                                //loadList();
-                            }
-                            mainListAdapter.notifyDataSetChanged();
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
                         dName.setText(name);
                         ddob.setText(dob);
                         dss.setText(ss);
@@ -131,6 +129,31 @@ public class LDetailFragment extends Fragment {
                         dMed.setText(med);
                         dShot.setText(shot);
                         Linkify.addLinks(dShot, Linkify.WEB_URLS);
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+
+                }
+            });
+            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("AddInfo");
+            query2.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List list, com.parse.ParseException e) {
+                    if (e == null) {
+
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", "Entry Point Done");
+                            Object object = list.get(i);
+                            String name = ((ParseObject) object).getString("AddName");
+                            String info = ((ParseObject) object).getString("AddItem");
+                            String oid = ((ParseObject) object).getObjectId();
+                            nameArray.add(name);
+                            nameInfo.add(info);
+                            oidArray.add(oid);
+                            Log.i("TESSSSSST", nameInfo.toString());
+                            //loadList();
+                        }
+                        mainListAdapter.notifyDataSetChanged();
 
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
@@ -150,21 +173,6 @@ public class LDetailFragment extends Fragment {
                         all = object.getString("Allergies");
                         med = object.getString("Medical");
                         shot = object.getString("Shot");
-                        fileName = object.getJSONArray("AdditionalNames");
-                        fileinfo = object.getJSONArray("AdditionalInfo");
-                        try {
-                            for (int i = 0; i < fileName.length(); i++) {
-                                Log.i("Array", "Entry Point Done");
-                                String name = fileName.getString(i);
-                                String info = fileinfo.getString(i);
-                                Log.i("TESSSSSST", name);
-                                nameArray.add(name);
-                                nameInfo.add(info);
-
-                            }
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
                         dName.setText(name);
                         ddob.setText(dob);
                         dss.setText(ss);
@@ -178,6 +186,32 @@ public class LDetailFragment extends Fragment {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
                     mainListAdapter.notifyDataSetChanged();
+                }
+            });
+            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("AddInfo");
+            query2.fromLocalDatastore();
+            query2.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List list, com.parse.ParseException e) {
+                    if (e == null) {
+
+                        for (int i = 0; i < list.size(); i++) {
+                            Log.i("Array", "Entry Point Done");
+                            Object object = list.get(i);
+                            String name = ((ParseObject) object).getString("AddName");
+                            String info = ((ParseObject) object).getString("AddItem");
+                            String oid = ((ParseObject) object).getObjectId();
+                            nameArray.add(name);
+                            nameInfo.add(info);
+                            oidArray.add(oid);
+                            Log.i("TESSSSSST", nameInfo.toString());
+                            //loadList();
+                        }
+                        mainListAdapter.notifyDataSetChanged();
+
+                    } else {
+                        Log.d("Failed", "Error: " + e.getMessage());
+                    }
+
                 }
             });
         }

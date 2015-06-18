@@ -134,6 +134,9 @@
     <string name="entry_lock">Enter Lockers</string>
     <string name="swipe_left">Swipe Left To Delete</string>
     <string name="add_info_hint">You must save additional information prior to saving. No Limit.</string>
+    <string name="title_activity_additional">SPP</string>
+    <string name="title_activity_add_info">SPP</string>
+    <string name="add_add">add_add</string>
 
 
 </resources>
