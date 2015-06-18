@@ -219,8 +219,8 @@ public class LNewFragment extends Fragment {
                 shot = cShot.getText().toString().trim();
                 String cdn = cDocName.getText().toString().trim();
                 String cdl = cDocLink.getText().toString().trim();
-                if (ss.equals("") || ss.length() == 9)
-                if (!cdn.equals("") || !cdl.equals("")) {
+                if (ss.equals("") || ss.length() == 9) {
+                    if (!cdn.equals("") || !cdl.equals("")) {
                     AlertDialog.Builder lockExit = new AlertDialog.Builder(context);
                     lockExit.setTitle("Unsaved Additional Info");
                     lockExit.setMessage("You will lose unsaved additional info.");
@@ -326,93 +326,99 @@ public class LNewFragment extends Fragment {
                     lockExit.setIcon(android.R.drawable.ic_dialog_alert);
                     lockExit.show();
                 } else {
-                    if (!name.equals("")) {
-                        Log.i("Enter", "The Dragon");
-                        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-                        if (!oid.equals("New")) {
-                            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                        if (!name.equals("")) {
+                            Log.i("Enter", "The Dragon");
+                            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+                            if (!oid.equals("New")) {
+                                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 
-                                ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                                query.getInBackground(oid, new GetCallback<ParseObject>() {
-                                    public void done(ParseObject object, com.parse.ParseException e) {
-                                        object.put("Name", name);
-                                        object.put("dob", dob);
-                                        object.put("SS", ss);
-                                        object.put("Allergies", allergy);
-                                        object.put("Medical", med);
-                                        object.put("Shot", shot);
-                                        object.put("AdditionalNames", fileName);
-                                        object.put("AdditionalInfo", fileInfo);
-                                        object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                        object.pinInBackground();
-                                        object.saveInBackground();
-                                        LChildFragment.mainListAdapter.notifyDataSetChanged();
-                                        Intent home = new Intent(context, LChildActivity.class);
-                                        startActivity(home);
-                                    }
-                                });
+                                    ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
+                                    query.getInBackground(oid, new GetCallback<ParseObject>() {
+                                        public void done(ParseObject object, com.parse.ParseException e) {
+                                            object.put("Name", name);
+                                            object.put("dob", dob);
+                                            object.put("SS", ss);
+                                            object.put("Allergies", allergy);
+                                            object.put("Medical", med);
+                                            object.put("Shot", shot);
+                                            object.put("AdditionalNames", fileName);
+                                            object.put("AdditionalInfo", fileInfo);
+                                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                            object.pinInBackground();
+                                            object.saveInBackground();
+                                            LChildFragment.mainListAdapter.notifyDataSetChanged();
+                                            Intent home = new Intent(context, LChildActivity.class);
+                                            startActivity(home);
+                                        }
+                                    });
 
+                                } else {
+                                    ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
+                                    query.fromLocalDatastore();
+                                    query.getInBackground(oid, new GetCallback<ParseObject>() {
+                                        public void done(ParseObject object, com.parse.ParseException e) {
+                                            object.put("Name", name);
+                                            object.put("dob", dob);
+                                            object.put("SS", ss);
+                                            object.put("Allergies", allergy);
+                                            object.put("Medical", med);
+                                            object.put("Shot", shot);
+                                            object.put("AdditionalNames", fileName);
+                                            object.put("AdditionalInfo", fileInfo);
+                                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                            object.pinInBackground();
+                                            object.saveEventually();
+                                            LChildFragment.mainListAdapter.notifyDataSetChanged();
+                                            Intent home = new Intent(context, LChildActivity.class);
+                                            startActivity(home);
+                                        }
+                                    });
+                                }
                             } else {
-                                ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                                query.fromLocalDatastore();
-                                query.getInBackground(oid, new GetCallback<ParseObject>() {
-                                    public void done(ParseObject object, com.parse.ParseException e) {
-                                        object.put("Name", name);
-                                        object.put("dob", dob);
-                                        object.put("SS", ss);
-                                        object.put("Allergies", allergy);
-                                        object.put("Medical", med);
-                                        object.put("Shot", shot);
-                                        object.put("AdditionalNames", fileName);
-                                        object.put("AdditionalInfo", fileInfo);
-                                        object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                        object.pinInBackground();
-                                        object.saveEventually();
-                                        LChildFragment.mainListAdapter.notifyDataSetChanged();
-                                        Intent home = new Intent(context, LChildActivity.class);
-                                        startActivity(home);
-                                    }
-                                });
+                                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                                    ParseObject object = new ParseObject("children");
+                                    object.put("Name", name);
+                                    object.put("dob", dob);
+                                    object.put("SS", ss);
+                                    object.put("Allergies", allergy);
+                                    object.put("Medical", med);
+                                    object.put("Shot", shot);
+                                    object.put("AdditionalNames", fileName);
+                                    object.put("AdditionalInfo", fileInfo);
+                                    object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                    object.pinInBackground();
+                                    object.saveInBackground();
+                                    LChildFragment.mainListAdapter.notifyDataSetChanged();
+                                    Intent home = new Intent(context, LChildActivity.class);
+                                    startActivity(home);
+                                } else {
+                                    ParseObject object = new ParseObject("children");
+                                    object.put("Name", name);
+                                    object.put("dob", dob);
+                                    object.put("SS", ss);
+                                    object.put("Allergies", allergy);
+                                    object.put("Medical", med);
+                                    object.put("Shot", shot);
+                                    object.put("AdditionalNames", fileName);
+                                    object.put("AdditionalInfo", fileInfo);
+                                    object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                    object.pinInBackground();
+                                    object.saveEventually();
+                                    LChildFragment.mainListAdapter.notifyDataSetChanged();
+                                    Intent home = new Intent(context, LChildActivity.class);
+                                    startActivity(home);
+                                }
                             }
+
                         } else {
-                            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                                ParseObject object = new ParseObject("children");
-                                object.put("Name", name);
-                                object.put("dob", dob);
-                                object.put("SS", ss);
-                                object.put("Allergies", allergy);
-                                object.put("Medical", med);
-                                object.put("Shot", shot);
-                                object.put("AdditionalNames", fileName);
-                                object.put("AdditionalInfo", fileInfo);
-                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                object.pinInBackground();
-                                object.saveInBackground();
-                                LChildFragment.mainListAdapter.notifyDataSetChanged();
-                                Intent home = new Intent(context, LChildActivity.class);
-                                startActivity(home);
-                            } else {
-                                ParseObject object = new ParseObject("children");
-                                object.put("Name", name);
-                                object.put("dob", dob);
-                                object.put("SS", ss);
-                                object.put("Allergies", allergy);
-                                object.put("Medical", med);
-                                object.put("Shot", shot);
-                                object.put("AdditionalNames", fileName);
-                                object.put("AdditionalInfo", fileInfo);
-                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                object.pinInBackground();
-                                object.saveEventually();
-                                LChildFragment.mainListAdapter.notifyDataSetChanged();
-                                Intent home = new Intent(context, LChildActivity.class);
-                                startActivity(home);
-                            }
+                            Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
                         }
-
-                    }else{
-                        Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (css.getText().toString().trim().length() != 9) {
+                        css.setText("");
+                        Toast.makeText(context, "Please Enter Valid Social Security Number or Leave Blank", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
