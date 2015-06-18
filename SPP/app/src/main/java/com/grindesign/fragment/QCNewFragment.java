@@ -81,17 +81,6 @@ public class QCNewFragment extends Fragment {
 
         title.setText(pageTitle);
 
-        qcPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (qcPhone.getText().toString().trim().length() != 10) {
-                        Toast.makeText(context, "Please Enter A Valid 10 digit Phone Number", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
-
         if (pageTitle.equals("Edit Contact")) {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();

@@ -45,13 +45,13 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:ems="10"
         android:id="@+id/css"
         android:hint="@string/css"
         android:layout_below="@+id/cName"
         android:layout_alignRight="@+id/cName"
-        android:layout_alignEnd="@+id/cName" />
+        android:layout_alignEnd="@+id/cName"
+        android:phoneNumber="false" />
 
     <EditText
         android:layout_width="match_parent"

@@ -117,17 +117,7 @@ public class LNewFragment extends Fragment {
             }
         });
 
-        css.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    if (css.getText().toString().trim().length() != 9) {
-                        css.setText("");
-                        Toast.makeText(context, "Please Enter Valid Social Security Number or Leave Blank", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
+
 
         cTitle.setText(pageTitle);
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -218,7 +208,8 @@ public class LNewFragment extends Fragment {
                 shot = cShot.getText().toString().trim();
                 String cdn = cDocName.getText().toString().trim();
                 String cdl = cDocLink.getText().toString().trim();
-                if (ss.equals("") || ss.length() == 9) {
+                String social = "^[0-9]{3}(\\))?\\-?[0-9]{2}\\-?[0-9]{4}$";
+                if (ss.equals("") || ss.matches(social)) {
                     if (!cdn.equals("") || !cdl.equals("")) {
                     AlertDialog.Builder lockExit = new AlertDialog.Builder(context);
                     lockExit.setTitle("Unsaved Additional Info");
@@ -415,8 +406,7 @@ public class LNewFragment extends Fragment {
                         }
                     }
                 } else {
-                    if (css.getText().toString().trim().length() != 9) {
-                        css.setText("");
+                    if (!css.getText().toString().trim().matches(social)) {
                         Toast.makeText(context, "Please Enter Valid Social Security Number or Leave Blank", Toast.LENGTH_SHORT).show();
                     }
                 }
