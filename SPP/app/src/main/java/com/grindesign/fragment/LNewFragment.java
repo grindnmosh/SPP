@@ -219,7 +219,7 @@ public class LNewFragment extends Fragment {
                 shot = cShot.getText().toString().trim();
                 String cdn = cDocName.getText().toString().trim();
                 String cdl = cDocLink.getText().toString().trim();
-
+                if (ss.equals("") || ss.length() == 9)
                 if (!cdn.equals("") || !cdl.equals("")) {
                     AlertDialog.Builder lockExit = new AlertDialog.Builder(context);
                     lockExit.setTitle("Unsaved Additional Info");

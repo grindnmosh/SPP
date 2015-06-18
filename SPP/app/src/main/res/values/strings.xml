@@ -39,8 +39,8 @@
     <string name="cl">Current Lists</string>
     <string name="image">Image</string>
     <string name="list_save">Add items to Current Lists or Create a New List and Save. Click on Done when finished</string>
-    <string name="finish">Done</string>
-    <string name="cancel">Nevermind</string>
+    <string name="finish">Cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="save">Save It</string>
     <string name="qname">Name</string>
     <string name="qnum">Phone Number</string>

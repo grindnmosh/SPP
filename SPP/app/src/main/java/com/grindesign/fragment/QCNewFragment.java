@@ -188,7 +188,7 @@ public class QCNewFragment extends Fragment {
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 Log.i("Category", cat);
 
-                if (!cat.equals("Select Category") && !name.equals("") && phone.length() == 10 && (email.equals("") || email.matches(emailPattern))){
+                if (!cat.equals("Select Category") && !name.equals("") && phone.length() >= 10 && phone.length() <= 14 && (email.equals("") || email.matches(emailPattern))){
                     Log.i("Category", cat);
                     ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo netInfo = cm.getActiveNetworkInfo();
