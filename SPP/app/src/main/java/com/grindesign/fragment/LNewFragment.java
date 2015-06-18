@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ginddesign.spp.LChildActivity;
-import com.ginddesign.spp.QuickContactActivity;
 import com.ginddesign.spp.R;
 import com.parse.GetCallback;
 import com.parse.ParseACL;

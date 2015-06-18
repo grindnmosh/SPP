@@ -65,7 +65,7 @@
     <string name="tempCSave">New Update Child Info</string>
     <string name="cName">Name</string>
     <string name="cdob">Date of Birth</string>
-    <string name="css">SS#</string>
+    <string name="css">SS#(555121234)</string>
     <string name="callergy">Allergies</string>
     <string name="cmed">Medical Conditions</string>
     <string name="cshot">Link To Shot Records</string>

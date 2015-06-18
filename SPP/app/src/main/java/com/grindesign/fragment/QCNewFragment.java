@@ -186,9 +186,10 @@ public class QCNewFragment extends Fragment {
                 email = qcEmail.getText().toString().trim();
                 notes = qcNotes.getText().toString().trim();
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                String phoneNumber = "^(1)?(\\-)?(\\()?[0-9]{3}(\\))?\\-?[0-9]{3}\\-?[0-9]{4}$";
                 Log.i("Category", cat);
 
-                if (!cat.equals("Select Category") && !name.equals("") && phone.length() >= 10 && phone.length() <= 14 && (email.equals("") || email.matches(emailPattern))){
+                if (!cat.equals("Select Category") && !name.equals("") && phone.matches(phoneNumber) && (email.equals("") || email.matches(emailPattern))){
                     Log.i("Category", cat);
                     ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -268,10 +269,8 @@ public class QCNewFragment extends Fragment {
                         Toast.makeText(context, "Please select a category before saving", Toast.LENGTH_SHORT).show();
                     } else if (name.equals("")) {
                         Toast.makeText(context, "Please a valid name before saving", Toast.LENGTH_SHORT).show();
-                    } else if (phone.length() != 10) {
+                    } else if (!phone.matches(phoneNumber)) {
                         Toast.makeText(context, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
-                    } else if (!email.matches(emailPattern) || !email.equals("")) {
-                        Toast.makeText(context, "Please enter valid email", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
