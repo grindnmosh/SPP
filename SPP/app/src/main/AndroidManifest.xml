@@ -156,7 +156,9 @@
         </activity>
         <activity
             android:name=".AddInfoActivity"
-            android:label="@string/title_activity_add_info" >
+            android:label="@string/title_activity_add_info"
+            android:parentActivityName=".LChildActivity"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
