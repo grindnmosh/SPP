@@ -62,8 +62,7 @@ public class LIDetailActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
             System.exit(0);
-        }
-        else if (id == R.id.action_qc) {
+        } else if (id == R.id.action_qc) {
             AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
             lockExit.setTitle("Leave The Lockers?");
             lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
@@ -82,8 +81,7 @@ public class LIDetailActivity extends AppCompatActivity {
             });
             lockExit.setIcon(android.R.drawable.ic_dialog_alert);
             lockExit.show();
-        }
-        else if (id == R.id.action_home) {
+        } else if (id == R.id.action_home) {
             AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
             lockExit.setTitle("Leave The Lockers?");
             lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
@@ -102,12 +100,13 @@ public class LIDetailActivity extends AppCompatActivity {
             });
             lockExit.setIcon(android.R.drawable.ic_dialog_alert);
             lockExit.show();
-        }
-        else if (id == R.id.action_child) {
+        } else if (id == R.id.action_child) {
             Intent child = new Intent(this, LChildActivity.class);
             this.startActivity(child);
-        }
-        else if (id == R.id.action_share) {
+        } else if (id == R.id.action_image) {
+            Intent image = new Intent(this, LImageActivity.class);
+            this.startActivity(image);
+        } else if (id == R.id.action_share) {
             ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnectedOrConnecting()) {

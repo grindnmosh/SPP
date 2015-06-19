@@ -1,6 +1,8 @@
 package com.ginddesign.spp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.net.ConnectivityManager;
@@ -197,9 +199,58 @@ public class AddInfoActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            ParseUser.logOut();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+        } else if (id == R.id.action_qc) {
+            AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
+            lockExit.setTitle("Leave The Lockers?");
+            lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
+            lockExit.setPositiveButton("Exit Locker", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent qc = new Intent(AddInfoActivity.this, QuickContactActivity.class);
+                    startActivity(qc);
+                }
+            });
+            lockExit.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+            lockExit.show();
+        } else if (id == R.id.action_home) {
+            AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
+            lockExit.setTitle("Leave The Lockers?");
+            lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
+            lockExit.setPositiveButton("Exit Locker", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent home = new Intent(AddInfoActivity.this, ListMasterActivity.class);
+                    startActivity(home);
+                }
+            });
+            lockExit.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+            lockExit.show();
+        } else if (id == R.id.action_image) {
+            Intent image = new Intent(this, LImageActivity.class);
+            this.startActivity(image);
+        } else if (id == R.id.action_child) {
+            Intent child = new Intent(this, LChildActivity.class);
+            this.startActivity(child);
         }
 
         return super.onOptionsItemSelected(item);
