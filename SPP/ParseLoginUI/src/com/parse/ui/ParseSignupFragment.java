@@ -140,7 +140,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
     String username = usernameField.getText().toString().trim();
     String password = passwordField.getText().toString();
     String passwordAgain = confirmPasswordField.getText().toString();
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z.]+\\.+[a-z]+";
 
     String email = null;
     if (config.isParseLoginEmailAsUsername()) {
@@ -154,12 +154,14 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
       name = nameField.getText().toString().trim();
     }
 
-    if (username.length() == 0 || !username.matches(emailPattern)) {
+    if (username.length() == 0) {
       if (config.isParseLoginEmailAsUsername()) {
         showToast(R.string.com_parse_ui_no_email_toast);
       } else {
         showToast(R.string.com_parse_ui_no_username_toast);
       }
+    } else if (!username.matches(emailPattern)) {
+      showToast(R.string.com_parse_ui_no_email_toast);
     } else if (email != null && email.length() == 0) {
       showToast(R.string.com_parse_ui_no_email_toast);
     } else if (password.length() == 0) {
