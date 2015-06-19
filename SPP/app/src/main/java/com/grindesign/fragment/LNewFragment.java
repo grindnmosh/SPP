@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ginddesign.spp.LChildActivity;
+import com.ginddesign.spp.LDetailActivity;
 import com.ginddesign.spp.R;
 import com.parse.GetCallback;
 import com.parse.ParseACL;
@@ -176,63 +177,18 @@ public class LNewFragment extends Fragment {
                 allergy = cAllergy.getText().toString().trim();
                 med = cMed.getText().toString().trim();
                 shot = cShot.getText().toString().trim();
-                String cdn = cDocName.getText().toString().trim();
-                String cdl = cDocLink.getText().toString().trim();
                 String social = "^[0-9]{3}(\\))?\\-?[0-9]{2}\\-?[0-9]{4}$";
                 if (ss.equals("") || ss.matches(social)) {
-                    if (!cdn.equals("") || !cdl.equals("")) {
-                    AlertDialog.Builder lockExit = new AlertDialog.Builder(context);
-                    lockExit.setTitle("Unsaved Additional Info");
-                    lockExit.setMessage("You will lose unsaved additional info.");
-                    lockExit.setPositiveButton("Continue Without Additional Info", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (!name.equals("")) {
-                                Log.i("Enter", "The Dragon");
-                                ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                                NetworkInfo netInfo = cm.getActiveNetworkInfo();
-                                if (!oid.equals("New")) {
-                                    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                    if (!name.equals("")) {
+                        Log.i("Enter", "The Dragon");
+                        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+                        if (!oid.equals("New")) {
+                            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 
-                                        ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                                        query.getInBackground(oid, new GetCallback<ParseObject>() {
-                                            public void done(ParseObject object, com.parse.ParseException e) {
-                                                object.put("Name", name);
-                                                object.put("dob", dob);
-                                                object.put("SS", ss);
-                                                object.put("Allergies", allergy);
-                                                object.put("Medical", med);
-                                                object.put("Shot", shot);
-                                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                                object.pinInBackground();
-                                                object.saveInBackground();
-                                                Intent home = new Intent(context, LChildActivity.class);
-                                                startActivity(home);
-                                            }
-                                        });
-
-                                    } else {
-                                        ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                                        query.fromLocalDatastore();
-                                        query.getInBackground(oid, new GetCallback<ParseObject>() {
-                                            public void done(ParseObject object, com.parse.ParseException e) {
-                                                object.put("Name", name);
-                                                object.put("dob", dob);
-                                                object.put("SS", ss);
-                                                object.put("Allergies", allergy);
-                                                object.put("Medical", med);
-                                                object.put("Shot", shot);
-                                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                                object.pinInBackground();
-                                                object.saveEventually();
-                                                Intent home = new Intent(context, LChildActivity.class);
-                                                startActivity(home);
-                                            }
-                                        });
-                                    }
-                                } else {
-                                    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                                        ParseObject object = new ParseObject("children");
+                                ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
+                                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                                    public void done(ParseObject object, com.parse.ParseException e) {
                                         object.put("Name", name);
                                         object.put("dob", dob);
                                         object.put("SS", ss);
@@ -242,10 +198,17 @@ public class LNewFragment extends Fragment {
                                         object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                         object.pinInBackground();
                                         object.saveInBackground();
-                                        Intent home = new Intent(context, LChildActivity.class);
+                                        Intent home = new Intent(context, LDetailActivity.class);
+                                        home.putExtra("object ID", oid);
                                         startActivity(home);
-                                    } else {
-                                        ParseObject object = new ParseObject("children");
+                                    }
+                                });
+
+                            } else {
+                                ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
+                                query.fromLocalDatastore();
+                                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                                    public void done(ParseObject object, com.parse.ParseException e) {
                                         object.put("Name", name);
                                         object.put("dob", dob);
                                         object.put("SS", ss);
@@ -255,101 +218,44 @@ public class LNewFragment extends Fragment {
                                         object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                         object.pinInBackground();
                                         object.saveEventually();
-                                        Intent home = new Intent(context, LChildActivity.class);
+                                        Intent home = new Intent(context, LDetailActivity.class);
+                                        home.putExtra("object ID", oid);
                                         startActivity(home);
                                     }
-                                }
-
-                            } else {
-                                Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
+                                });
                             }
-                        }
-                    });
-                    lockExit.setNegativeButton("Go Back", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    lockExit.setIcon(android.R.drawable.ic_dialog_alert);
-                    lockExit.show();
-                } else {
-                        if (!name.equals("")) {
-                            Log.i("Enter", "The Dragon");
-                            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-                            if (!oid.equals("New")) {
-                                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-
-                                    ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                                    query.getInBackground(oid, new GetCallback<ParseObject>() {
-                                        public void done(ParseObject object, com.parse.ParseException e) {
-                                            object.put("Name", name);
-                                            object.put("dob", dob);
-                                            object.put("SS", ss);
-                                            object.put("Allergies", allergy);
-                                            object.put("Medical", med);
-                                            object.put("Shot", shot);
-                                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                            object.pinInBackground();
-                                            object.saveInBackground();
-                                            Intent home = new Intent(context, LChildActivity.class);
-                                            startActivity(home);
-                                        }
-                                    });
-
-                                } else {
-                                    ParseQuery<ParseObject> query = ParseQuery.getQuery("children");
-                                    query.fromLocalDatastore();
-                                    query.getInBackground(oid, new GetCallback<ParseObject>() {
-                                        public void done(ParseObject object, com.parse.ParseException e) {
-                                            object.put("Name", name);
-                                            object.put("dob", dob);
-                                            object.put("SS", ss);
-                                            object.put("Allergies", allergy);
-                                            object.put("Medical", med);
-                                            object.put("Shot", shot);
-                                            object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                            object.pinInBackground();
-                                            object.saveEventually();
-                                            Intent home = new Intent(context, LChildActivity.class);
-                                            startActivity(home);
-                                        }
-                                    });
-                                }
-                            } else {
-                                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                                    ParseObject object = new ParseObject("children");
-                                    object.put("Name", name);
-                                    object.put("dob", dob);
-                                    object.put("SS", ss);
-                                    object.put("Allergies", allergy);
-                                    object.put("Medical", med);
-                                    object.put("Shot", shot);
-                                    object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                    object.pinInBackground();
-                                    object.saveInBackground();
-                                    Intent home = new Intent(context, LChildActivity.class);
-                                    startActivity(home);
-                                } else {
-                                    ParseObject object = new ParseObject("children");
-                                    object.put("Name", name);
-                                    object.put("dob", dob);
-                                    object.put("SS", ss);
-                                    object.put("Allergies", allergy);
-                                    object.put("Medical", med);
-                                    object.put("Shot", shot);
-                                    object.setACL(new ParseACL(ParseUser.getCurrentUser()));
-                                    object.pinInBackground();
-                                    object.saveEventually();
-                                    Intent home = new Intent(context, LChildActivity.class);
-                                    startActivity(home);
-                                }
-                            }
-
                         } else {
-                            Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
+                            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                                ParseObject object = new ParseObject("children");
+                                object.put("Name", name);
+                                object.put("dob", dob);
+                                object.put("SS", ss);
+                                object.put("Allergies", allergy);
+                                object.put("Medical", med);
+                                object.put("Shot", shot);
+                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                object.pinInBackground();
+                                object.saveInBackground();
+                                Intent home = new Intent(context, LChildActivity.class);
+                                startActivity(home);
+                            } else {
+                                ParseObject object = new ParseObject("children");
+                                object.put("Name", name);
+                                object.put("dob", dob);
+                                object.put("SS", ss);
+                                object.put("Allergies", allergy);
+                                object.put("Medical", med);
+                                object.put("Shot", shot);
+                                object.setACL(new ParseACL(ParseUser.getCurrentUser()));
+                                object.pinInBackground();
+                                object.saveEventually();
+                                Intent home = new Intent(context, LChildActivity.class);
+                                startActivity(home);
+                            }
                         }
+
+                    } else {
+                        Toast.makeText(context, "Please fill out all fields before saving", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     if (!css.getText().toString().trim().matches(social)) {
@@ -376,7 +282,8 @@ public class LNewFragment extends Fragment {
                     lockExit.setPositiveButton("Exit Without Saving", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent home = new Intent(context, LChildActivity.class);
+                            Intent home = new Intent(context, LDetailActivity.class);
+                            home.putExtra("object ID", oid);
                             startActivity(home);
                         }
                     });
@@ -389,7 +296,8 @@ public class LNewFragment extends Fragment {
                     lockExit.setIcon(android.R.drawable.ic_dialog_alert);
                     lockExit.show();
                 } else {
-                    Intent home = new Intent(context, LChildActivity.class);
+                    Intent home = new Intent(context, LDetailActivity.class);
+                    home.putExtra("object ID", oid);
                     startActivity(home);
                 }
             }

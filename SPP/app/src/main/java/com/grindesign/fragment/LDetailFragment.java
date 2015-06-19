@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LDetailFragment extends Fragment {
+public class LDetailFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     public static String ois;
     String name;
@@ -54,6 +55,7 @@ public class LDetailFragment extends Fragment {
     public static ArrayList<String> nameArray = new ArrayList<>();
     public static ArrayList<String> nameInfo = new ArrayList<>();
     public static ArrayList<String> oidArray = new ArrayList<>();
+    public static ArrayList<String> classArray = new ArrayList<>();
     public static ArrayAdapter<String> mainListAdapter;
     Context context;
 
@@ -87,7 +89,13 @@ public class LDetailFragment extends Fragment {
         addInfoButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = dName.getText().toString().trim();
+                String cleanName = name.replaceAll("\\s+", "");
+                String className = cleanName + "addInfo";
                 Intent qc = new Intent(context, AddInfoActivity.class);
+                qc.putExtra("Object ID", "New");
+                qc.putExtra("object ID", ois);
+                qc.putExtra("Name", className);
                 context.startActivity(qc);
             }
         });
@@ -98,16 +106,11 @@ public class LDetailFragment extends Fragment {
         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
             nameArray = new ArrayList<>();
             nameInfo = new ArrayList<>();
+            oidArray = new ArrayList<>();
+            classArray = new ArrayList<>();
             try {
                 ParseQuery<ParseObject> query1 = ParseQuery.getQuery("children");
                 List<ParseObject> objects = query1.find();
-                ParseObject.pinAllInBackground(objects);
-            } catch (com.parse.ParseException e) {
-                e.printStackTrace();
-            }
-            try {
-                ParseQuery<ParseObject> query3 = ParseQuery.getQuery("AddInfo");
-                List<ParseObject> objects = query3.find();
                 ParseObject.pinAllInBackground(objects);
             } catch (com.parse.ParseException e) {
                 e.printStackTrace();
@@ -117,6 +120,8 @@ public class LDetailFragment extends Fragment {
                 public void done(ParseObject object, com.parse.ParseException e) {
                     if (e == null) {
                         name = object.getString("Name");
+                        String cleanName = name.replaceAll("\\s+", "");
+                        final String className = cleanName + "addInfo";
                         dob = object.getString("dob");
                         ss = object.getString("SS");
                         all = object.getString("Allergies");
@@ -129,32 +134,39 @@ public class LDetailFragment extends Fragment {
                         dMed.setText(med);
                         dShot.setText(shot);
                         Linkify.addLinks(dShot, Linkify.WEB_URLS);
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-
-                }
-            });
-            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("AddInfo");
-            query2.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List list, com.parse.ParseException e) {
-                    if (e == null) {
-
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.i("Array", "Entry Point Done");
-                            Object object = list.get(i);
-                            String name = ((ParseObject) object).getString("AddName");
-                            String info = ((ParseObject) object).getString("AddItem");
-                            String oid = ((ParseObject) object).getObjectId();
-                            nameArray.add(name);
-                            nameInfo.add(info);
-                            oidArray.add(oid);
-                            Log.i("TESSSSSST", nameInfo.toString());
-                            //loadList();
+                        try {
+                            ParseQuery<ParseObject> query3 = ParseQuery.getQuery(className);
+                            List<ParseObject> objects = query3.find();
+                            ParseObject.pinAllInBackground(objects);
+                        } catch (com.parse.ParseException e1) {
+                            e.printStackTrace();
                         }
-                        mainListAdapter.notifyDataSetChanged();
+                        ParseQuery<ParseObject> query2 = ParseQuery.getQuery(className);
+                        query2.findInBackground(new FindCallback<ParseObject>() {
+                            public void done(List list, com.parse.ParseException e) {
+                                if (e == null) {
 
+                                    for (int i = 0; i < list.size(); i++) {
+                                        Log.i("Array", "Entry Point Done");
+                                        Object object = list.get(i);
+                                        String name = ((ParseObject) object).getString("AddName");
+                                        String info = ((ParseObject) object).getString("AddItem");
+                                        String oid = ((ParseObject) object).getObjectId();
+                                        classArray.add(className);
+                                        nameArray.add(name);
+                                        nameInfo.add(info);
+                                        oidArray.add(oid);
+                                        Log.i("TESSSSSST", oidArray.toString());
+                                        //loadList();
+                                    }
+                                    mainListAdapter.notifyDataSetChanged();
+
+                                } else {
+                                    Log.d("Failed", "Error: " + e.getMessage());
+                                }
+
+                            }
+                        });
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
@@ -168,6 +180,8 @@ public class LDetailFragment extends Fragment {
                 public void done(ParseObject object, com.parse.ParseException e) {
                     if (e == null) {
                         name = object.getString("Name");
+                        String cleanName = name.replaceAll("\\s+", "");
+                        final String className = cleanName + "addInfo";
                         dob = object.getString("Age");
                         ss = object.getString("SS");
                         all = object.getString("Allergies");
@@ -180,38 +194,38 @@ public class LDetailFragment extends Fragment {
                         dMed.setText(med);
                         dShot.setText(shot);
                         Linkify.addLinks(dShot, Linkify.WEB_URLS);
+                        ParseQuery<ParseObject> query2 = ParseQuery.getQuery(className);
+                        query2.fromLocalDatastore();
+                        query2.findInBackground(new FindCallback<ParseObject>() {
+                            public void done(List list, com.parse.ParseException e) {
+                                if (e == null) {
 
+                                    for (int i = 0; i < list.size(); i++) {
+                                        Log.i("Array", "Entry Point Done");
+                                        Object object = list.get(i);
+                                        String name = ((ParseObject) object).getString("AddName");
+                                        String info = ((ParseObject) object).getString("AddItem");
+                                        String oid = ((ParseObject) object).getObjectId();
+                                        classArray.add(className);
+                                        nameArray.add(name);
+                                        nameInfo.add(info);
+                                        oidArray.add(oid);
+                                        Log.i("TESSSSSST", nameInfo.toString());
+                                        //loadList();
+                                    }
+                                    mainListAdapter.notifyDataSetChanged();
+
+                                } else {
+                                    Log.d("Failed", "Error: " + e.getMessage());
+                                }
+
+                            }
+                        });
 
                     } else {
                         Log.d("Failed", "Error: " + e.getMessage());
                     }
                     mainListAdapter.notifyDataSetChanged();
-                }
-            });
-            ParseQuery<ParseObject> query2 = ParseQuery.getQuery("AddInfo");
-            query2.fromLocalDatastore();
-            query2.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List list, com.parse.ParseException e) {
-                    if (e == null) {
-
-                        for (int i = 0; i < list.size(); i++) {
-                            Log.i("Array", "Entry Point Done");
-                            Object object = list.get(i);
-                            String name = ((ParseObject) object).getString("AddName");
-                            String info = ((ParseObject) object).getString("AddItem");
-                            String oid = ((ParseObject) object).getObjectId();
-                            nameArray.add(name);
-                            nameInfo.add(info);
-                            oidArray.add(oid);
-                            Log.i("TESSSSSST", nameInfo.toString());
-                            //loadList();
-                        }
-                        mainListAdapter.notifyDataSetChanged();
-
-                    } else {
-                        Log.d("Failed", "Error: " + e.getMessage());
-                    }
-
                 }
             });
         }
@@ -222,7 +236,7 @@ public class LDetailFragment extends Fragment {
 
     public void loadList() {
         mainListAdapter = new addInfoCell(context, R.layout.activity_add_info_cell, nameArray);
-
+        lv.setOnItemClickListener(this);
         lv.setAdapter(mainListAdapter);
     }
 
@@ -236,5 +250,19 @@ public class LDetailFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i("position", String.valueOf(position));
+        String oid = oidArray.get(position);
+        String name = dName.getText().toString().trim();
+        String cleanName = name.replaceAll("\\s+", "");
+        String className = cleanName + "addInfo";
+        Intent qc = new Intent(context, AddInfoActivity.class);
+        qc.putExtra("Object ID", oid);
+        qc.putExtra("object ID", ois);
+        qc.putExtra("Name", className);
+        context.startActivity(qc);
     }
 }

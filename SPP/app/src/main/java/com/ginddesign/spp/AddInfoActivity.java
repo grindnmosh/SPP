@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,12 +27,15 @@ import com.parse.ParseUser;
 public class AddInfoActivity extends ActionBarActivity {
 
     Button indSave;
+    Button canBooty;
     EditText cDocName;
     EditText cDocLink;
     Context context;
     String oid;
+    String ois;
     String cdn;
     String cdl;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +45,55 @@ public class AddInfoActivity extends ActionBarActivity {
         cDocName = (EditText) findViewById(R.id.docName);
         cDocLink = (EditText) findViewById(R.id.docLink);
         indSave = (Button) findViewById(R.id.indSave);
-        oid = "New";
+        canBooty = (Button) findViewById(R.id.canBooty);
 
+        //oid = "New";
+        final Intent i = getIntent();
+        oid = i.getStringExtra("Object ID");
+        ois = i.getStringExtra("object ID");
+        name = i.getStringExtra("Name");
+        Log.i("TEST", name);
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (!oid.equals("New")) {
+            Log.i("Test", "test");
+            if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery(name);
+                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, com.parse.ParseException e) {
+                        if (e == null) {
+                            String name = object.getString("AddName");
+                            String item = object.getString("AddItem");
+                            Log.i("Test", name);
+                            Log.i("Test", item);
+                            cDocName.setText(name);
+                            cDocLink.setText(item);
+                        } else {
+                            Log.d("Failed", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+
+            } else {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery(name);
+                query.fromLocalDatastore();
+                query.getInBackground(oid, new GetCallback<ParseObject>() {
+                    public void done(ParseObject object, com.parse.ParseException e) {
+                        if (e == null) {
+                            String name = object.getString("AddName");
+                            String item = object.getString("AddItem");
+
+                            cDocName.setText(name);
+                            cDocLink.setText(item);
+                        } else {
+                            Log.d("Failed", "Error: " + e.getMessage());
+                        }
+                    }
+                });
+
+            }
+        }
 
         indSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +108,7 @@ public class AddInfoActivity extends ActionBarActivity {
                     if (!oid.equals("New")) {
                         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 
-                            ParseQuery<ParseObject> query = ParseQuery.getQuery("AddInfo");
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery(name);
                             query.getInBackground(oid, new GetCallback<ParseObject>() {
                                 public void done(ParseObject object, com.parse.ParseException e) {
                                     object.put("AddName", cdn);
@@ -66,13 +117,14 @@ public class AddInfoActivity extends ActionBarActivity {
                                     object.pinInBackground();
                                     object.saveInBackground();
                                     LChildFragment.mainListAdapter.notifyDataSetChanged();
-                                    Intent home = new Intent(AddInfoActivity.this, LChildActivity.class);
+                                    Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
+                                    home.putExtra("object ID", ois);
                                     startActivity(home);
                                 }
                             });
 
                         } else {
-                            ParseQuery<ParseObject> query = ParseQuery.getQuery("AddInfo");
+                            ParseQuery<ParseObject> query = ParseQuery.getQuery(name);
                             query.fromLocalDatastore();
                             query.getInBackground(oid, new GetCallback<ParseObject>() {
                                 public void done(ParseObject object, com.parse.ParseException e) {
@@ -82,31 +134,34 @@ public class AddInfoActivity extends ActionBarActivity {
                                     object.pinInBackground();
                                     object.saveEventually();
                                     LChildFragment.mainListAdapter.notifyDataSetChanged();
-                                    Intent home = new Intent(AddInfoActivity.this, LChildActivity.class);
+                                    Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
+                                    home.putExtra("object ID", ois);
                                     startActivity(home);
                                 }
                             });
                         }
                     } else {
                         if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                            ParseObject addIt = new ParseObject("AddInfo");
+                            ParseObject addIt = new ParseObject(name);
                             addIt.put("AddName", cdn);
                             addIt.put("AddItem", cdl);
                             addIt.setACL(new ParseACL(ParseUser.getCurrentUser()));
                             addIt.pinInBackground();
                             addIt.saveInBackground();
                             LChildFragment.mainListAdapter.notifyDataSetChanged();
-                            Intent home = new Intent(AddInfoActivity.this, LChildActivity.class);
+                            Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
+                            home.putExtra("object ID", ois);
                             startActivity(home);
                         } else {
-                            ParseObject object = new ParseObject("AddInfo");
+                            ParseObject object = new ParseObject(name);
                             object.put("AddName", cdn);
                             object.put("AddItem", cdl);
                             object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                             object.pinInBackground();
                             object.saveEventually();
                             LChildFragment.mainListAdapter.notifyDataSetChanged();
-                            Intent home = new Intent(AddInfoActivity.this, LChildActivity.class);
+                            Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
+                            home.putExtra("object ID", ois);
                             startActivity(home);
                         }
                     }
@@ -115,6 +170,15 @@ public class AddInfoActivity extends ActionBarActivity {
                 } else {
                     Toast.makeText(context, "Nothing was entered to save. Save not completed", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        canBooty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
+                home.putExtra("object ID", ois);
+                startActivity(home);
             }
         });
     }
@@ -139,5 +203,12 @@ public class AddInfoActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed()
+    {
+        Intent home = new Intent(this, LDetailActivity.class);
+        home.putExtra("object ID", ois);
+        this.startActivity(home);
     }
 }

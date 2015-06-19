@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class addInfoCell extends ArrayAdapter<String> implements SwipeItemManger
 
     ImageButton delete;
     String oID;
+    String name;
+    String classic;
     private Context context;
     private ArrayList<String> arrayLister = LDetailFragment.nameArray;
 
@@ -50,6 +53,7 @@ public class addInfoCell extends ArrayAdapter<String> implements SwipeItemManger
         final String names = arrayLister.get(position);
         final String inform = LDetailFragment.nameInfo.get(position);
         final ArrayList<String> oIDArray = LDetailFragment.oidArray;
+        final ArrayList<String> classArray = LDetailFragment.classArray;
 
         LayoutInflater blowUp = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = blowUp.inflate(R.layout.activity_add_info_cell, null);
@@ -66,20 +70,25 @@ public class addInfoCell extends ArrayAdapter<String> implements SwipeItemManger
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RelativeLayout rl = (RelativeLayout) v.getParent();
+                //RelativeLayout rl = (RelativeLayout) v.getParent();
                 oID = oIDArray.get(position);
+                classic = classArray.get(position);
+                String cleanName = classic.replaceAll("\\s+", "");
+                String className = cleanName + "addInfo";
+                Log.i("oid", oID);
+                Log.i("class", className);
                 ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo netInfo = cm.getActiveNetworkInfo();
                 if (netInfo != null && netInfo.isConnectedOrConnecting()) {
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("AddInfo");
+                    ParseQuery<ParseObject> query = ParseQuery.getQuery(classic);
                     query.getInBackground(oID, new GetCallback<ParseObject>() {
                         public void done(ParseObject addUp, com.parse.ParseException e) {
-                            //String name = addUp.get("AddName").toString();
-                            //String item = addUp.get("AddItem").toString();
+                            String name = addUp.get("AddName").toString();
+                            String item = addUp.get("AddItem").toString();
                             addUp.unpinInBackground();
                             addUp.deleteEventually();
-                            LDetailFragment.nameArray.remove(names);
-                            LDetailFragment.nameInfo.remove(inform);
+                            LDetailFragment.nameArray.remove(name);
+                            LDetailFragment.nameInfo.remove(item);
                             LDetailFragment.mainListAdapter.notifyDataSetChanged();
 
 
