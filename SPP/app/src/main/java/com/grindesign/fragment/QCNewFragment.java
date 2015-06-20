@@ -174,7 +174,7 @@ public class QCNewFragment extends Fragment {
                 phone = qcPhone.getText().toString().trim();
                 email = qcEmail.getText().toString().trim();
                 notes = qcNotes.getText().toString().trim();
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z.]+\\.+[a-z]+";
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.+[a-z]+";
                 String phoneNumber = "^(1)?(\\-)?(\\()?[0-9]{3}(\\))?\\-?[0-9]{3}\\-?[0-9]{4}$";
                 Log.i("Category", cat);
 
