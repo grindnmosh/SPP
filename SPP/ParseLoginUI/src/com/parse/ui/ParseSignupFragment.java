@@ -140,7 +140,7 @@ public class ParseSignupFragment extends ParseLoginFragmentBase implements OnCli
     String username = usernameField.getText().toString().trim();
     String password = passwordField.getText().toString();
     String passwordAgain = confirmPasswordField.getText().toString();
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z.]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.+[a-z]+";
 
     String email = null;
     if (config.isParseLoginEmailAsUsername()) {
