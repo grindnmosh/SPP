@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.ginddesign.spp.QCNewActivity;
 import com.ginddesign.spp.R;
 import com.parse.GetCallback;
 import com.parse.ParseObject;
@@ -30,8 +29,7 @@ public class QCDetailFragment extends Fragment {
     ImageButton makeCall;
     ImageButton sendMess;
     ImageButton sendEmail;
-    ImageButton conEdit;
-    String ois;
+    public static String ois;
     String name;
     String phone;
     String email;
@@ -54,7 +52,6 @@ public class QCDetailFragment extends Fragment {
         makeCall = (ImageButton) view.findViewById(R.id.makeCall);
         sendMess = (ImageButton) view.findViewById(R.id.sendMess);
         sendEmail = (ImageButton) view.findViewById(R.id.sendEmail);
-        conEdit = (ImageButton) view.findViewById(R.id.conEdit);
 
         final Intent i = getActivity().getIntent();
         ois = i.getStringExtra("Object ID");
@@ -129,15 +126,7 @@ public class QCDetailFragment extends Fragment {
             }
         });
 
-        conEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent add = new Intent(context, QCNewActivity.class);
-                add.putExtra("Title", "Edit Contact");
-                add.putExtra("Object ID", ois);
-                startActivity(add);
-            }
-        });
+
 
         return view;
     }
