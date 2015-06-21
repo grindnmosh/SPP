@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ginddesign.spp.QCDetailActivity;
 import com.ginddesign.spp.QuickContactActivity;
 import com.ginddesign.spp.R;
 import com.parse.GetCallback;
@@ -170,7 +171,7 @@ public class QCNewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 name = qcName.getText().toString().trim();
-                phone = qcPhone.getText().toString().trim();
+                phone = qcPhone.getText().toString().trim().replaceAll("\\s+", "");
                 email = qcEmail.getText().toString().trim();
                 notes = qcNotes.getText().toString().trim();
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.+[a-z]+";
@@ -195,8 +196,9 @@ public class QCNewFragment extends Fragment {
                                     object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                     object.pinInBackground();
                                     object.saveInBackground();
-                                    ListMasterFragment.mainListAdapter.notifyDataSetChanged();
-                                    Intent home = new Intent(context, QuickContactActivity.class);
+                                    QuickContactFragment.mainListAdapter.notifyDataSetChanged();
+                                    Intent home = new Intent(context, QCDetailActivity.class);
+                                    home.putExtra("Object ID", ois);
                                     startActivity(home);
                                 }
                             });
@@ -214,8 +216,9 @@ public class QCNewFragment extends Fragment {
                                     object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                                     object.pinInBackground();
                                     object.saveEventually();
-                                    ListMasterFragment.mainListAdapter.notifyDataSetChanged();
-                                    Intent home = new Intent(context, QuickContactActivity.class);
+                                    QuickContactFragment.mainListAdapter.notifyDataSetChanged();
+                                    Intent home = new Intent(context, QCDetailActivity.class);
+                                    home.putExtra("Object ID", ois);
                                     startActivity(home);
                                 }
                             });
@@ -232,8 +235,8 @@ public class QCNewFragment extends Fragment {
                             object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                             object.pinInBackground();
                             object.saveInBackground();
-                            ListMasterFragment.mainListAdapter.notifyDataSetChanged();
-                            Intent home = new Intent(context, QuickContactActivity.class);
+                            QuickContactFragment.mainListAdapter.notifyDataSetChanged();
+                            Intent home = new Intent(context, QCDetailActivity.class);
                             startActivity(home);
 
                         } else {
@@ -246,8 +249,8 @@ public class QCNewFragment extends Fragment {
                             object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                             object.pinInBackground();
                             object.saveEventually();
-                            ListMasterFragment.mainListAdapter.notifyDataSetChanged();
-                            Intent home = new Intent(context, QuickContactActivity.class);
+                            QuickContactFragment.mainListAdapter.notifyDataSetChanged();
+                            Intent home = new Intent(context, QCDetailActivity.class);
                             startActivity(home);
                         }
                     }
@@ -280,8 +283,14 @@ public class QCNewFragment extends Fragment {
                     lockExit.setPositiveButton("Exit Without Saving", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent home = new Intent(context, QuickContactActivity.class);
-                            startActivity(home);
+                            if (!ois.equals("New")) {
+                                Intent home = new Intent(context, QCDetailActivity.class);
+                                home.putExtra("Object ID", ois);
+                                startActivity(home);
+                            } else {
+                                Intent home = new Intent(context, QuickContactActivity.class);
+                                startActivity(home);
+                            }
                         }
                     });
                     lockExit.setNegativeButton("Stay On Page", new DialogInterface.OnClickListener() {
@@ -293,8 +302,14 @@ public class QCNewFragment extends Fragment {
                     lockExit.setIcon(android.R.drawable.ic_dialog_alert);
                     lockExit.show();
                 } else {
-                    Intent home = new Intent(context, QuickContactActivity.class);
-                    startActivity(home);
+                    if (!ois.equals("New")) {
+                        Intent home = new Intent(context, QCDetailActivity.class);
+                        home.putExtra("Object ID", ois);
+                        startActivity(home);
+                    } else {
+                        Intent home = new Intent(context, QuickContactActivity.class);
+                        startActivity(home);
+                    }
                 }
 
 
