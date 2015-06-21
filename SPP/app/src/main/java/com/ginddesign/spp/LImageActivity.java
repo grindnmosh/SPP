@@ -103,8 +103,24 @@ public class LImageActivity extends AppCompatActivity {
             lockExit.show();
 
         } else if (id == R.id.action_change) {
-            Intent change = new Intent(this, SettingsActivity.class);
-            this.startActivity(change);
+            AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
+            lockExit.setTitle("Are You Sure??");
+            lockExit.setMessage("This will log you completely out of the application.");
+            lockExit.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent change = new Intent(LImageActivity.this, SettingsActivity.class);
+                    startActivity(change);
+                }
+            });
+            lockExit.setNegativeButton("Stay Logged In", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+            lockExit.show();
         }
 
         return super.onOptionsItemSelected(item);
