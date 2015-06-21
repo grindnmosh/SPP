@@ -64,7 +64,7 @@ public class QCDetailActivity extends AppCompatActivity {
             sendIntent.putExtra(Intent.EXTRA_TEXT, QCDetailFragment.conName.getText() + "\n" + QCDetailFragment.conPhone.getText() + "\n" + QCDetailFragment.conEmail.getText() + "\n" + QCDetailFragment.conNotes.getText());
             sendIntent.setType("text/plain");
             startActivity(Intent.createChooser(sendIntent, "Share Using"));
-        }else if (id == R.id.action_edit) {
+        } else if (id == R.id.action_edit) {
             Intent add = new Intent(this, QCNewActivity.class);
             add.putExtra("Title", "Edit Contact");
             add.putExtra("Object ID", QCDetailFragment.ois);

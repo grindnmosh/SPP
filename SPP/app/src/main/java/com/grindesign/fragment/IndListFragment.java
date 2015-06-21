@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.ginddesign.spp.IndListCell;
+import com.ginddesign.spp.NewListActivity;
 import com.ginddesign.spp.R;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -38,9 +39,9 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
     public static ArrayList<String> desArray = new ArrayList<>();
     public static ArrayList<String> oidArray = new ArrayList<>();
     public static ArrayList<String> cbArray = new ArrayList<>();
-    public static ArrayList<String> listArray = new ArrayList<>();
     Context context;
     public static String passedName;
+    public static String oid;
     CheckBox check;
     TextView listName;
     Spinner s;
@@ -54,7 +55,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_indlist, container, false);
 
@@ -114,6 +115,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
                                             Log.i("TEST Run", desArray.toString());
                                         }
                                         mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray, oidArray);
+                                        lv.setOnItemClickListener(IndListFragment.this);
                                         lv.setAdapter(mainListAdapter);
 
                                     } else {
@@ -146,6 +148,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
                                             Log.i("TEST Run", desArray.toString());
                                         }
                                         mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray, oidArray);
+                                        lv.setOnItemClickListener(IndListFragment.this);
                                         lv.setAdapter(mainListAdapter);
 
                                     } else {
@@ -185,6 +188,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
                                             }
                                         }
                                         mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray, oidArray);
+                                        lv.setOnItemClickListener(IndListFragment.this);
                                         lv.setAdapter(mainListAdapter);
 
                                     } else {
@@ -218,6 +222,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
                                             Log.i("TEST Run", desArray.toString());
                                         }
                                         mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray, oidArray);
+                                        lv.setOnItemClickListener(IndListFragment.this);
                                         lv.setAdapter(mainListAdapter);
                                     } else {
                                         Log.d("Failed", "Error: " + e.getMessage());
@@ -252,6 +257,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
                                             Log.i("TEST Run", desArray.toString());
                                         }
                                         mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray, oidArray);
+                                        lv.setOnItemClickListener(IndListFragment.this);
                                         lv.setAdapter(mainListAdapter);
                                     } else {
                                         Log.d("Failed", "Error: " + e.getMessage());
@@ -284,6 +290,7 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
                                             Log.i("TEST Run", desArray.toString());
                                         }
                                         mainListAdapter = new IndListCell(context, R.layout.activity_indlistcell, itemArray, oidArray);
+                                        lv.setOnItemClickListener(IndListFragment.this);
                                         lv.setAdapter(mainListAdapter);
                                     } else {
                                         Log.d("Failed", "Error: " + e.getMessage());
@@ -311,18 +318,6 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        return false;
-    }
-
-
-    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         this.context = activity;
@@ -332,5 +327,21 @@ public class IndListFragment extends Fragment implements AdapterView.OnItemClick
     public void onDetach() {
         super.onDetach();
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        Log.i("position", String.valueOf(position));
+        oid = oidArray.get(position);
+        Intent add = new Intent(context, NewListActivity.class);
+        add.putExtra("listNameArray", ListMasterFragment.listNameArray);
+        add.putExtra("listName", passedName);
+        add.putExtra("Object ID", oid);
+        context.startActivity(add);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        return false;
     }
 }
