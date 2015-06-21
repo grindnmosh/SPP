@@ -33,16 +33,7 @@ public class LockersActivity extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            ParseUser.logOut();
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-            System.exit(0);
-        }
-        else if (id == R.id.action_qc) {
+        if (id == R.id.action_qc) {
             AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
             lockExit.setTitle("Leave The Lockers?");
             lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
@@ -61,8 +52,7 @@ public class LockersActivity extends AppCompatActivity {
             });
             lockExit.setIcon(android.R.drawable.ic_dialog_alert);
             lockExit.show();
-        }
-        else if (id == R.id.action_home) {
+        } else if (id == R.id.action_home) {
             AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
             lockExit.setTitle("Leave The Lockers?");
             lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
@@ -81,6 +71,34 @@ public class LockersActivity extends AppCompatActivity {
             });
             lockExit.setIcon(android.R.drawable.ic_dialog_alert);
             lockExit.show();
+        } else if (id == R.id.action_settings) {
+            AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
+            lockExit.setTitle("Are You Sure??");
+            lockExit.setMessage("This will log you completely out of the application.");
+            lockExit.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ParseUser.logOut();
+                    Intent intent = new Intent(LockersActivity.this, MainActivity.class);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                    System.exit(0);
+                }
+            });
+            lockExit.setNegativeButton("Stay Logged In", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+            lockExit.show();
+
+        } else if (id == R.id.action_change) {
+            Intent change = new Intent(this, SettingsActivity.class);
+            this.startActivity(change);
         }
         switch (item.getItemId()) {
         case R.id.home:

@@ -63,8 +63,7 @@ public class ListMasterActivity extends AppCompatActivity {
             lockExit.setIcon(android.R.drawable.ic_dialog_alert);
             lockExit.show();
 
-        }
-        if (id == R.id.action_change) {
+        } else if (id == R.id.action_change) {
             Intent change = new Intent(this, SettingsActivity.class);
             this.startActivity(change);
         }

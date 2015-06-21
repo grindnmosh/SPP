@@ -6,5 +6,8 @@
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:id="@+id/action_qc" android:title="@string/qc"
         android:orderInCategory="100" app:showAsAction="never" />
-
+    <item android:id="@+id/action_change" android:title="@string/action_change"
+        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>
