@@ -272,29 +272,27 @@ ADDED from AndroidManifest.xml:136:9
 activity#com.ginddesign.spp.SettingsActivity
 ADDED from AndroidManifest.xml:141:9
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:145:13
+		ADDED from AndroidManifest.xml:144:13
 	android:label
 		ADDED from AndroidManifest.xml:143:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:144:13
 	android:name
 		ADDED from AndroidManifest.xml:142:13
 activity#com.ginddesign.spp.ChildNameCell
-ADDED from AndroidManifest.xml:153:9
+ADDED from AndroidManifest.xml:152:9
 	android:label
-		ADDED from AndroidManifest.xml:155:13
-	android:name
 		ADDED from AndroidManifest.xml:154:13
-activity#com.ginddesign.spp.AddInfoActivity
-ADDED from AndroidManifest.xml:157:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:161:13
-	android:label
-		ADDED from AndroidManifest.xml:159:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:160:13
 	android:name
+		ADDED from AndroidManifest.xml:153:13
+activity#com.ginddesign.spp.AddInfoActivity
+ADDED from AndroidManifest.xml:156:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:160:13
+	android:label
 		ADDED from AndroidManifest.xml:158:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:159:13
+	android:name
+		ADDED from AndroidManifest.xml:157:13
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:appcompat-v7:22.1.1:20:5

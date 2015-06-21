@@ -79,6 +79,7 @@ public class ListMasterActivity extends AppCompatActivity {
             Intent add = new Intent(this, NewListActivity.class);
             add.putExtra("listNameArray", ListMasterFragment.listNameArray);
             add.putExtra("listName", "none");
+            add.putExtra("Object ID", "none");
             this.startActivity(add);
         }
         return super.onOptionsItemSelected(item);
