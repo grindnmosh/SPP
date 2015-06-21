@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -19,7 +18,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.ginddesign.spp.IndListCell;
 import com.ginddesign.spp.NewListActivity;
 import com.ginddesign.spp.R;
