@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ginddesign.spp.ListMasterActivity;
+import com.ginddesign.spp.MainActivity;
 import com.ginddesign.spp.R;
+import com.ginddesign.spp.SettingsActivity;
 import com.parse.CountCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -83,6 +85,12 @@ public class SettingsFragment extends Fragment {
                                                     Toast.makeText(getActivity().getApplicationContext(), "Email Has Been Changed", Toast.LENGTH_LONG).show();
                                                     newUser.setText("");
                                                     newUserVer.setText("");
+                                                    ParseUser.logOut();
+                                                    Intent intent = new Intent(context, MainActivity.class);
+                                                    intent.addCategory(Intent.CATEGORY_HOME);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    startActivity(intent);
+                                                    System.exit(0);
                                                 } else {
                                                     Toast.makeText(getActivity().getApplicationContext(), "The email entered is already taken", Toast.LENGTH_LONG).show();
                                                 }
@@ -111,6 +119,12 @@ public class SettingsFragment extends Fragment {
                         Toast.makeText(getActivity().getApplicationContext(), "Password Has Been Changed", Toast.LENGTH_LONG).show();
                         newPass.setText("");
                         reNewPass.setText("");
+                        ParseUser.logOut();
+                        Intent intent = new Intent(context, MainActivity.class);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        System.exit(0);
                     } else if (pass2.equals("")) {
                         //do nothing
                     } else {
