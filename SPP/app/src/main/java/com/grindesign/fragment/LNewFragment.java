@@ -29,7 +29,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.json.JSONArray;
 
 import java.util.Calendar;
 
@@ -44,8 +43,6 @@ public class LNewFragment extends Fragment {
     EditText cAllergy;
     EditText cMed;
     EditText cShot;
-    EditText cDocName;
-    EditText cDocLink;
     TextView cTitle;
     String name;
     String dob;
@@ -173,7 +170,7 @@ public class LNewFragment extends Fragment {
             public void onClick(View v) {
                 name = cName.getText().toString().trim();
                 dob = cdob.getText().toString().trim();
-                ss = css.getText().toString().trim();
+                ss = css.getText().toString().trim().replaceAll("\\s+", "");
                 allergy = cAllergy.getText().toString().trim();
                 med = cMed.getText().toString().trim();
                 shot = cShot.getText().toString().trim();
@@ -282,9 +279,14 @@ public class LNewFragment extends Fragment {
                     lockExit.setPositiveButton("Exit Without Saving", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent home = new Intent(context, LDetailActivity.class);
-                            home.putExtra("object ID", oid);
-                            startActivity(home);
+                            if (!oid.equals("New")) {
+                                Intent home = new Intent(context, LDetailActivity.class);
+                                home.putExtra("object ID", oid);
+                                startActivity(home);
+                            } else {
+                                Intent home = new Intent(context, LChildActivity.class);
+                                startActivity(home);
+                            }
                         }
                     });
                     lockExit.setNegativeButton("Stay On Page", new DialogInterface.OnClickListener() {
@@ -296,9 +298,14 @@ public class LNewFragment extends Fragment {
                     lockExit.setIcon(android.R.drawable.ic_dialog_alert);
                     lockExit.show();
                 } else {
-                    Intent home = new Intent(context, LDetailActivity.class);
-                    home.putExtra("object ID", oid);
-                    startActivity(home);
+                    if (!oid.equals("New")) {
+                        Intent home = new Intent(context, LDetailActivity.class);
+                        home.putExtra("object ID", oid);
+                        startActivity(home);
+                    } else {
+                        Intent home = new Intent(context, LChildActivity.class);
+                        startActivity(home);
+                    }
                 }
             }
         });
