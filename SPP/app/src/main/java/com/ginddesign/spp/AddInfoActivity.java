@@ -178,9 +178,35 @@ public class AddInfoActivity extends ActionBarActivity {
         canBooty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
-                home.putExtra("object ID", ois);
-                startActivity(home);
+                cdn = cDocName.getText().toString().trim();
+                cdl = cDocLink.getText().toString().trim();
+
+                if (!cdn.equals("") || !cdl.equals("")) {
+                    AlertDialog.Builder cancel = new  AlertDialog.Builder(AddInfoActivity.this);
+                    cancel.setTitle("Leave Without Saving?");
+                    cancel.setMessage("You will lose all information entered.");
+                    cancel.setPositiveButton("Exit Without Saving", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
+                            home.putExtra("object ID", ois);
+                            startActivity(home);
+                        }
+                    });
+                    cancel.setNegativeButton("Stay On Page", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    cancel.setIcon(android.R.drawable.ic_dialog_alert);
+                    cancel.show();
+                } else {
+                    Intent home = new Intent(AddInfoActivity.this, LDetailActivity.class);
+                    home.putExtra("object ID", ois);
+                    startActivity(home);
+                }
+
             }
         });
     }

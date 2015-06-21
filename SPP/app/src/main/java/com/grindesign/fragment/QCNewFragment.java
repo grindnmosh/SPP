@@ -259,7 +259,7 @@ public class QCNewFragment extends Fragment {
                         Toast.makeText(context, "Please a valid name before saving", Toast.LENGTH_SHORT).show();
                     } else if (!phone.matches(phoneNumber)) {
                         Toast.makeText(context, "Please enter a valid phone number", Toast.LENGTH_SHORT).show();
-                    } else if (!email.equals("") && email.matches(emailPattern)) {
+                    } else if (!email.equals("") && !email.matches(emailPattern)) {
                         Toast.makeText(context, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     }
                 }
