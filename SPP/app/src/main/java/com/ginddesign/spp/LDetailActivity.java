@@ -117,8 +117,8 @@ public class LDetailActivity extends AppCompatActivity {
 
         } else if (id == R.id.action_change) {
             AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
-            lockExit.setTitle("Are You Sure??");
-            lockExit.setMessage("This will log you completely out of the application.");
+            lockExit.setTitle("Leave The Lockers?");
+            lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
             lockExit.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -126,7 +126,7 @@ public class LDetailActivity extends AppCompatActivity {
                     startActivity(change);
                 }
             });
-            lockExit.setNegativeButton("Stay Logged In", new DialogInterface.OnClickListener() {
+            lockExit.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();

@@ -22,7 +22,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile fileTree(dir: 'libs', include: 'Parse-*.jar')
@@ -40,5 +39,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.0'
     compile 'com.android.support:support-v4:20.+'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
-
+    compile fileTree(dir: 'libs', include: 'ParseCrashReporting-*.jar')
 }

@@ -295,8 +295,25 @@ public class AddInfoActivity extends ActionBarActivity {
             lockExit.show();
 
         } else if (id == R.id.action_change) {
-            Intent change = new Intent(this, SettingsActivity.class);
-            this.startActivity(change);
+            AlertDialog.Builder lockExit = new AlertDialog.Builder(this);
+            lockExit.setTitle("Leave The Lockers?");
+            lockExit.setMessage("This will take you out of the secure Locker Area and you will be required to login to enter again. Are you sure you want to do this?");
+            lockExit.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent change = new Intent(AddInfoActivity.this, SettingsActivity.class);
+                    startActivity(change);
+                }
+            });
+            lockExit.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            lockExit.setIcon(android.R.drawable.ic_dialog_alert);
+            lockExit.show();
+
         }
 
         return super.onOptionsItemSelected(item);
