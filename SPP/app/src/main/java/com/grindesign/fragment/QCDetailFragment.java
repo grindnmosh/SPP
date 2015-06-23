@@ -24,6 +24,7 @@ public class QCDetailFragment extends Fragment {
 
     public static TextView conName;
     public static TextView conPhone;
+    public static TextView conExt;
     public static TextView conEmail;
     public static TextView conNotes;
     ImageButton makeCall;
@@ -32,6 +33,7 @@ public class QCDetailFragment extends Fragment {
     public static String ois;
     String name;
     String phone;
+    String ext;
     String email;
     String notes;
     Context context;
@@ -47,6 +49,7 @@ public class QCDetailFragment extends Fragment {
 
         conName = (TextView) view.findViewById(R.id.conName);
         conPhone = (TextView) view.findViewById(R.id.conPhone);
+        conExt = (TextView) view.findViewById(R.id.ext);
         conEmail = (TextView) view.findViewById(R.id.conEmail);
         conNotes = (TextView) view.findViewById(R.id.conNotes);
         makeCall = (ImageButton) view.findViewById(R.id.makeCall);
@@ -66,10 +69,14 @@ public class QCDetailFragment extends Fragment {
                     if (e == null) {
                         name = object.getString("Name");
                         phone = object.getString("Phone");
+                        ext = object.getString("Ext");
                         email = object.getString("Email");
                         notes = object.getString("Notes");
                         conName.setText(name);
                         conPhone.setText(phone);
+                        if (ext != null && !ext.equals("")) {
+                            conExt.setText("EXT: " + ext);
+                        }
                         conEmail.setText(email);
                         conNotes.setText(notes);
 
@@ -87,10 +94,14 @@ public class QCDetailFragment extends Fragment {
                     if (e == null) {
                         name = object.getString("Name");
                         phone = object.getString("Phone");
+                        ext = object.getString("Ext");
                         email = object.getString("Email");
                         notes = object.getString("Notes");
                         conName.setText(name);
                         conPhone.setText(phone);
+                        if (ext != null && !ext.equals("")) {
+                            conExt.setText("EXT: " + ext);
+                        }
                         conEmail.setText(email);
                         conNotes.setText(notes);
 

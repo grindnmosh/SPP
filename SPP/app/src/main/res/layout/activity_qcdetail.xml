@@ -8,34 +8,38 @@
     android:focusable="false">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/conName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textStyle="bold"
-        android:textSize="32sp" />
+        android:textSize="32sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical|center_horizontal" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/conPhone"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:layout_marginTop="42dp"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_below="@+id/conName"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/conEmail"
-        android:layout_below="@+id/conPhone"
-        android:layout_centerHorizontal="true" />
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_above="@+id/conNotes"
+        android:layout_alignRight="@+id/sendEmail"
+        android:layout_alignEnd="@+id/sendEmail"
+        android:layout_marginBottom="41dp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -43,7 +47,8 @@
         android:id="@+id/conNotes"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:layout_below="@+id/conEmail"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -80,5 +85,16 @@
         android:layout_alignRight="@+id/conNotes"
         android:layout_alignEnd="@+id/conNotes"
         android:contentDescription="@string/email_icon" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/ext"
+        android:textColor="#000000"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_below="@+id/conPhone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

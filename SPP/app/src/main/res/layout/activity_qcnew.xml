@@ -123,4 +123,15 @@
         android:layout_toEndOf="@+id/qcName"
         android:textStyle="bold|italic" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/newExt"
+        android:layout_alignTop="@+id/qcPhone"
+        android:layout_toRightOf="@+id/qcPhone"
+        android:layout_toEndOf="@+id/qcPhone"
+        android:hint="Extension" />
+
 </RelativeLayout>

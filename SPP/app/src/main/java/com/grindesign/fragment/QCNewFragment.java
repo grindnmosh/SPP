@@ -39,6 +39,7 @@ public class QCNewFragment extends Fragment {
     String cat;
     String name;
     String phone;
+    String ext;
     String email;
     String notes;
     String compareValue;
@@ -46,6 +47,7 @@ public class QCNewFragment extends Fragment {
     String emailAdd;
     EditText qcName;
     EditText qcPhone;
+    EditText qcext;
     EditText qcEmail;
     EditText qcNotes;
     Button cancel;
@@ -75,6 +77,7 @@ public class QCNewFragment extends Fragment {
         cancel = (Button) view.findViewById(R.id.cancel1);
         qcName = (EditText) view.findViewById(R.id.qcName);
         qcPhone = (EditText) view.findViewById(R.id.qcPhone);
+        qcext = (EditText) view.findViewById(R.id.newExt);
         qcEmail = (EditText) view.findViewById(R.id.qcEmail);
         qcNotes = (EditText) view.findViewById(R.id.qcNotes);
         contactsImport = (Button) view.findViewById(R.id.contactsImport);
@@ -93,11 +96,13 @@ public class QCNewFragment extends Fragment {
                             if (e == null) {
                                 name = object.getString("Name");
                                 phone = object.getString("Phone");
+                                ext = object.getString("Ext");
                                 email = object.getString("Email");
                                 notes = object.getString("Notes");
                                 compareValue = object.getString("Cat");
                                 qcName.setText(name);
                                 qcPhone.setText(phone);
+                                qcext.setText(ext);
                                 qcEmail.setText(email);
                                 qcNotes.setText(notes);
                                 contactsImport.setVisibility(View.INVISIBLE);
@@ -118,10 +123,12 @@ public class QCNewFragment extends Fragment {
                             if (e == null) {
                                 name = object.getString("Name");
                                 phone = object.getString("Phone");
+                                ext = object.getString("Ext");
                                 email = object.getString("Email");
                                 notes = object.getString("Notes");
                                 qcName.setText(name);
                                 qcPhone.setText(phone);
+                                qcext.setText(ext);
                                 qcEmail.setText(email);
                                 qcNotes.setText(notes);
                                 contactsImport.setVisibility(View.INVISIBLE);
@@ -172,6 +179,7 @@ public class QCNewFragment extends Fragment {
             public void onClick(View v) {
                 name = qcName.getText().toString().trim();
                 phone = qcPhone.getText().toString().trim().replaceAll("\\s+", "");
+                ext = qcext.getText().toString().trim();
                 email = qcEmail.getText().toString().trim();
                 notes = qcNotes.getText().toString().trim();
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.+[a-z]+";
@@ -191,6 +199,7 @@ public class QCNewFragment extends Fragment {
                                     object.put("Cat", cat);
                                     object.put("Name", name);
                                     object.put("Phone", phone);
+                                    object.put("Ext", ext);
                                     object.put("Email", email);
                                     object.put("Notes", notes);
                                     object.setACL(new ParseACL(ParseUser.getCurrentUser()));
@@ -211,6 +220,7 @@ public class QCNewFragment extends Fragment {
                                     object.put("Cat", cat);
                                     object.put("Name", name);
                                     object.put("Phone", phone);
+                                    object.put("Ext", ext);
                                     object.put("Email", email);
                                     object.put("Notes", notes);
                                     object.setACL(new ParseACL(ParseUser.getCurrentUser()));
@@ -230,13 +240,14 @@ public class QCNewFragment extends Fragment {
                             object.put("Cat", cat);
                             object.put("Name", name);
                             object.put("Phone", phone);
+                            object.put("Ext", ext);
                             object.put("Email", email);
                             object.put("Notes", notes);
                             object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                             object.pinInBackground();
                             object.saveInBackground();
                             QuickContactFragment.mainListAdapter.notifyDataSetChanged();
-                            Intent home = new Intent(context, QCDetailActivity.class);
+                            Intent home = new Intent(context, QuickContactActivity.class);
                             startActivity(home);
 
                         } else {
@@ -244,13 +255,14 @@ public class QCNewFragment extends Fragment {
                             object.put("Cat", cat);
                             object.put("Name", name);
                             object.put("Phone", phone);
+                            object.put("Ext", ext);
                             object.put("Email", email);
                             object.put("Notes", notes);
                             object.setACL(new ParseACL(ParseUser.getCurrentUser()));
                             object.pinInBackground();
                             object.saveEventually();
                             QuickContactFragment.mainListAdapter.notifyDataSetChanged();
-                            Intent home = new Intent(context, QCDetailActivity.class);
+                            Intent home = new Intent(context, QuickContactFragment.class);
                             startActivity(home);
                         }
                     }
@@ -274,6 +286,7 @@ public class QCNewFragment extends Fragment {
             public void onClick(View v) {
                 name = qcName.getText().toString().trim();
                 phone = qcPhone.getText().toString().trim();
+                ext = qcext.getText().toString().trim();
                 email = qcEmail.getText().toString().trim();
                 notes = qcNotes.getText().toString().trim();
                 if (!name.equals("") || !phone.equals("") || !email.equals("") || notes.equals("")) {
