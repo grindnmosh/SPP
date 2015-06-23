@@ -112,6 +112,7 @@ public class LChildActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent change = new Intent(LChildActivity.this, SettingsActivity.class);
+                    change.putExtra("Sent", "lock");
                     startActivity(change);
                 }
             });

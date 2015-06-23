@@ -12,10 +12,15 @@ import com.parse.ParseUser;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    String sent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_settings);
+
+        final Intent i = getIntent();
+        sent = i.getStringExtra("Sent");
     }
 
     @Override
@@ -70,8 +75,16 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        Intent lock = new Intent(this, ListMasterActivity.class);
-        this.startActivity(lock);
+        if (sent.equals("list")) {
+            Intent lock = new Intent(this, ListMasterActivity.class);
+            this.startActivity(lock);
+        } else if (sent.equals("contact")) {
+            Intent lock = new Intent(this, QuickContactActivity.class);
+            this.startActivity(lock);
+        } else if (sent.equals("lock")) {
+            Intent lock = new Intent(this, LSignInActivity.class);
+            this.startActivity(lock);
+        }
     }
 
     protected void onStop() {

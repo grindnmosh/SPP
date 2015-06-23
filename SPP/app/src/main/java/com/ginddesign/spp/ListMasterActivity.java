@@ -65,6 +65,7 @@ public class ListMasterActivity extends AppCompatActivity {
 
         } else if (id == R.id.action_change) {
             Intent change = new Intent(this, SettingsActivity.class);
+            change.putExtra("Sent", "list");
             this.startActivity(change);
         }
         else if (id == R.id.action_qc) {

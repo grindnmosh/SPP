@@ -123,6 +123,7 @@ public class LDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent change = new Intent(LDetailActivity.this, SettingsActivity.class);
+                    change.putExtra("Sent", "lock");
                     startActivity(change);
                 }
             });

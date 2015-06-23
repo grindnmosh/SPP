@@ -302,6 +302,7 @@ public class AddInfoActivity extends ActionBarActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent change = new Intent(AddInfoActivity.this, SettingsActivity.class);
+                    change.putExtra("Sent", "lock");
                     startActivity(change);
                 }
             });

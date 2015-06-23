@@ -131,6 +131,7 @@ public class LIDetailActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Intent change = new Intent(LIDetailActivity.this, SettingsActivity.class);
+                    change.putExtra("Sent", "lock");
                     startActivity(change);
                 }
             });
