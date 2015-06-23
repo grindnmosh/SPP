@@ -225,4 +225,9 @@ public class LIDetailActivity extends AppCompatActivity {
         Intent lock = new Intent(this, LImageActivity.class);
         this.startActivity(lock);
     }
+
+    protected void onStop() {
+        super.onStop();
+        this.finish();
+    }
 }

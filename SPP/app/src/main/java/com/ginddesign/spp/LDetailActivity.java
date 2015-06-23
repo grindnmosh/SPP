@@ -143,4 +143,9 @@ public class LDetailActivity extends AppCompatActivity {
         Intent lock = new Intent(this, LChildActivity.class);
         this.startActivity(lock);
     }
+
+    protected void onStop() {
+        super.onStop();
+        this.finish();
+    }
 }

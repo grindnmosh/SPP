@@ -172,6 +172,10 @@ public class LockersActivity extends AppCompatActivity {
         });
         lockExit.setIcon(android.R.drawable.ic_dialog_alert);
         lockExit.show();
+    }
 
+    protected void onStop() {
+        super.onStop();
+        this.finish();
     }
 }

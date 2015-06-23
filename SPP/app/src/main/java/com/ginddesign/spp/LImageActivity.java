@@ -132,4 +132,8 @@ public class LImageActivity extends AppCompatActivity {
         this.startActivity(lock);
     }
 
+    protected void onStop() {
+        super.onStop();
+        this.finish();
+    }
 }

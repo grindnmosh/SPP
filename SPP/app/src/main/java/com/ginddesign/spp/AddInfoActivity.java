@@ -325,4 +325,9 @@ public class AddInfoActivity extends ActionBarActivity {
         home.putExtra("object ID", ois);
         this.startActivity(home);
     }
+
+    protected void onStop() {
+        super.onStop();
+        this.finish();
+    }
 }
