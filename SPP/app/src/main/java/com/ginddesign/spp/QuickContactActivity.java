@@ -37,6 +37,7 @@ public class QuickContactActivity extends AppCompatActivity {
             this.startActivity(qc);
         } else if (id == R.id.action_lock) {
             Intent lock = new Intent(this, LSignInActivity.class);
+            lock.putExtra("Sent", "contact");
             this.startActivity(lock);
         } else if (id == R.id.action_add) {
             Intent add = new Intent(this, QCNewActivity.class);

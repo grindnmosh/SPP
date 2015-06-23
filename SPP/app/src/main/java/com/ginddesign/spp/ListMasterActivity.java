@@ -74,6 +74,7 @@ public class ListMasterActivity extends AppCompatActivity {
         }
         else if (id == R.id.action_lock) {
             Intent lock = new Intent(this, LSignInActivity.class);
+            lock.putExtra("Sent", "list");
             this.startActivity(lock);
         }
         else if (id == R.id.action_add) {

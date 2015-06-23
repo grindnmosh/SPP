@@ -75,15 +75,23 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void onBackPressed()
     {
-        if (sent.equals("list")) {
-            Intent lock = new Intent(this, ListMasterActivity.class);
-            this.startActivity(lock);
-        } else if (sent.equals("contact")) {
-            Intent lock = new Intent(this, QuickContactActivity.class);
-            this.startActivity(lock);
-        } else if (sent.equals("lock")) {
-            Intent lock = new Intent(this, LSignInActivity.class);
-            this.startActivity(lock);
+        switch (sent) {
+            case "list": {
+                Intent lock = new Intent(this, ListMasterActivity.class);
+                this.startActivity(lock);
+                break;
+            }
+            case "contact": {
+                Intent lock = new Intent(this, QuickContactActivity.class);
+                this.startActivity(lock);
+                break;
+            }
+            case "lock": {
+                Intent lock = new Intent(this, LSignInActivity.class);
+                lock.putExtra("Sent", "set");
+                this.startActivity(lock);
+                break;
+            }
         }
     }
 

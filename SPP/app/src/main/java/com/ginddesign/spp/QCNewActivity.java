@@ -8,9 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.parse.ParseException;
 import com.parse.ParseUser;
-import com.parse.ui.ParseLoginBuilder;
 
 
 public class QCNewActivity extends AppCompatActivity {
@@ -43,6 +41,7 @@ public class QCNewActivity extends AppCompatActivity {
             this.startActivity(qc);
         } else if (id == R.id.action_lock) {
             Intent lock = new Intent(this, LSignInActivity.class);
+            lock.putExtra("Sent", "contact");
             this.startActivity(lock);
         } else if (id == R.id.action_home) {
             Intent home = new Intent(this, ListMasterActivity.class);

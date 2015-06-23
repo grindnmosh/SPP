@@ -22,6 +22,7 @@ public class LSignInActivity extends AppCompatActivity {
     EditText password;
     String userId;
     String pass;
+    String sent;
     Context thisHere = this;
 
     public LSignInActivity() {
@@ -31,6 +32,9 @@ public class LSignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lsignin);
+
+        final Intent i = getIntent();
+        sent = i.getStringExtra("Sent");
 
         //ParseLoginBuilder builder = new ParseLoginBuilder(LSignInActivity.this);
         //startActivityForResult(builder.build(), 0);
@@ -94,8 +98,23 @@ public class LSignInActivity extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        Intent home = new Intent(this, ListMasterActivity.class);
-        this.startActivity(home);
+        switch (sent) {
+            case "list": {
+                Intent lock = new Intent(this, ListMasterActivity.class);
+                this.startActivity(lock);
+                break;
+            }
+            case "contact": {
+                Intent lock = new Intent(this, QuickContactActivity.class);
+                this.startActivity(lock);
+                break;
+            }
+            case "set": {
+                Intent lock = new Intent(this, ListMasterActivity.class);
+                this.startActivity(lock);
+                break;
+            }
+        }
 
     }
 

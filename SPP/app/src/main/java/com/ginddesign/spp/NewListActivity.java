@@ -39,6 +39,7 @@ public class NewListActivity extends AppCompatActivity {
             this.startActivity(qc);
         } else if (id == R.id.action_lock) {
             Intent lock = new Intent(this, LSignInActivity.class);
+            lock.putExtra("Sent", "list");
             this.startActivity(lock);
         } else if (id == R.id.action_home) {
             Intent home = new Intent(this, ListMasterActivity.class);
