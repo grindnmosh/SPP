@@ -152,7 +152,7 @@ public class QCNewFragment extends Fragment {
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (loads[position].equals("Select Category")) {
+                if (loads[position].equals("Select Category (Required)")) {
                     cat = loads[position].trim();
                 } else {
                     cat = loads[position].trim();
@@ -186,7 +186,7 @@ public class QCNewFragment extends Fragment {
                 String phoneNumber = "^(1)?(\\-)?(\\()?[0-9]{3}(\\))?\\-?[0-9]{3}\\-?[0-9]{4}$";
                 Log.i("Category", cat);
 
-                if (!cat.equals("Select Category") && !name.equals("") && phone.matches(phoneNumber) && (email.equals("") || email.matches(emailPattern))){
+                if (!cat.equals("Select Category (Required)") && !name.equals("") && phone.matches(phoneNumber) && (email.equals("") || email.matches(emailPattern))){
                     Log.i("Category", cat);
                     ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -268,7 +268,7 @@ public class QCNewFragment extends Fragment {
                     }
 
                 } else {
-                    if (cat.equals("Select Category")) {
+                    if (cat.equals("Select Category (Required)")) {
                         Toast.makeText(context, "Please select a category before saving", Toast.LENGTH_SHORT).show();
                     } else if (name.equals("")) {
                         Toast.makeText(context, "Please a valid name before saving", Toast.LENGTH_SHORT).show();

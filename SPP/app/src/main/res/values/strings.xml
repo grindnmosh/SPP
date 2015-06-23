@@ -58,12 +58,12 @@
     <string name="sam_email">mpoppins@magic.com</string>
     <string name="link1">https://www.dropbox.com/s/czq53yacyf2eevs/R_Warren_Resume.pdf?dl=0</string>
     <string name="notes">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum laoreet magna sed ex ornare feugiat. Morbi a lacus scelerisque, tristique ipsum in, dictum lorem.</string>
-    <string name="newItem">New Item</string>
-    <string name="iten_descrip">Brief Description(optional)</string>
-    <string name="list_name">New List Name</string>
+    <string name="newItem">New Item (Required)</string>
+    <string name="iten_descrip">Brief Description</string>
+    <string name="list_name">New List Name (Required)</string>
     <string name="add_info">Additional Information</string>
     <string name="tempCSave">New Update Child Info</string>
-    <string name="cName">Name</string>
+    <string name="cName">Name (Required)</string>
     <string name="cdob">Date of Birth</string>
     <string name="css">SS#</string>
     <string name="callergy">Allergies</string>
@@ -77,7 +77,7 @@
     <string name="action_change">Settings</string>
 
     <string-array name="qc_cat">
-        <item >Select Category</item>
+        <item >Select Category (Required)</item>
         <item >Child Care</item>
         <item >Medical</item>
         <item >Education</item>
@@ -102,8 +102,8 @@
     <string name="photo_text">Photo Name</string>
     <string name="title_activity_list_master">ListMasterActivity</string>
     <string name="d_create">date created</string>
-    <string name="qcname">Name</string>
-    <string name="qcphone">Phone Number</string>
+    <string name="qcname">Name (Required)</string>
+    <string name="qcphone">Phone Number (Required)</string>
     <string name="qcemail">Email</string>
     <string name="qcnotes">Notes</string>
     <string name="title_activity_settings">SPP</string>
