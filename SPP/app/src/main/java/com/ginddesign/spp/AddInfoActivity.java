@@ -327,8 +327,5 @@ public class AddInfoActivity extends ActionBarActivity {
         this.startActivity(home);
     }
 
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
+
 }

@@ -94,9 +94,4 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
     }
-
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
 }

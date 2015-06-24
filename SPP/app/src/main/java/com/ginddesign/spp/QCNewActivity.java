@@ -86,8 +86,5 @@ public class QCNewActivity extends AppCompatActivity {
         this.startActivity(lock);
     }
 
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
+
 }

@@ -135,9 +135,6 @@ public class LChildActivity extends AppCompatActivity {
         this.startActivity(lock);
     }
 
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
+
 
 }

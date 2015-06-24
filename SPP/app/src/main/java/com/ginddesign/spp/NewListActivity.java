@@ -83,8 +83,5 @@ public class NewListActivity extends AppCompatActivity {
         Intent lock = new Intent(this, ListMasterActivity.class);
         this.startActivity(lock);
     }
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
+
 }

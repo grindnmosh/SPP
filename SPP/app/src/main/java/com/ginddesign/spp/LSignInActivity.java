@@ -118,8 +118,5 @@ public class LSignInActivity extends AppCompatActivity {
 
     }
 
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
+
 }

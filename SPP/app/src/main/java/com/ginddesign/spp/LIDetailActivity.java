@@ -227,8 +227,5 @@ public class LIDetailActivity extends AppCompatActivity {
         this.startActivity(lock);
     }
 
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
+
 }

@@ -175,8 +175,5 @@ public class LockersActivity extends AppCompatActivity {
         lockExit.show();
     }
 
-    protected void onStop() {
-        super.onStop();
-        this.finish();
-    }
+
 }
