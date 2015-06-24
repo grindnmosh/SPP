@@ -32,10 +32,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/filter"
         android:spinnerMode="dropdown"
-        android:layout_alignTop="@+id/textView16"
         android:layout_toEndOf="@+id/textView16"
         android:textAlignment="viewEnd"
-        android:gravity="right" />
+        android:gravity="right"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/indListName" />
 
     <TextView
         android:layout_width="wrap_content"
