@@ -43,6 +43,7 @@
         <activity
             android:name=".QuickContactActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".ListMasterActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -53,55 +54,65 @@
         <activity
             android:name=".IndListActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".ListMasterActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".NewListActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".ListMasterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".QCNewActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".QuickContactActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".QCDetailActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".QuickContactActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LChildActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".LockersActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LNewActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".LChildActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".LDetailActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".LChildActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LImageActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".LockersActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".LIDetailActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".LImageActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".LSignInActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".ListMasterActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -143,6 +154,7 @@
         <activity
             android:name=".AddInfoActivity"
             android:label="@string/title_activity_add_info"
+            android:parentActivityName=".LChildActivity"
             android:screenOrientation="portrait" >
         </activity>
     </application>
